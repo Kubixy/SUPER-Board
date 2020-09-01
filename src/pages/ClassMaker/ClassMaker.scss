@@ -1,0 +1,286 @@
+@import "../../scss/index.scss";
+
+.panel {
+  min-height: 1000vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: $main-background-color;
+  color: $font-light;
+
+  .button.ui.button {
+    color: $font-light;
+    font-weight: bold;
+    margin: 5px;
+    width: 97%;
+    border-radius: 90px;
+    font-size: 15px;
+    background-color: $primary-color;
+    &:hover {
+      background-color: $primary-color-hover;
+    }
+  }
+
+  &__all {
+    position: absolute;
+    min-height: 100vh;
+    min-width: 100%;
+    z-index: 0;
+  }
+
+  &__back {
+    left: 0;
+    top: 0;
+    position: fixed;
+    margin-top: 20px !important;
+    margin-left: 20px !important;
+    background-color: $primary-color;
+    padding-bottom: 20px !important;
+
+    &:hover {
+      cursor: pointer;
+      background-color: $red-hover;
+    }
+  }
+
+  &__closed {
+    right: 0;
+    top: 0;
+    position: fixed;
+    background-color: $background-grey-dark-light;
+    width: 60px;
+    height: auto;
+    margin-top: 20px;
+    margin-right: 20px;
+    z-index: 1;
+    border-radius: 25px;
+    border: solid 5px $primary-color;
+
+    .close-icon {
+      font-size: 30px !important;
+      margin: 5px;
+      padding-top: 5px;
+      padding-left: 5px;
+
+      &:hover {
+        color: $background-grey-hover-2;
+        cursor: pointer;
+      }
+    }
+  }
+
+  &__input {
+    top: 100px;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    button.ui.button {
+      &.close-button {
+        position: absolute;
+        width: 35px;
+        padding: 10px 14px 10px 9px;
+        background-color: $main-red;
+
+        &:hover {
+          background-color: $red-hover;
+        }
+      }
+    }
+
+    .video {
+      button.ui.button {
+        &.close-button {
+          margin-left: -45px;
+          margin-top: -10px;
+        }
+      }
+    }
+
+    .error-message {
+      background-color: red;
+      text-align: center;
+      width: 750px;
+      border-radius: 30px;
+      padding-top: -15px;
+      padding-bottom: 25px;
+      border: 5px solid black;
+
+      button.ui.button {
+        &.close-button {
+          margin-left: 380px;
+          margin-top: -15px;
+        }
+      }
+    }
+
+    .video,
+    .quiz {
+      margin-top: 30px;
+      margin-bottom: 30px;
+    }
+
+    .quiz {
+      color: $font-light;
+      background-color: $background-grey-dark-light;
+      padding: 5px 30px 30px 30px;
+      border-radius: 20px;
+      border: 3px solid $primary-color;
+      width: 590px;
+
+      button.ui.button.close-button {
+        &.close-button {
+          margin-left: -70px;
+          margin-top: -30px;
+        }
+      }
+
+      .quizButtons {
+        button.ui.button {
+          font-size: 20px;
+          width: 250px;
+        }
+      }
+
+      h2 {
+        text-align: center;
+      }
+
+      .openButton {
+        width: 500px !important;
+        height: 40px !important;
+        margin-top: 20px !important;
+        margin-bottom: -5px !important;
+      }
+
+      form.ui.form {
+        div.fields {
+          display: flex;
+          flex-direction: column;
+        }
+      }
+
+      h3 {
+        margin: 25px 0px 10px 0px !important;
+        padding: 10px;
+        background-color: $font-light;
+        margin-bottom: 20px;
+        color: $background-grey-dark;
+        border-radius: 10px;
+        padding-left: 30px;
+        font-size: 23px;
+        text-align: center;
+      }
+
+      .toAsk {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+
+        .ui.checked.radio.checkbox {
+          label {
+            color: $background-grey-dark;
+          }
+
+          background-color: $font-light;
+          border-radius: 30px;
+        }
+
+        .ui.radio.checkbox {
+          font-size: 20px !important;
+          padding: 20px;
+          margin: 5px;
+          word-spacing: 5px;
+          border-spacing: 5px;
+          line-height: 20px;
+          text-align: center;
+
+          label {
+            color: $font-light;
+
+            &::before,
+            &::after {
+              margin-top: 5px;
+            }
+          }
+
+          &:hover {
+            label {
+              color: $background-grey-dark;
+
+              &::before,
+              &::after {
+                border: 2px solid;
+              }
+            }
+            background-color: $font-light;
+            border-radius: 30px;
+          }
+        }
+      }
+
+      .quizButtons {
+        padding-top: 15px;
+      }
+    }
+
+    .image {
+      margin: 30px;
+
+      h1 {
+        text-align: center;
+        font-style: italic;
+        margin-top: 5px !important;
+        margin-left: 0%;
+      }
+
+      .close-button {
+        left: 0;
+      }
+    }
+
+    .file {
+      .close-button {
+        left: 0;
+      }
+
+      a.ui.button {
+        margin-top: 20px;
+        margin-bottom: 20px;
+        width: 400px;
+        height: 78px;
+        font-size: 20px;
+        border-radius: 5px;
+        background-color: $background-grey-dark-light;
+        border: 3px solid $primary-color;
+
+        .ui.fitted.divider {
+          opacity: 0;
+        }
+      }
+    }
+
+    .text {
+      background-color: $background-grey-dark-light;
+      border-radius: 20px;
+      margin: 20px;
+      padding: 20px;
+      border: 3px solid $primary-color;
+      width: 590px;
+
+      button.ui.button {
+        &.close-button {
+          margin-left: -67px;
+          margin-top: -30px;
+        }
+      }
+
+      .ui.center.aligned.container {
+        .ui.divider {
+          background-color: $font-grey;
+        }
+      }
+    }
+  }
+}

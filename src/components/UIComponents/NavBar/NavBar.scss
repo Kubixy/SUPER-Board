@@ -1,0 +1,52 @@
+@import "../../../scss//index.scss";
+
+.navBar {
+  position: absolute;
+  width: 100%;
+  background-color: $font-dark;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  border-bottom: solid 5px $primary-color;
+  color: $font-light;
+
+  &__center {
+    position: absolute;
+    display: flex;
+    margin-left: 47%;
+
+    h1 {
+      margin: 0px;
+      padding-top: 12px;
+    }
+  }
+
+  &__left {
+    margin-left: 15px;
+
+    i {
+      margin: 5px !important;
+      cursor: pointer !important;
+      color: $font-light;
+      border-color: red !important;
+
+      &:hover {
+        background-color: $font-light;
+        color: $font-dark;
+      }
+    }
+  }
+
+  &__right {
+    margin-right: 20px;
+    right: 0;
+    position: absolute;
+    display: flex;
+    align-items: center;
+
+    h1 {
+      margin: 0px;
+      padding-left: 10px;
+    }
+  }
+}

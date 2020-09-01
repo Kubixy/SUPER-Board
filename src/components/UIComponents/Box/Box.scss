@@ -1,0 +1,309 @@
+@import "../../../scss/index.scss";
+
+.panel__box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  left: 0;
+  top: 0;
+  position: fixed;
+  background-color: $background-grey-dark-light;
+  width: 350px;
+  height: auto;
+  margin-top: 20px;
+  margin-left: 20px;
+  z-index: 1;
+  border-radius: 25px;
+  border: solid 5px $primary-color;
+
+  .top-bar {
+    display: flex;
+    flex-direction: row;
+
+    .top-icons {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: row;
+      margin-left: 120px;
+
+      &:hover {
+        cursor: pointer;
+      }
+
+      .arrow.alternate.circle.left.large.icon {
+        &:hover {
+          color: $font-grey;
+        }
+      }
+
+      .key.large.icon {
+        &:hover {
+          color: $warning;
+        }
+      }
+      .close.large.icon {
+        &:hover {
+          color: $red-hover;
+        }
+      }
+      .save.large.icon {
+        &:hover {
+          color: $primary-color-hover;
+        }
+      }
+    }
+
+    h3 {
+      margin-left: 5px;
+      margin-top: 15px;
+      i {
+        margin-top: -3px;
+      }
+    }
+  }
+
+  .options-file {
+    .ui.input:last-of-type {
+      margin-bottom: -10px !important;
+    }
+
+    button.ui.button {
+      height: 44px !important;
+      font-size: 17px;
+    }
+  }
+
+  .options-file {
+    .ui.icon.input {
+      i {
+        color: red;
+      }
+    }
+  }
+
+  .options-image {
+    .ui.icon.input {
+      border-color: #09ce9d !important;
+      color: #2ab391;
+    }
+  }
+
+  .options-file,
+  .options-image {
+    .ui.icon.input {
+      font-size: 10px;
+      height: 100px;
+      width: 100px;
+      margin-left: 110px;
+      margin-bottom: 20px;
+      background-color: #ffff;
+      border-radius: 50px;
+      border: red solid 5px;
+
+      input {
+        opacity: 0;
+        border-radius: 5px !important;
+
+        &:hover {
+          cursor: pointer;
+        }
+      }
+
+      i {
+        opacity: 1;
+        margin-right: -106px;
+        width: 300px;
+        font-size: 60px;
+        font-weight: bold;
+      }
+    }
+
+    width: 95% !important;
+
+    .ui.active.visible.fluid.selection.dropdown.default.text {
+      background-color: red !important;
+      color: blue !important;
+    }
+
+    .ui.input {
+      width: 100%;
+      padding-bottom: 10px;
+    }
+
+    .ui.fluid.selection.dropdown {
+      .item {
+        text-align: center !important;
+        font-size: 17px !important;
+
+        .active.selected.item,
+        .item {
+          &:hover {
+            background-color: $background-grey-light-hover !important;
+            color: $font-light !important;
+            text-align: center !important;
+          }
+        }
+      }
+    }
+
+    button.ui.button {
+      width: 97% !important;
+      margin: 25px 5px 15px 5px !important;
+    }
+  }
+
+  .selector {
+    padding-bottom: 20px;
+    padding-top: 15px;
+    font-weight: bold;
+
+    .options-image.ui.fluid.selection.dropdown,
+    .ui.active.visible.fluid.selection,
+    .ui.fluid.selection.dropdown,
+    .item {
+      text-align: center !important;
+      font-size: 15px !important;
+
+      .item:hover {
+        background-color: $background-grey-light-hover;
+        color: $font-light;
+        text-align: center !important;
+      }
+    }
+  }
+
+  .options-video,
+  .options-text {
+    padding-top: 0px;
+    padding-bottom: 10px;
+  }
+
+  .options-video {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    .ui.input {
+      width: 300px;
+    }
+  }
+
+  .options-text {
+    display: flex;
+    flex-direction: column;
+
+    textarea {
+      width: 300px;
+      height: 170px;
+      margin-top: 20px;
+    }
+  }
+
+  .options-quiz {
+    border-radius: 15px;
+    font-weight: bold;
+    background-color: $primary-color;
+    padding: 10px;
+
+    margin: 0px 7px 7px 7px;
+
+    .ui.form {
+      &:first-child {
+        color: $background-grey-dark;
+      }
+
+      .mainInput {
+        padding-bottom: 20px;
+      }
+    }
+
+    form {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+
+      .ui.fluid.selection.dropdown {
+        margin-bottom: 70px;
+
+        .item:hover {
+          background-color: $background-grey-light-hover;
+          color: $font-light;
+        }
+      }
+
+      .ui.input {
+        padding-bottom: 10px;
+      }
+
+      .ui.button:first-of-type {
+        margin-top: -50px;
+      }
+
+      .counter {
+        display: flex;
+        align-items: center;
+        width: 100%;
+
+        h3 {
+          margin-right: 5px;
+          margin-left: 10px;
+          margin-top: 10px;
+          background-color: $font-light;
+          padding: 12px;
+          border-radius: 20px;
+          font-size: 16px;
+          text-align: center;
+          width: 240px;
+        }
+
+        i {
+          background-color: $font-light;
+          height: auto !important;
+          width: auto !important;
+          padding: 12px 10px 10px 12px !important;
+          margin: 5px !important;
+          border-radius: 30px;
+
+          &:hover {
+            cursor: pointer;
+            color: $font-light;
+            background-color: black;
+          }
+        }
+      }
+
+      .ui.button {
+        margin-top: 10px;
+        padding: 20px;
+        background-color: $background-grey-dark-light;
+        font-size: 20px;
+
+        &:hover {
+          color: $background-dark;
+          background-color: $background-grey-hover-2;
+        }
+      }
+    }
+  }
+
+  .options-image,
+  .options-video,
+  .options-text {
+    .button.ui.button {
+      width: 100%;
+      font-size: 17px;
+      color: $font-light;
+      margin-top: 20px;
+      margin-left: 1px;
+      background-color: $primary-color;
+
+      &:hover {
+        background-color: $primary-color-hover;
+      }
+    }
+  }
+}
