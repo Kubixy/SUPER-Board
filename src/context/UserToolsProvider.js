@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useCallback } from "react";
-import { updateUserCounter, readUserData } from "../utils/Api";
+import { readUserData } from "../utils/Api";
 
 const UserContext = React.createContext();
 
@@ -16,7 +16,6 @@ export function UserToolsProvider(props) {
   const [guestSession, setGuestSession] = useState(false);
 
   const endClassCallback = useCallback(() => {
-    updateUserCounter(idClass, -1, classFound);
     setIsBuilding(false);
     setManagment(true);
     setClassFound(null);

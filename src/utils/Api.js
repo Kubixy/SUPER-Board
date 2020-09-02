@@ -77,7 +77,6 @@ export async function userIdFinder(uid, classON) {
         if (doc.data().user !== undefined && uid === doc.data().user) {
           output.status = true;
           output.id = doc.id;
-          if (classON) updateUserCounter(doc.id, 1, doc.data().user);
         }
       });
     })
@@ -124,21 +123,4 @@ export function uploadFile(file, uid, index, folder) {
 export function deleteFile(uid, index, folder) {
   const ref = firebase.storage().ref().child(`${folder}/${uid}/${index}`);
   return ref.delete();
-}
-
-export async function updateUserCounter(sessionId, num, userId) {
-  let activeUsers;
-
-  await db
-    .collection("sesiones")
-    .doc(sessionId)
-    .get()
-    .then(function (value) {
-      activeUsers = value.data().activeUsers;
-    });
-
-  return db
-    .collection("sesiones")
-    .doc(sessionId)
-    .update({ activeUsers: activeUsers + num, user: userId });
 }
