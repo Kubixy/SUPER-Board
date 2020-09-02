@@ -7,7 +7,7 @@ import MakeQuiz from "../../components/Tools/Quiz/MakeQuiz";
 import ShowImage from "../../components/Tools/ShowImage";
 import FileUploader from "../../components/Tools/FileUploader";
 import ErrorMessage from "../../components/Tools/ErrorMessage";
-import { readUserData, addAula, userIdFinder, getId } from "../../utils/Api";
+import { addAula, userIdFinder } from "../../utils/Api";
 
 import "./ClassMaker.scss";
 
@@ -17,7 +17,6 @@ export default function ClassMaker(props) {
   const [imgArrayToDelete, setImgArrayToDelete] = useState([]);
   const [fileArrayToDelete, setFileArrayToDelete] = useState([]);
   const [allowEdit, setAllowEdit] = useState(false);
-  const [totalUsers, setTotalUsers] = useState(0);
 
   const { useUserTools } = props;
   const {
@@ -25,31 +24,13 @@ export default function ClassMaker(props) {
     classFound,
     classON,
     managementON,
-    idClass,
     setIdClass,
     data,
-    setData,
-    guestSession,
     deleteElementCallback,
+    render,
   } = useUserTools();
 
-  const render = () => {
-    readUserData(classFound === null ? userId : classFound).then((response) => {
-      if (response !== null) {
-        setData(response);
-      }
-    });
-
-    if (classON && idClass && !guestSession !== null) {
-      getId(idClass).then((response) => {
-        if (response !== null) {
-          setTotalUsers(response);
-        }
-      });
-    }
-  };
-
-  useEffect(() => {
+  const userLoader = () => {
     userIdFinder(classFound === null ? userId : classFound, classON).then(
       (response) => {
         if (managementON) {
@@ -57,6 +38,7 @@ export default function ClassMaker(props) {
             setIdClass(response.id);
           } else {
             addAula(userId);
+            userLoader();
           }
         } else {
           setIdClass(response.id);
@@ -64,15 +46,16 @@ export default function ClassMaker(props) {
         }
       }
     );
+  };
 
+  useEffect(() => {
+    userLoader();
     render();
   }, []);
 
   return (
     <>
-      {(!managementON || classON) && (
-        <NavBar render={render} allowEdit={allowEdit} totalUsers={totalUsers} />
-      )}
+      {(!managementON || classON) && <NavBar allowEdit={allowEdit} />}
       <div className="panel">
         <div className="panel__all" />
         {managementON && (

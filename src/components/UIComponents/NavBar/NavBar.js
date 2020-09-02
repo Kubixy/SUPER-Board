@@ -7,7 +7,7 @@ import { useUserTools } from "../../../context/UserToolsProvider";
 import "./NavBar.scss";
 
 export default function NavBar(props) {
-  const { render, allowEdit, totalUsers } = props;
+  const { allowEdit } = props;
 
   const {
     endClassCallback,
@@ -18,6 +18,7 @@ export default function NavBar(props) {
     data,
     newData,
     setNewData,
+    render,
   } = useUserTools();
 
   const [showModal, setShowModal] = useState(false);
@@ -62,7 +63,7 @@ export default function NavBar(props) {
       </div>
       <div className="navBar__right">
         <Icon name="users" size="big" />
-        <h1>{totalUsers}</h1>
+        <h1>999</h1>
       </div>
       {
         <BasicModal show={showModal} setShow={setShowModal} title="Warning">

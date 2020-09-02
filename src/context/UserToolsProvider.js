@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useCallback } from "react";
-import { updateUserCounter } from "../utils/Api";
+import { updateUserCounter, readUserData } from "../utils/Api";
 
 const UserContext = React.createContext();
 
@@ -30,6 +30,16 @@ export function UserToolsProvider(props) {
     }
   }, [deleteIndex, data]);
 
+  const render = () => {
+    readUserData(classFound === null ? user.uid : classFound).then(
+      (response) => {
+        if (response !== null) {
+          setData(response);
+        }
+      }
+    );
+  };
+
   const value = useMemo(() => {
     return {
       setUser,
@@ -54,6 +64,7 @@ export function UserToolsProvider(props) {
       deleteElementCallback,
       guestSession,
       setGuestSession,
+      render,
     };
   }, [
     user,
