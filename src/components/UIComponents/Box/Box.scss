@@ -12,10 +12,12 @@
   width: 350px;
   height: auto;
   margin-top: 20px;
-  margin-left: 20px;
+  box-sizing: border-box;
   z-index: 1;
-  border-radius: 25px;
+  border-top-right-radius: 25px;
+  border-bottom-right-radius: 25px;
   border: solid 5px $primary-color;
+  border-left: none;
 
   .top-bar {
     display: flex;
