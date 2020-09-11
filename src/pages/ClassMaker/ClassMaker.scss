@@ -1,11 +1,25 @@
 @import "../../scss/index.scss";
 
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+}
+
+.background {
+  position: fixed;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  background-color: $main-background-color;
+}
+
 .panel {
-  min-height: 1000vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: $main-background-color;
   color: $font-light;
 
   .button.ui.button {
@@ -19,13 +33,6 @@
     &:hover {
       background-color: $primary-color-hover;
     }
-  }
-
-  &__all {
-    position: absolute;
-    min-height: 100vh;
-    min-width: 100%;
-    z-index: 0;
   }
 
   &__back {
@@ -44,17 +51,16 @@
   }
 
   &__closed {
-    right: 0;
+    left: 0;
     top: 0;
     position: fixed;
     background-color: $background-grey-dark-light;
     width: 60px;
     height: auto;
-    margin-top: 20px;
-    margin-right: 20px;
-    z-index: 1;
-    border-radius: 25px;
+    margin-top: 25px;
+    padding-top: 2px;
     border: solid 5px $primary-color;
+    border-left: none;
 
     .close-icon {
       font-size: 30px !important;

@@ -56,6 +56,7 @@ export default function ClassMaker(props) {
   return (
     <>
       {(!managementON || classON) && <NavBar allowEdit={allowEdit} />}
+      <div className="background" />
       <div className="panel">
         <div className="panel__all" />
         {managementON && (
