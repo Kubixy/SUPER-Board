@@ -51,7 +51,7 @@ export default function ClassMaker(props) {
   useEffect(() => {
     userLoader();
     render();
-  }, []);
+  });
 
   return (
     <>

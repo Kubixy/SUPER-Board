@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState } from "react";
 import { Image } from "semantic-ui-react";
 import { useDropzone } from "react-dropzone";
 import { toast } from "react-toastify";
@@ -11,13 +11,13 @@ export default function UpdateAvatar(props) {
   const { user } = props;
   const [avatarUrl, setAvatarUrl] = useState(user.photoURL);
 
-  const onDrop = useCallback((acceptedFiles) => {
+  const onDrop = (acceptedFiles) => {
     const file = acceptedFiles[0];
     setAvatarUrl(URL.createObjectURL(file));
     uploadImage(file).then(() => {
       updateUserAvatar();
     });
-  });
+  };
 
   const updateUserAvatar = () => {
     firebase

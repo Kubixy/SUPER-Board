@@ -20,7 +20,7 @@ export function UserToolsProvider(props) {
     setManagment(true);
     setClassFound(null);
     setClassON(false);
-  }, [idClass, classFound]);
+  }, []);
 
   const deleteElementCallback = useCallback(() => {
     if (deleteIndex !== null) {
@@ -29,7 +29,7 @@ export function UserToolsProvider(props) {
     }
   }, [deleteIndex, data]);
 
-  const render = () => {
+  const render = useCallback(() => {
     readUserData(classFound === null ? user.uid : classFound).then(
       (response) => {
         if (response !== null) {
@@ -37,7 +37,7 @@ export function UserToolsProvider(props) {
         }
       }
     );
-  };
+  }, [classFound, user]);
 
   const value = useMemo(() => {
     return {
@@ -77,6 +77,7 @@ export function UserToolsProvider(props) {
     newData,
     deleteElementCallback,
     guestSession,
+    render,
   ]);
 
   return <UserContext.Provider value={value} {...props} />;

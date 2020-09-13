@@ -12,7 +12,7 @@ export default function ClassLocker(props) {
   const [pinState, setPinState] = useState(false);
   const [accesState, setAccesState] = useState(false);
 
-  const onChange = () => {};
+  //const onChange = () => {};
 
   return (
     <div className="classLocker">
