@@ -17,14 +17,13 @@ export default function LoggedOptions(props) {
   return (
     <div className="mainOpt">
       <h2>Control panel</h2>
-      <Button onClick={() => setSelectedOpt("find")}>Find a class</Button>
+      <Button onClick={() => setSelectedOpt("find")}>Find a board</Button>
       {user && (
         <>
-          <Button onClick={() => setIsBuilding(true)}>Create a class</Button>
+          <Button onClick={() => setIsBuilding(true)}>Create a board</Button>
           <Button onClick={() => setSelectedOpt("profile")}>My profile</Button>
         </>
       )}
-      <Button>Tutorial</Button>
       <Button onClick={() => LogOut()}>Sign out</Button>
     </div>
   );

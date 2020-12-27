@@ -13,7 +13,6 @@ export function UserToolsProvider(props) {
   const [data, setData] = useState([{}]);
   const [newData, setNewData] = useState(true);
   const [deleteIndex, setDeleteIndex] = useState(null);
-  const [guestSession, setGuestSession] = useState(false);
 
   const endClassCallback = useCallback(() => {
     setIsBuilding(false);
@@ -61,8 +60,6 @@ export function UserToolsProvider(props) {
       setNewData,
       setDeleteIndex,
       deleteElementCallback,
-      guestSession,
-      setGuestSession,
       render,
     };
   }, [
@@ -76,7 +73,7 @@ export function UserToolsProvider(props) {
     data,
     newData,
     deleteElementCallback,
-    guestSession,
+    render,
   ]);
 
   return <UserContext.Provider value={value} {...props} />;

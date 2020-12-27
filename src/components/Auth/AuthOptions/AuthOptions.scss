@@ -12,8 +12,7 @@
   }
 
   .ui.ui.button.register,
-  .ui.button.login,
-  .ui.button.freeLog {
+  .ui.button.login {
     text-transform: uppercase;
     width: 100%;
     margin-bottom: 20px;
@@ -39,15 +38,5 @@
     &:hover {
       background-color: $font-grey;
     }
-  }
-
-  .ui.button.freeLog {
-    background-color: #38928d;
-    color: $font-light;
-
-    &:hover {
-      background-color: #61aba7;
-    }
-    margin-bottom: 0px;
   }
 }

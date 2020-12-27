@@ -8,7 +8,6 @@ import Video from "../Box_Options/Video";
 import Image from "../Box_Options/Image";
 import Quiz from "../Box_Options/Quiz";
 import AskForSave from "../../Modal/Functions/AskForSave";
-import ClassLocker from "../../Modal/Functions/ClassLocker";
 import { useUserTools } from "../../../context/UserToolsProvider";
 
 import "./Box.scss";
@@ -37,7 +36,6 @@ export default function Box(props) {
   const [userInput, setUserInput] = useState(null);
   const [toggleStatus, setToggleStatus] = useState(true);
   const [saveChangesModal, setSaveChangesModal] = useState(false);
-  const [keyModal, setKeyModal] = useState(false);
 
   const hitToggle = () => {
     setToggleStatus(!toggleStatus);
@@ -55,10 +53,6 @@ export default function Box(props) {
         await deleteFile(user, fileArrayToDelete[i], "files");
       }
     }
-  };
-
-  const onClickKey = () => {
-    setKeyModal(true);
   };
 
   const options = [
@@ -150,13 +144,6 @@ export default function Box(props) {
                       else setIsBuilding(false);
                     }}
                   />
-                  <Icon
-                    name="key"
-                    size="large"
-                    onClick={() => {
-                      onClickKey();
-                    }}
-                  />
                 </>
               )}
               <Icon
@@ -193,16 +180,6 @@ export default function Box(props) {
               title="Warning"
             >
               {<AskForSave setShowModal={setSaveChangesModal} />}
-            </BasicModal>
-          }
-
-          {
-            <BasicModal
-              show={keyModal}
-              setShow={setKeyModal}
-              title="Safety features"
-            >
-              {<ClassLocker />}
             </BasicModal>
           }
         </>

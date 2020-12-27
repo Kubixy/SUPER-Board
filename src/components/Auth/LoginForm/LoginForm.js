@@ -69,7 +69,7 @@ export default function LoginForm(props) {
 
   return (
     <div className="login-form">
-      <h1>Access to the virtual classroom</h1>
+      <h1>Introduce your credentials</h1>
 
       <Form onSubmit={onSubmit} onChange={onChange}>
         <Form.Field>
