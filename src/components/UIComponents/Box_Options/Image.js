@@ -35,7 +35,6 @@ export default function Image(props) {
       />
       <Input
         placeholder="Write a subtitle (optional)"
-        fluid
         maxLength="100"
         onChange={(event, { value }) => {
           setSubtitle(value);

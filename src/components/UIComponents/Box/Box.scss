@@ -22,13 +22,21 @@
   .top-bar {
     display: flex;
     flex-direction: row;
+    padding-top: 0.7rem;
+    align-self: flex-end;
+
+    .no-arrow {
+      padding-right: 14rem;
+    }
+
+    h3 {
+      padding-right: 12rem;
+    }
 
     .top-icons {
       display: flex;
-      align-items: center;
-      justify-content: center;
       flex-direction: row;
-      margin-left: 120px;
+      //margin-left: 120px;
 
       &:hover {
         cursor: pointer;
@@ -56,25 +64,6 @@
         }
       }
     }
-
-    h3 {
-      margin-left: 5px;
-      margin-top: 15px;
-      i {
-        margin-top: -3px;
-      }
-    }
-  }
-
-  .options-file {
-    .ui.input:last-of-type {
-      margin-bottom: -10px !important;
-    }
-
-    button.ui.button {
-      height: 44px !important;
-      font-size: 17px;
-    }
   }
 
   .options-file {
@@ -94,12 +83,19 @@
 
   .options-file,
   .options-image {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 0.5rem;
+
+    .ui.input {
+      width: 20rem;
+      padding-top: 1rem;
+    }
+
     .ui.icon.input {
-      font-size: 10px;
       height: 100px;
       width: 100px;
-      margin-left: 110px;
-      margin-bottom: 20px;
       background-color: #ffff;
       border-radius: 50px;
       border: red solid 5px;
@@ -122,16 +118,9 @@
       }
     }
 
-    width: 95% !important;
-
     .ui.active.visible.fluid.selection.dropdown.default.text {
       background-color: red !important;
       color: blue !important;
-    }
-
-    .ui.input {
-      width: 100%;
-      padding-bottom: 10px;
     }
 
     .ui.fluid.selection.dropdown {
@@ -148,11 +137,6 @@
           }
         }
       }
-    }
-
-    button.ui.button {
-      width: 97% !important;
-      margin: 25px 5px 15px 5px !important;
     }
   }
 
@@ -179,7 +163,7 @@
   .options-video,
   .options-text {
     padding-top: 0px;
-    padding-bottom: 10px;
+    padding-bottom: 0.5rem;
   }
 
   .options-video {
@@ -291,21 +275,10 @@
       }
     }
   }
+}
 
-  .options-image,
-  .options-video,
-  .options-text {
-    .button.ui.button {
-      width: 100%;
-      font-size: 17px;
-      color: $font-light;
-      margin-top: 20px;
-      margin-left: 1px;
-      background-color: $primary-color;
-
-      &:hover {
-        background-color: $primary-color-hover;
-      }
-    }
+@media (max-height: 53rem) {
+  .panel__box {
+    position: absolute;
   }
 }

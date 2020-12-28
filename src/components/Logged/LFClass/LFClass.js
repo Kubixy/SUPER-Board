@@ -39,7 +39,13 @@ export default function (props) {
         <Header.Content>Search class by ID</Header.Content>
       </Header>
       <div className="input">
-        <Input onChange={(e) => setInput(e.target.value)} error={error} />
+        <Input
+          onKeyPress={(e) => {
+            if (e.key === "Enter") onClick();
+          }}
+          onChange={(e) => setInput(e.target.value)}
+          error={error}
+        />
         <Icon
           name="arrow alternate circle right"
           size="big"

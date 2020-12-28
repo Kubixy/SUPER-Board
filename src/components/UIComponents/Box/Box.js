@@ -129,7 +129,7 @@ export default function Box(props) {
       {toggleStatus ? (
         <>
           <div className="top-bar">
-            <h3>
+            <h3 className={classON ? "no-arrow" : null}>
               <Icon name="id badge outline" size="large" />
               {idClass}
             </h3>
