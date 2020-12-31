@@ -41,7 +41,7 @@ export default function ShowImage(props) {
     let width = img.naturalWidth;
     let height = img.naturalHeight;
 
-    //to reduce the size of the img in case it's too big
+    //Rescale the img in case it's too big
     if ((width || height) > 3000) {
       width = width - width * 0.95;
       height = height - height * 0.95;

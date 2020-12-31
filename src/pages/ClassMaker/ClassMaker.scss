@@ -53,6 +53,7 @@
     padding-top: 2px;
     border: solid 5px $primary-color;
     border-left: none;
+    z-index: 2;
 
     .close-icon {
       font-size: 30px !important;

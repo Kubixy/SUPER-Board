@@ -60,7 +60,7 @@ export default function Box(props) {
     { key: "video", text: "Video", value: "video" },
     { key: "quiz", text: "Quiz", value: "quiz" },
     { key: "image", text: "Image", value: "image" },
-    { key: "file", text: "File", value: "file" },
+    { key: "file", text: "PDF", value: "file" },
   ];
 
   const selector = () => {

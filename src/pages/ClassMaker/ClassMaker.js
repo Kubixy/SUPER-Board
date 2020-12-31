@@ -88,7 +88,6 @@ export default function ClassMaker(props) {
                 case "image":
                   return (
                     <ShowImage
-                      allowEdit={allowEdit}
                       indexImg={x.index}
                       setimageIndex={setimageIndex}
                       subtitle={x.subtitle}
@@ -101,7 +100,6 @@ export default function ClassMaker(props) {
                 case "file":
                   return (
                     <FileUploader
-                      userId={allowEdit ? userId : classFound}
                       fileIndex={x.index}
                       setFileIndex={setFileIndex}
                       title={x.title}
