@@ -24,6 +24,8 @@ export default function Image(props) {
     setimageIndex(imageIndex + 1);
     setNewData(false);
     toast.success("Image added");
+    setFile(null);
+    setSubtitle("");
   };
 
   return (

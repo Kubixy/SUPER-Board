@@ -21,6 +21,8 @@ export default function File(props) {
     setData(data.concat({ type: userInput, title: input, index: fileIndex }));
     setFileIndex(fileIndex + 1);
     setNewData(false);
+    setFile(null);
+    setInput("");
   };
 
   return (

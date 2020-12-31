@@ -13,7 +13,7 @@
   height: auto;
   margin-top: 20px;
   box-sizing: border-box;
-  z-index: 1;
+  z-index: 2;
   border-top-right-radius: 25px;
   border-bottom-right-radius: 25px;
   border: solid 5px $primary-color;
@@ -36,7 +36,6 @@
     .top-icons {
       display: flex;
       flex-direction: row;
-      //margin-left: 120px;
 
       &:hover {
         cursor: pointer;
@@ -193,7 +192,6 @@
     font-weight: bold;
     background-color: $primary-color;
     padding: 10px;
-
     margin: 0px 7px 7px 7px;
 
     .ui.form {

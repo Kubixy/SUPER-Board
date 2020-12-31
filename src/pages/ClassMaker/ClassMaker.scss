@@ -74,28 +74,6 @@
     align-items: center;
     flex-direction: column;
 
-    button.ui.button {
-      &.close-button {
-        position: absolute;
-        width: 35px;
-        padding: 10px 14px 10px 9px;
-        background-color: $main-red;
-
-        &:hover {
-          background-color: $red-hover;
-        }
-      }
-    }
-
-    .video {
-      button.ui.button {
-        &.close-button {
-          margin-left: -45px;
-          margin-top: -10px;
-        }
-      }
-    }
-
     .error-message {
       background-color: red;
       text-align: center;
@@ -104,11 +82,17 @@
       padding-top: -15px;
       padding-bottom: 25px;
       border: 5px solid black;
+    }
 
-      button.ui.button {
-        &.close-button {
-          margin-left: 380px;
-          margin-top: -15px;
+    button.ui.button {
+      &.close-button {
+        position: absolute;
+        z-index: 1;
+        width: 3rem;
+        background-color: $main-red;
+
+        &:hover {
+          background-color: $red-hover;
         }
       }
     }
@@ -127,10 +111,9 @@
       border: 3px solid $primary-color;
       width: 590px;
 
-      button.ui.button.close-button {
+      button.ui.button {
         &.close-button {
-          margin-left: -70px;
-          margin-top: -30px;
+          left: 5rem;
         }
       }
 
@@ -232,17 +215,9 @@
         margin-top: 5px !important;
         margin-left: 0%;
       }
-
-      .close-button {
-        left: 0;
-      }
     }
 
     .file {
-      .close-button {
-        left: 0;
-      }
-
       a.ui.button {
         margin-top: 20px;
         margin-bottom: 20px;
@@ -257,6 +232,13 @@
           opacity: 0;
         }
       }
+
+      button.ui.button {
+        &.close-button {
+          margin-top: 2rem;
+          margin-left: 1rem;
+        }
+      }
     }
 
     .text {
@@ -266,11 +248,12 @@
       padding: 20px;
       border: 3px solid $primary-color;
       width: 590px;
+      word-spacing: 0.2rem;
 
       button.ui.button {
         &.close-button {
-          margin-left: -67px;
-          margin-top: -30px;
+          left: 5rem;
+          margin-top: -0.7rem;
         }
       }
 
