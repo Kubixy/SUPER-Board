@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Dropdown, Icon } from "semantic-ui-react";
 import BasicModal from "../../Modal/BasicModal";
 import { writeUserData, deleteFile } from "../../../utils/Api";
@@ -31,15 +31,23 @@ export default function Box(props) {
     idClass,
     classON,
     setIsBuilding,
+    dispatch,
   } = useUserTools();
 
   const [userInput, setUserInput] = useState(null);
   const [toggleStatus, setToggleStatus] = useState(true);
   const [saveChangesModal, setSaveChangesModal] = useState(false);
 
-  const hitToggle = () => {
-    setToggleStatus(!toggleStatus);
-  };
+  useEffect(() => {
+    dispatch({ type: "reset" });
+    data.map((x) => {
+      if (x.type == "image") {
+        dispatch({ type: "increImg" });
+      } else if (x.type == "file") {
+        dispatch({ type: "increFil" });
+      }
+    });
+  }, [data]);
 
   const onDelete = async () => {
     if (imgArrayToDelete.length > 0) {
@@ -54,14 +62,6 @@ export default function Box(props) {
       }
     }
   };
-
-  const options = [
-    { key: "text", text: "Text", value: "text" },
-    { key: "video", text: "Video", value: "video" },
-    { key: "quiz", text: "Quiz", value: "quiz" },
-    { key: "image", text: "Image", value: "image" },
-    { key: "file", text: "PDF", value: "file" },
-  ];
 
   const selector = () => {
     switch (userInput) {
@@ -124,6 +124,14 @@ export default function Box(props) {
     }
   };
 
+  const options = [
+    { key: "text", text: "Text", value: "text" },
+    { key: "video", text: "Video", value: "video" },
+    { key: "quiz", text: "Quiz", value: "quiz" },
+    { key: "image", text: "Image", value: "image" },
+    { key: "file", text: "PDF", value: "file" },
+  ];
+
   return (
     <div className={toggleStatus ? "panel__box" : "panel__closed"}>
       {toggleStatus ? (
@@ -155,7 +163,13 @@ export default function Box(props) {
                   setNewData(true);
                 }}
               />
-              <Icon name="close" size="large" onClick={hitToggle} />
+              <Icon
+                name="close"
+                size="large"
+                onClick={() => {
+                  setToggleStatus(!toggleStatus);
+                }}
+              />
             </div>
           </div>
           <div className="selector">
@@ -184,7 +198,13 @@ export default function Box(props) {
           }
         </>
       ) : (
-        <Icon className="close-icon" name="pen square" onClick={hitToggle} />
+        <Icon
+          className="close-icon"
+          name="pen square"
+          onClick={() => {
+            setToggleStatus(!toggleStatus);
+          }}
+        />
       )}
     </div>
   );

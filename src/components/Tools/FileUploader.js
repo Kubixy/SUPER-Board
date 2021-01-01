@@ -20,6 +20,7 @@ export default function FileUploader(props) {
     setDeleteIndex,
     classFound,
     userId,
+    dispatch,
   } = useUserTools();
 
   useEffect(() => {
@@ -57,6 +58,7 @@ export default function FileUploader(props) {
             setDeleteIndex(index);
             setFileArrayToDelete([...fileArrayToDelete, fileIndex]);
             setNewData(false);
+            dispatch({ type: "decreFil" });
           }}
         />
       )}

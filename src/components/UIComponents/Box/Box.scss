@@ -187,6 +187,12 @@
     justify-content: center;
     flex-direction: column;
 
+    i {
+      color: red;
+      background-color: white;
+      margin: -0.5rem 1rem 1rem 1rem;
+    }
+
     .ui.input {
       width: 300px;
     }

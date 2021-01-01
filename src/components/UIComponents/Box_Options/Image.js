@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Input, Button, Icon, Popup } from "semantic-ui-react";
 import { toast } from "react-toastify";
 import { uploadFile } from "../../../utils/Api";
+import { useUserTools } from "../../../context/UserToolsProvider";
 
 export default function Image(props) {
   const {
@@ -13,34 +14,43 @@ export default function Image(props) {
     userInput,
     setNewData,
   } = props;
+
+  const { state } = useUserTools();
+
   const [file, setFile] = useState(null);
   const [subtitle, setSubtitle] = useState("");
 
   const onClickImage = async () => {
-    if (file[0].type.includes("image")) {
-      if (file[0].size / 1024 <= 5000) {
-        await uploadFile(file[0], uid, imageIndex, "images");
-        setData(
-          data.concat({
-            type: userInput,
-            index: imageIndex,
-            subtitle: subtitle,
-          })
-        );
+    if (file) {
+      if (file[0].type.includes("image")) {
+        if (state.images < 3) {
+          if (file[0].size / 1024 <= 5120) {
+            await uploadFile(file[0], uid, imageIndex, "images");
+            setData(
+              data.concat({
+                type: userInput,
+                index: imageIndex,
+                subtitle: subtitle,
+              })
+            );
 
-        setimageIndex(imageIndex + 1);
-        setNewData(false);
-        document.getElementById("imageInput").value = "";
-        document.getElementById("subtitleInput").value = "";
-        toast.success("Image added");
+            setimageIndex(imageIndex + 1);
+            setNewData(false);
+            toast.success("Image added");
+          } else {
+            toast.warning("That image is too heavy (5MB limit)");
+          }
+        } else {
+          toast.warning("You've reached the limit of images allowed");
+        }
       } else {
-        document.getElementById("imageInput").value = "";
-        document.getElementById("subtitleInput").value = "";
-        toast.warning("That image is too heavy (5MB limit)");
+        toast.warning("That's not an image");
       }
     } else {
-      toast.warning("That's not an image");
+      toast.warning("No image selected");
     }
+    document.getElementById("imageInput").value = "";
+    document.getElementById("subtitleInput").value = "";
   };
 
   return (
@@ -52,7 +62,7 @@ export default function Image(props) {
         icon="file image"
       />
       <div className="options-image__count">
-        <h3>3/3</h3>
+        <h3>{state.images}/3</h3>
         <Popup
           content="Limit of 3 images"
           on="click"

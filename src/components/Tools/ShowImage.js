@@ -19,6 +19,7 @@ export default function ShowImage(props) {
     setDeleteIndex,
     userId,
     classFound,
+    dispatch,
   } = useUserTools();
 
   const [url, setUrl] = useState(null);
@@ -69,6 +70,7 @@ export default function ShowImage(props) {
             setDeleteIndex(index);
             setImgArrayToDelete([...imgArrayToDelete, indexImg]);
             setNewData(false);
+            dispatch({ type: "decreImg" });
           }}
         />
       )}

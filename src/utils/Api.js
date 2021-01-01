@@ -116,13 +116,14 @@ export function addAula(uid) {
 }
 
 export function uploadFile(file, uid, index, folder) {
-  const ref = firebase.storage().ref().child(`${folder}/${uid}/${index}`);
-  return ref.put(file);
+  firebase.storage().ref().child(`${folder}/${uid}/${index}`).put(file);
 }
 
 export function deleteFile(uid, index, folder) {
-  const ref = firebase.storage().ref().child(`${folder}/${uid}/${index}`);
-  ref
+  firebase
+    .storage()
+    .ref()
+    .child(`${folder}/${uid}/${index}`)
     .delete()
     .then(() => {
       console.log("Success!");

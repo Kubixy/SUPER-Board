@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { toast } from "react-toastify";
 import { Input, Button, Icon, Popup } from "semantic-ui-react";
 import { uploadFile } from "../../../utils/Api";
+import { useUserTools } from "../../../context/UserToolsProvider";
 
 export default function File(props) {
   const {
@@ -14,27 +15,37 @@ export default function File(props) {
     setNewData,
   } = props;
 
+  const { state } = useUserTools();
+
   const [file, setFile] = useState(null);
   const [input, setInput] = useState("");
 
   const onClickFile = async () => {
-    if (file[0].type.includes("pdf")) {
-      if (file[0].size / 1024 <= 5000) {
-        await uploadFile(file[0], uid, fileIndex, "files");
-        setData(
-          data.concat({ type: userInput, title: input, index: fileIndex })
-        );
-        setFileIndex(fileIndex + 1);
-        setNewData(false);
-        document.getElementById("fileInput").value = "";
-        document.getElementById("inputFileName").value = "";
-        toast.success("PDF added");
+    if (file) {
+      if (state.files < 3) {
+        if (file[0].type.includes("pdf")) {
+          if (file[0].size / 1024 <= 5120) {
+            await uploadFile(file[0], uid, fileIndex, "files");
+            setData(
+              data.concat({ type: userInput, title: input, index: fileIndex })
+            );
+            setFileIndex(fileIndex + 1);
+            setNewData(false);
+            toast.success("PDF added");
+          } else {
+            toast.warning("That file is too heavy (5MB limit)");
+          }
+        } else {
+          toast.warning("That's not a PDF file");
+        }
       } else {
-        toast.warning("That file is too heavy (5MB limit)");
+        toast.warning("You've reached the limit of files allowed");
       }
     } else {
-      toast.warning("That's not a PDF file");
+      toast.warning("No PDF selected");
     }
+    document.getElementById("fileInput").value = "";
+    document.getElementById("inputFileName").value = "";
   };
 
   return (
@@ -46,7 +57,7 @@ export default function File(props) {
         icon="pdf file outline"
       />{" "}
       <div className="options-file__count">
-        <h3>3/3</h3>
+        <h3>{state.files}/3</h3>
         <Popup
           content="Limit of 3 files"
           on="click"

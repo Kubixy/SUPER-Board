@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Input, Button } from "semantic-ui-react";
+import { Input, Button, Icon, Popup } from "semantic-ui-react";
 import { toast } from "react-toastify";
 
 export default function Video(props) {
@@ -22,6 +22,16 @@ export default function Video(props) {
 
   return (
     <div className="options-video">
+      <Popup
+        content="Only Youtube videos are allowed"
+        position="right center"
+        pinned
+        trigger={
+          <a href="https://www.youtube.com" target="_blank">
+            <Icon name="youtube" size="big" link circular />
+          </a>
+        }
+      ></Popup>
       <Input
         type="text"
         id="inputVideo"

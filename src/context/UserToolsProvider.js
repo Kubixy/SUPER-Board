@@ -1,7 +1,28 @@
-import React, { useState, useMemo, useCallback } from "react";
+import React, { useState, useMemo, useCallback, useReducer } from "react";
 import { readUserData } from "../utils/Api";
 
 const UserContext = React.createContext();
+
+function reducer(state, action) {
+  switch (action.type) {
+    case "increFil":
+      return { files: state.files + 1, images: state.images };
+    case "decreFil":
+      if (state.files > 0)
+        return { files: state.files - 1, images: state.images };
+      break;
+    case "increImg":
+      return { files: state.files, images: state.images + 1 };
+    case "decreImg":
+      if (state.images > 0)
+        return { files: state.files, images: state.images - 1 };
+      break;
+    case "reset":
+      return { files: 0, images: 0 };
+    default:
+      throw new Error();
+  }
+}
 
 export function UserToolsProvider(props) {
   const [idClass, setIdClass] = useState(null);
@@ -13,6 +34,8 @@ export function UserToolsProvider(props) {
   const [data, setData] = useState([{}]);
   const [newData, setNewData] = useState(true);
   const [deleteIndex, setDeleteIndex] = useState(null);
+
+  const [state, dispatch] = useReducer(reducer, { files: 0, images: 0 });
 
   const endClassCallback = useCallback(() => {
     setIsBuilding(false);
@@ -28,7 +51,7 @@ export function UserToolsProvider(props) {
     }
   }, [deleteIndex, data]);
 
-  const render = () => {
+  const render = useCallback(() => {
     readUserData(classFound === null ? user.uid : classFound).then(
       (response) => {
         if (response !== null) {
@@ -36,7 +59,7 @@ export function UserToolsProvider(props) {
         }
       }
     );
-  };
+  });
 
   const value = useMemo(() => {
     return {
@@ -61,6 +84,8 @@ export function UserToolsProvider(props) {
       setDeleteIndex,
       deleteElementCallback,
       render,
+      state,
+      dispatch,
     };
   }, [
     user,
