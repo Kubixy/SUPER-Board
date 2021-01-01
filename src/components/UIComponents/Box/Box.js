@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Dropdown, Icon } from "semantic-ui-react";
+import { Dropdown, Icon, Label, Popup, Message } from "semantic-ui-react";
 import BasicModal from "../../Modal/BasicModal";
-import { writeUserData, deleteFile } from "../../../utils/Api";
+import { writeUserData } from "../../../utils/Api";
 import File from "../Box_Options/File";
 import Text from "../Box_Options/Text";
 import Video from "../Box_Options/Video";
@@ -16,10 +16,9 @@ export default function Box(props) {
   const {
     imageIndex,
     setimageIndex,
-    imgArrayToDelete,
     fileIndex,
     setFileIndex,
-    fileArrayToDelete,
+    onDelete,
   } = props;
 
   const {
@@ -49,79 +48,77 @@ export default function Box(props) {
     });
   }, [data]);
 
-  const onDelete = async () => {
-    if (imgArrayToDelete.length > 0) {
-      for (let i = 0; i < imgArrayToDelete.length; i++) {
-        await deleteFile(user.uid, imgArrayToDelete[i], "images");
-      }
-    }
-
-    if (fileArrayToDelete.length > 0) {
-      for (let i = 0; i < fileArrayToDelete.length; i++) {
-        await deleteFile(user.uid, fileArrayToDelete[i], "files");
-      }
-    }
-  };
-
   const selector = () => {
-    switch (userInput) {
-      case "video":
-        return (
-          <Video
-            setData={setData}
-            data={data}
-            userInput={userInput}
-            setNewData={setNewData}
-          />
-        );
+    if (data.length - 1 < 20) {
+      switch (userInput) {
+        case "video":
+          return (
+            <Video
+              setData={setData}
+              data={data}
+              userInput={userInput}
+              setNewData={setNewData}
+            />
+          );
 
-      case "text":
-        return (
-          <Text
-            setData={setData}
-            data={data}
-            setNewData={setNewData}
-            userInput={userInput}
-          />
-        );
+        case "text":
+          return (
+            <Text
+              setData={setData}
+              data={data}
+              setNewData={setNewData}
+              userInput={userInput}
+            />
+          );
 
-      case "quiz":
-        return (
-          <Quiz
-            setData={setData}
-            data={data}
-            setNewData={setNewData}
-            userInput={userInput}
-          />
-        );
+        case "quiz":
+          return (
+            <Quiz
+              setData={setData}
+              data={data}
+              setNewData={setNewData}
+              userInput={userInput}
+            />
+          );
 
-      case "image":
-        return (
-          <Image
-            setData={setData}
-            data={data}
-            uid={user.uid}
-            imageIndex={imageIndex}
-            setimageIndex={setimageIndex}
-            userInput={userInput}
-            setNewData={setNewData}
-          />
-        );
+        case "image":
+          return (
+            <Image
+              setData={setData}
+              data={data}
+              uid={user.uid}
+              imageIndex={imageIndex}
+              setimageIndex={setimageIndex}
+              userInput={userInput}
+              setNewData={setNewData}
+            />
+          );
 
-      case "file":
-        return (
-          <File
-            setData={setData}
-            uid={user.uid}
-            fileIndex={fileIndex}
-            data={data}
-            setFileIndex={setFileIndex}
-            userInput={userInput}
-            setNewData={setNewData}
-          />
-        );
-      default:
+        case "file":
+          return (
+            <File
+              setData={setData}
+              uid={user.uid}
+              fileIndex={fileIndex}
+              data={data}
+              setFileIndex={setFileIndex}
+              userInput={userInput}
+              setNewData={setNewData}
+            />
+          );
+        default:
+          return;
+      }
     }
+
+    return (
+      <Message warning size="large">
+        <Message.Header>
+          You have reached the limit of items allowed!
+        </Message.Header>
+        <p>In order to add new items, you must delete some before</p>
+      </Message>
+    );
   };
 
   const options = [
@@ -137,23 +134,30 @@ export default function Box(props) {
       {toggleStatus ? (
         <>
           <div className="top-bar">
-            <h3 className={classON ? "no-arrow" : null}>
+            <h3>
               <Icon name="id badge outline" size="large" />
               {idClass}
             </h3>
             <div className="top-icons">
-              {!classON && (
-                <>
-                  <Icon
-                    name="arrow alternate circle left"
-                    size="large"
-                    onClick={() => {
-                      if (!newData) setSaveChangesModal(true);
-                      else setIsBuilding(false);
-                    }}
-                  />
-                </>
-              )}
+              <Popup
+                content="You can create up to 20 items"
+                position="bottom center"
+                trigger={
+                  <Label basic size="medium" as="a">
+                    <p>{data.length - 1}</p>
+                  </Label>
+                }
+              />
+
+              <Icon
+                name="arrow alternate circle left"
+                className={classON ? "no-arrow" : null}
+                size="large"
+                onClick={() => {
+                  if (!newData) setSaveChangesModal(true);
+                  else setIsBuilding(false);
+                }}
+              />
               <Icon
                 name="save"
                 size="large"

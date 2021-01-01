@@ -20,6 +20,14 @@
     left: none;
   }
 
+  .ui.large.warning.message {
+    width: 24rem;
+    height: 8.9rem;
+    border-radius: 1rem;
+    margin-bottom: 0.7rem;
+    text-align: center;
+  }
+
   .top-bar {
     display: flex;
     flex-direction: row;
@@ -27,42 +35,50 @@
     align-self: flex-end;
 
     .no-arrow {
-      padding-right: 14rem;
+      visibility: hidden;
     }
 
     h3 {
-      padding-right: 12rem;
+      margin-right: 5.2rem;
     }
 
     .top-icons {
       display: flex;
       flex-direction: row;
 
-      &:hover {
-        cursor: pointer;
+      .ui.medium.basic.label {
+        margin-right: 4.2rem;
+        height: 2.2rem;
+        font-size: 1.2rem;
+
+        p {
+          margin-top: -0.5rem;
+        }
+
+        &:hover {
+          color: $font-light;
+          background-color: $primary-color-hover;
+        }
       }
 
       .arrow.alternate.circle.left.large.icon {
         &:hover {
           color: $font-grey;
-        }
-      }
-
-      .key.large.icon {
-        &:hover {
-          color: $warning;
+          cursor: pointer;
         }
       }
 
       .close.large.icon {
         &:hover {
           color: $red-hover;
+          cursor: pointer;
         }
       }
 
       .save.large.icon {
         &:hover {
           color: $primary-color-hover;
+          cursor: pointer;
         }
       }
     }

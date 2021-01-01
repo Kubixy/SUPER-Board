@@ -64,7 +64,7 @@ export default function Image(props) {
       <div className="options-image__count">
         <h3>{state.images}/3</h3>
         <Popup
-          content="Limit of 3 images"
+          content="Limit of 3 images (5MB max each)"
           on="click"
           position="right center"
           pinned

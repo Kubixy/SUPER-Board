@@ -59,7 +59,7 @@ export default function File(props) {
       <div className="options-file__count">
         <h3>{state.files}/3</h3>
         <Popup
-          content="Limit of 3 files"
+          content="Limit of 3 files (5MB max each)"
           on="click"
           position="right center"
           pinned

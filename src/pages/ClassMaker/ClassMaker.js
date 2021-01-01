@@ -7,7 +7,7 @@ import MakeQuiz from "../../components/Tools/Quiz/MakeQuiz";
 import ShowImage from "../../components/Tools/ShowImage";
 import FileUploader from "../../components/Tools/FileUploader";
 import ErrorMessage from "../../components/Tools/ErrorMessage";
-import { addAula, userIdFinder } from "../../utils/Api";
+import { addAula, userIdFinder, deleteFile } from "../../utils/Api";
 
 import "./ClassMaker.scss";
 
@@ -29,6 +29,23 @@ export default function ClassMaker(props) {
     deleteElementCallback,
     render,
   } = useUserTools();
+
+  const onDelete = async () => {
+    if (imgArrayToDelete.length > 0) {
+      for (let i = 0; i < imgArrayToDelete.length; i++) {
+        await deleteFile(userId, imgArrayToDelete[i], "images");
+      }
+    }
+
+    if (fileArrayToDelete.length > 0) {
+      for (let i = 0; i < fileArrayToDelete.length; i++) {
+        await deleteFile(userId, fileArrayToDelete[i], "files");
+      }
+    }
+
+    setImgArrayToDelete([]);
+    setFileArrayToDelete([]);
+  };
 
   const userLoader = () => {
     userIdFinder(classFound === null ? userId : classFound, classON).then(
@@ -67,6 +84,7 @@ export default function ClassMaker(props) {
             fileIndex={fileIndex}
             imgArrayToDelete={imgArrayToDelete}
             fileArrayToDelete={fileArrayToDelete}
+            onDelete={onDelete}
           />
         )}
         <div className="panel__input">
