@@ -8,7 +8,7 @@ export default function AuthOptions(props) {
 
   return (
     <div className="auth-options">
-      <h2>The easiest way to create and share your ideas!</h2>
+      <h2>The easiest way to share your ideas!</h2>
       <Button className="register" onClick={() => setSelectedForm("register")}>
         Register
       </Button>

@@ -14,19 +14,19 @@ export const reauthenticate = (password) => {
 //guarda los datos del usuarios cuando se pulsa el botón de guardado
 //en Box (componente de ClassMaker)
 export function writeUserData(userId, data) {
-  db.collection("aulas").doc(userId).set({ data });
+  db.collection("boards").doc(userId).set({ data });
 }
 
 export async function getId(sessionId) {
   let output = null;
 
   await db
-    .collection("sesiones")
+    .collection("sessions")
     .doc(sessionId)
     .get()
     .then((doc) => {
       if (!doc.exists) {
-        console.log("Error al cargar el documento (readUserData)");
+        console.log("Error loading the doc (readUserData)");
       } else {
         output = doc.data().activeUsers;
       }
@@ -44,12 +44,12 @@ export async function readUserData(userId) {
   let output = null;
 
   await db
-    .collection("aulas")
+    .collection("boards")
     .doc(userId)
     .get()
     .then((doc) => {
       if (!doc.exists) {
-        console.log("Error al cargar el documento (readUserData)");
+        console.log("Error loading the doc (readUserData)");
       } else {
         output = doc.data().data;
       }
@@ -70,7 +70,7 @@ export async function userIdFinder(uid, classON) {
   let output = { status: false, id: null };
 
   await db
-    .collection("sesiones")
+    .collection("sessions")
     .get()
     .then(function (querySnapshot) {
       querySnapshot.forEach(function (doc) {
@@ -93,7 +93,7 @@ export async function LFAula(idClass) {
   let output;
 
   await db
-    .collection("sesiones")
+    .collection("sessions")
     .doc(idClass)
     .get()
     .then(function (querySnapshot) {
@@ -110,7 +110,7 @@ export async function LFAula(idClass) {
 //Falta una función que compruebe que el id generado no haya sido ya creado
 export function addAula(uid) {
   return db
-    .collection("sesiones")
+    .collection("sessions")
     .doc(Math.floor(Math.random() * (100000 - 1000)).toString())
     .set({ user: uid, activeUsers: 0 });
 }
@@ -122,5 +122,12 @@ export function uploadFile(file, uid, index, folder) {
 
 export function deleteFile(uid, index, folder) {
   const ref = firebase.storage().ref().child(`${folder}/${uid}/${index}`);
-  return ref.delete();
+  ref
+    .delete()
+    .then(() => {
+      console.log("Success!");
+    })
+    .catch(() => {
+      console.log("Something went wrong :(");
+    });
 }

@@ -55,7 +55,7 @@ export default function FileUploader(props) {
           icon="close"
           onClick={() => {
             setDeleteIndex(index);
-            setFileArrayToDelete([...fileArrayToDelete, index]);
+            setFileArrayToDelete([...fileArrayToDelete, fileIndex]);
             setNewData(false);
           }}
         />

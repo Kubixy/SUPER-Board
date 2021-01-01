@@ -67,7 +67,7 @@ export default function ShowImage(props) {
           icon="close"
           onClick={() => {
             setDeleteIndex(index);
-            setImgArrayToDelete([...imgArrayToDelete, index]);
+            setImgArrayToDelete([...imgArrayToDelete, indexImg]);
             setNewData(false);
           }}
         />

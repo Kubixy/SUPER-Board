@@ -44,13 +44,13 @@ export default function Box(props) {
   const onDelete = async () => {
     if (imgArrayToDelete.length > 0) {
       for (let i = 0; i < imgArrayToDelete.length; i++) {
-        await deleteFile(user, imgArrayToDelete[i], "images");
+        await deleteFile(user.uid, imgArrayToDelete[i], "images");
       }
     }
 
     if (fileArrayToDelete.length > 0) {
       for (let i = 0; i < fileArrayToDelete.length; i++) {
-        await deleteFile(user, fileArrayToDelete[i], "files");
+        await deleteFile(user.uid, fileArrayToDelete[i], "files");
       }
     }
   };
