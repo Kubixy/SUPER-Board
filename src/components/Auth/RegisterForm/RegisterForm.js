@@ -3,6 +3,7 @@ import { Button, Icon, Form, Input } from "semantic-ui-react";
 import { toast } from "react-toastify";
 import firebase from "../../../utils/Firebase";
 import { validateEmail } from "../../../utils/Validations";
+import { googleLogin } from "../../../utils/Api";
 import "firebase/auth";
 
 import "./RegisterForm.scss";
@@ -143,6 +144,18 @@ export default function RegisterForm(props) {
         <Button type="submit" loading={isLoading}>
           <span>Next</span>
         </Button>
+
+        <div class="google-btn" onClick={googleLogin}>
+          <div class="google-icon-wrapper">
+            <img
+              class="google-icon"
+              src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
+            />
+          </div>
+          <p class="btn-text">
+            <b>Sign in with google</b>
+          </p>
+        </div>
       </Form>
 
       <div className="register-form__options">

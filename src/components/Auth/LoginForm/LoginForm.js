@@ -5,6 +5,7 @@ import { validateEmail } from "../../../utils/Validations";
 import ButtonResetSendEmailVerifaction from "../../Modal/Functions/ButtonResetSendEmailVerifaction";
 import { handlerError } from "../../../utils/HandlerError";
 import firebase from "../../../utils/Firebase";
+import { googleLogin } from "../../../utils/Api";
 import "firebase/auth";
 
 import "./LoginForm.scss";
@@ -110,6 +111,18 @@ export default function LoginForm(props) {
         <Button type="submit" loading={isLoading}>
           Sign in
         </Button>
+
+        <div class="google-btn" onClick={googleLogin}>
+          <div class="google-icon-wrapper">
+            <img
+              class="google-icon"
+              src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
+            />
+          </div>
+          <p class="btn-text">
+            <b>Sign in with google</b>
+          </p>
+        </div>
       </Form>
 
       {!userActive && (
