@@ -116,7 +116,7 @@ export default function Box(props) {
         <Message.Header>
           You have reached the limit of items allowed!
         </Message.Header>
-        <p>In order to add new items, you must delete some before</p>
+        <p>To be able to add new items, you must first delete some</p>
       </Message>
     );
   };
@@ -134,10 +134,17 @@ export default function Box(props) {
       {toggleStatus ? (
         <>
           <div className="top-bar">
-            <h3>
-              <Icon name="id badge outline" size="large" />
-              {idClass}
-            </h3>
+            <Popup
+              content="Board ID"
+              position="bottom center"
+              trigger={
+                <h3>
+                  <Icon name="id badge outline" size="large" />
+                  {idClass}
+                </h3>
+              }
+            />
+
             <div className="top-icons">
               <Popup
                 content="You can create up to 20 items"

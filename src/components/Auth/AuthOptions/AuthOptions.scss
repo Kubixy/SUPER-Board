@@ -11,32 +11,25 @@
     margin-bottom: 50px;
   }
 
-  .ui.ui.button.register,
+  .ui.button.register,
   .ui.button.login {
+    color: $font-grey;
+    background-color: $font-light;
     text-transform: uppercase;
     width: 100%;
     margin-bottom: 20px;
-    border-radius: 15px;
-    padding: 20px 0;
-    font-size: 17px;
+    border-radius: 10px;
+    padding: 10px 0;
+    font-size: 25px;
     letter-spacing: 3px;
-  }
-
-  .ui.button.register {
-    background-color: $primary-color;
-    color: $font-light;
-
-    &:hover {
-      background-color: $primary-color-hover;
-    }
-  }
-
-  .ui.button.login {
-    background-color: $background-light;
-    color: $font-dark;
+    border: 5px $main-background-color solid;
 
     &:hover {
       background-color: $font-grey;
+      color: $font-light;
+      font-weight: bold;
+      border-left: 13px solid $primary-color-hover;
+      border-right: 13px solid $primary-color-hover;
     }
   }
 }

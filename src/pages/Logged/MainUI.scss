@@ -16,7 +16,7 @@
     min-height: 100vh;
     min-width: 100%;
     background-color: $font-dark;
-    opacity: 0.5;
+    opacity: 0.25;
     z-index: 0;
   }
 
@@ -27,6 +27,6 @@
     z-index: 1;
     padding: 50px 70px;
     border-radius: 25px;
-    border: solid 5px $primary-color;
+    border: solid 5px $background-grey-light-hover;
   }
 }

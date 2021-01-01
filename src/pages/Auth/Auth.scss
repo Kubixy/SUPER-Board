@@ -16,7 +16,7 @@
     min-height: 100vh;
     min-width: 100%;
     background-color: $background-dark;
-    opacity: 0.75;
+    opacity: 0.5;
     z-index: 0;
   }
 
@@ -25,13 +25,16 @@
     background-color: $background-grey-dark;
     width: 500px;
     z-index: 1;
-    padding: 50px 70px;
+    padding: 40px 70px;
     border-radius: 25px;
-    border: double 5px $main-background-color;
+    border: double 5px $font-grey;
 
     &-logo {
+      margin: -5rem 0 -2rem 4rem;
+
       img {
-        width: 370px;
+        width: 250px;
+        height: 250px;
       }
     }
   }
