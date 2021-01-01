@@ -14,10 +14,11 @@
   margin-top: 20px;
   box-sizing: border-box;
   z-index: 2;
-  border-top-right-radius: 25px;
-  border-bottom-right-radius: 25px;
-  border: solid 5px $primary-color;
-  border-left: none;
+  border: solid 5px $primary-color {
+    top-right-radius: 25px;
+    bottom-right-radius: 25px;
+    left: none;
+  }
 
   .top-bar {
     display: flex;
@@ -52,11 +53,13 @@
           color: $warning;
         }
       }
+
       .close.large.icon {
         &:hover {
           color: $red-hover;
         }
       }
+
       .save.large.icon {
         &:hover {
           color: $primary-color-hover;
@@ -89,7 +92,6 @@
 
     .ui.input {
       width: 20rem;
-      padding-top: 1rem;
     }
 
     .ui.icon.input {
@@ -135,6 +137,20 @@
             text-align: center !important;
           }
         }
+      }
+    }
+
+    &__count {
+      display: flex;
+      margin-top: 0.8rem;
+
+      h3 {
+        margin-right: 0.5rem;
+      }
+
+      i:hover {
+        color: $information;
+        cursor: pointer;
       }
     }
   }

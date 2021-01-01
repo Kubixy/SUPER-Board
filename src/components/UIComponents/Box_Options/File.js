@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
-import { Input, Button } from "semantic-ui-react";
+import { Input, Button, Icon, Popup } from "semantic-ui-react";
 import { uploadFile } from "../../../utils/Api";
 
 export default function File(props) {
@@ -44,7 +44,17 @@ export default function File(props) {
         type="file"
         onChange={(e) => setFile(e.target.files)}
         icon="pdf file outline"
-      />
+      />{" "}
+      <div className="options-file__count">
+        <h3>3/3</h3>
+        <Popup
+          content="Limit of 3 files"
+          on="click"
+          position="right center"
+          pinned
+          trigger={<Icon name="question circle" size="large" />}
+        />
+      </div>
       <Input
         id="inputFileName"
         placeholder="Pick a name for your file (optional)"

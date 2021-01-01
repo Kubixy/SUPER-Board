@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Input, Button } from "semantic-ui-react";
+import { Input, Button, Icon, Popup } from "semantic-ui-react";
 import { toast } from "react-toastify";
 import { uploadFile } from "../../../utils/Api";
 
@@ -51,6 +51,16 @@ export default function Image(props) {
         onChange={(e) => setFile(e.target.files)}
         icon="file image"
       />
+      <div className="options-image__count">
+        <h3>3/3</h3>
+        <Popup
+          content="Limit of 3 images"
+          on="click"
+          position="right center"
+          pinned
+          trigger={<Icon name="question circle" size="large" />}
+        />
+      </div>
       <Input
         id="subtitleInput"
         placeholder="Write a subtitle (optional)"
