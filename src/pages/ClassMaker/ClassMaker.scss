@@ -130,7 +130,6 @@
       }
 
       .openButton {
-        width: 500px !important;
         height: 40px !important;
         margin-top: 20px !important;
         margin-bottom: -5px !important;
@@ -205,6 +204,29 @@
       .quizButtons {
         padding-top: 15px;
       }
+
+      @media (max-width: 600px) {
+        width: 400px;
+
+        button.ui.button {
+          &.close-button {
+            left: 1rem;
+          }
+        }
+
+        .quizButtons {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
+
+        button.ui.button {
+          &.close-button {
+            position: relative;
+            margin: 0.2rem 0rem -1rem -2rem;
+          }
+        }
+      }
     }
 
     .image {
@@ -262,6 +284,10 @@
         .ui.divider {
           background-color: $font-grey;
         }
+      }
+
+      @media (max-width: 600px) {
+        width: 400px;
       }
     }
   }

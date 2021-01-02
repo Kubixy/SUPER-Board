@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Header, Icon, Input, Button } from "semantic-ui-react";
-import { LFAula } from "../../../utils/Api";
+import { LFBoard } from "../../../utils/Api";
 import { toast } from "react-toastify";
 
 import "./LFClass.scss";
@@ -18,7 +18,7 @@ export default function (props) {
 
   const onClick = () => {
     if (input !== null) {
-      LFAula(input).then((response) => {
+      LFBoard(input).then((response) => {
         if (response !== undefined) {
           setClassFound(response);
           setManagment(false);

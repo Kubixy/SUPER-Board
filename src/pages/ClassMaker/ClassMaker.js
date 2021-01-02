@@ -7,7 +7,7 @@ import MakeQuiz from "../../components/Tools/Quiz/MakeQuiz";
 import ShowImage from "../../components/Tools/ShowImage";
 import FileUploader from "../../components/Tools/FileUploader";
 import ErrorMessage from "../../components/Tools/ErrorMessage";
-import { addAula, userIdFinder, deleteFile } from "../../utils/Api";
+import { addBoard, userIdFinder, deleteFile } from "../../utils/Api";
 
 import "./ClassMaker.scss";
 
@@ -48,18 +48,18 @@ export default function ClassMaker(props) {
   };
 
   const userLoader = () => {
-    userIdFinder(classFound === null ? userId : classFound, classON).then(
+    userIdFinder(classFound === null ? userId : classFound).then(
       (response) => {
         if (managementON) {
           if (response.status) {
             setIdClass(response.id);
           } else {
-            addAula(userId);
+            addBoard(userId);
             userLoader();
           }
         } else {
           setIdClass(response.id);
-          setAllowEdit(userId === classFound ? true : false);
+          setAllowEdit(userId === classFound);
         }
       }
     );

@@ -4,14 +4,12 @@
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  margin-top: 15px;
 
   h1 {
     color: $font-light;
     text-align: center;
     font: 35px;
     padding-bottom: 20px;
-    margin-top: 20px !important;
   }
 
   .ui.form {

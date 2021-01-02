@@ -9,6 +9,7 @@ import Image from "../Box_Options/Image";
 import Quiz from "../Box_Options/Quiz";
 import AskForSave from "../../Modal/Functions/AskForSave";
 import { useUserTools } from "../../../context/UserToolsProvider";
+import { toast } from "react-toastify";
 
 import "./Box.scss";
 
@@ -121,6 +122,19 @@ export default function Box(props) {
     );
   };
 
+  const saveData = () => {
+    if (!newData)
+    writeUserData(user.uid, data)
+      .then(() => {    
+        onDelete();
+        setNewData(true);
+        toast.success("Changes saved");
+      })
+      .catch((error) => {
+        toast.warning("Something went wrong");
+      })
+  }
+
   const options = [
     { key: "text", text: "Text", value: "text" },
     { key: "video", text: "Video", value: "video" },
@@ -168,11 +182,7 @@ export default function Box(props) {
               <Icon
                 name="save"
                 size="large"
-                onClick={() => {
-                  writeUserData(user.uid, data);
-                  onDelete();
-                  setNewData(true);
-                }}
+                onClick={() => saveData()}
               />
               <Icon
                 name="close"

@@ -11,35 +11,18 @@ export const reauthenticate = (password) => {
   return user.reauthenticateWithCredential(credentials);
 };
 
-//guarda los datos del usuarios cuando se pulsa el botón de guardado
-//en Box (componente de ClassMaker)
+/*
+Loads the user data on Firebase when the user presses the save button
+ClassMaker > Box
+*/
 export function writeUserData(userId, data) {
-  db.collection("boards").doc(userId).set({ data });
+  return db.collection("boards").doc(userId).set({ data });
 }
 
-export async function getId(sessionId) {
-  let output = null;
-
-  await db
-    .collection("sessions")
-    .doc(sessionId)
-    .get()
-    .then((doc) => {
-      if (!doc.exists) {
-        console.log("Error loading the doc (readUserData)");
-      } else {
-        output = doc.data().activeUsers;
-      }
-    })
-    .catch((err) => {
-      console.log("Error (readUserData) --> ", err);
-    });
-
-  return output;
-}
-
-//carga los datos del aula virtual en ClassMaker para renderizarlos
-//y en caso de que no encuentre nada o encuentre un error devuelve un valor nulo;
+/*
+Loads the user data on Classmaker
+If there is none, it returns a null value
+*/
 export async function readUserData(userId) {
   let output = null;
 
@@ -61,12 +44,13 @@ export async function readUserData(userId) {
   return output;
 }
 
-//compruebo si el usario tiene un aula
-//si lo obtengo, devuelvo su id en ClassMaker
-//en el caso de que no esté. lo creo en ClassMaker con la función addAula
-export async function userIdFinder(uid, classON) {
-  //status permite comprobar en ClassMaker si es necsario crear un id
-  //id se refiere al id del aula, este valor sólo se utiliza si status es true
+/*
+This function checks if the user has a board.
+If the user has one, it returns its id in ClassMaker.
+If the user doesn't have one, Classmaker will recieve a null value
+and will call add board to create one.
+*/
+export async function userIdFinder(uid) {
   let output = { status: false, id: null };
 
   await db
@@ -87,9 +71,11 @@ export async function userIdFinder(uid, classON) {
   return output;
 }
 
-//Busca en sesiones el id de la clase y devuelve su ID
-//este ID es del usuario que cuenta con un documento en aulas
-export async function LFAula(idClass) {
+/*
+Looks for a session with the id introduced 
+and returns the owner of the session
+*/
+export async function LFBoard(idClass) {
   let output;
 
   await db
@@ -106,9 +92,11 @@ export async function LFAula(idClass) {
   return output;
 }
 
-//Añade una sesión a un usuario
-//Falta una función que compruebe que el id generado no haya sido ya creado
-export function addAula(uid) {
+/*
+Adds a session to a new user
+--> CHECK DUPLICATES
+*/
+export function addBoard(uid) {
   return db
     .collection("sessions")
     .doc(Math.floor(Math.random() * (100000 - 1000)).toString())
@@ -139,27 +127,22 @@ export function googleLogin() {
   firebase
     .auth()
     .signInWithPopup(provider)
-    .then((result) => {
+    //.then((result) => {
       /** @type {firebase.auth.OAuthCredential} */
-      var credential = result.credential;
+      //var credential = result.credential;
       // This gives you a Google Access Token. You can use it to access the Google API.
-      var token = credential.accessToken;
+      //var token = credential.accessToken;
       // The signed-in user info.
-      var user = result.user;
+      //var user = result.user;
       // ...
-    })
+    //})
     .catch((error) => {
       // Handle Errors here.
-      var errorCode = error.code;
-      var errorMessage = error.message;
+      //var errorCode = error.code;
+      //var errorMessage = error.message;
       // The email of the user's account used.
-      var email = error.email;
+      //var email = error.email;
       // The firebase.auth.AuthCredential type that was used.
-      var credential = error.credential;
-
-      console.log(errorCode);
-      console.log(errorMessage);
-      console.log(email);
-      console.log(credential);
+      //var credential = error.credential;
     });
 }
