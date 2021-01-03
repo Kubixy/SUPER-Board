@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Box from "../../components/UIComponents/Box";
 import NavBar from "../../components/UIComponents/NavBar";
 import VideoPlayer from "../../components/Tools/VideoPlayer";
@@ -47,7 +47,7 @@ export default function BoardMaker(props) {
     setFileArrayToDelete([]);
   };
 
-  const userLoader = () => {
+  const userLoader = useCallback(() => {
     userIdFinder(boardFound === null ? userId : boardFound).then((response) => {
       if (managementON) {
         if (response.status) {
@@ -61,12 +61,12 @@ export default function BoardMaker(props) {
         setAllowEdit(userId === boardFound);
       }
     });
-  };
+  }, [boardFound, managementON, userId, setIdBoard]);
 
   useEffect(() => {
     userLoader();
     render();
-  }, []);
+  }, [userLoader, render]);
 
   return (
     <>
@@ -87,6 +87,7 @@ export default function BoardMaker(props) {
         )}
         <div className="panel__input">
           {deleteElementCallback()}
+          {/* eslint-disable-next-line*/}
           {data.map((x, index) => {
             if (x.type)
               switch (x.type) {

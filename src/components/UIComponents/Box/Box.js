@@ -40,6 +40,7 @@ export default function Box(props) {
 
   useEffect(() => {
     dispatch({ type: "reset" });
+    // eslint-disable-next-line
     data.map((x) => {
       if (x.type === "image") {
         dispatch({ type: "increImg" });
@@ -47,7 +48,7 @@ export default function Box(props) {
         dispatch({ type: "increFil" });
       }
     });
-  }, [data]);
+  }, [data, dispatch]);
 
   const selector = () => {
     if (data.length - 1 < 20) {

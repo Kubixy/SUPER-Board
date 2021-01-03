@@ -1,8 +1,8 @@
 {
-  "name": "proyecto",
+  "name": "superboard",
   "version": "0.1.0",
   "private": true,
-  "main": "public/electron.js",
+  "main": "public/index.html",
   "author": "Alberto Serrano Moltó",
   "homepage": "./",
   "dependencies": {

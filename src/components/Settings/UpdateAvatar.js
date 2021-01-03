@@ -11,15 +11,15 @@ export default function UpdateAvatar(props) {
   const { user } = props;
   const [avatarUrl, setAvatarUrl] = useState(user.photoURL);
 
-  const onDrop = useCallback((acceptedFiles) => {
-    const file = acceptedFiles[0];
-    setAvatarUrl(URL.createObjectURL(file));
-    uploadImage(file).then(() => {
-      updateUserAvatar();
-    });
-  });
+  const uploadImage = useCallback(
+    (file) => {
+      const ref = firebase.storage().ref().child(`avatar/${user.uid}`);
+      return ref.put(file);
+    },
+    [user]
+  );
 
-  const updateUserAvatar = () => {
+  const updateUserAvatar = useCallback(() => {
     firebase
       .storage()
       .ref(`avatar/${user.uid}`)
@@ -30,18 +30,24 @@ export default function UpdateAvatar(props) {
       .catch(() => {
         toast.error("There was an error updating your avatar");
       });
-  };
+  }, [user]);
+
+  const onDrop = useCallback(
+    (acceptedFiles) => {
+      const file = acceptedFiles[0];
+      setAvatarUrl(URL.createObjectURL(file));
+      uploadImage(file).then(() => {
+        updateUserAvatar();
+      });
+    },
+    [updateUserAvatar, uploadImage]
+  );
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     accept: "image/jpeg, image/png",
     noKeyboard: true,
     onDrop,
   });
-
-  const uploadImage = (file) => {
-    const ref = firebase.storage().ref().child(`avatar/${user.uid}`);
-    return ref.put(file);
-  };
 
   return (
     <div className="user-avatar" {...getRootProps()}>

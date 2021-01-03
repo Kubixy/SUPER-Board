@@ -36,12 +36,12 @@ export function UserToolsProvider(props) {
 
   const [state, dispatch] = useReducer(reducer, { files: 0, images: 0 });
 
-  const endClassCallback = useCallback(() => {
+  const endClassCallback = () => {
     setIsBuilding(false);
     setManagment(true);
     setBoardFound(null);
     setBoardON(false);
-  }, [idBoard, boardFound]);
+  };
 
   const deleteElementCallback = useCallback(() => {
     if (deleteIndex !== null) {
@@ -51,14 +51,15 @@ export function UserToolsProvider(props) {
   }, [deleteIndex, data]);
 
   const render = useCallback(() => {
-    readUserData(boardFound === null ? user.uid : boardFound).then(
-      (response) => {
-        if (response !== null) {
-          setData(response);
+    if (user)
+      readUserData(boardFound === null ? user.uid : boardFound).then(
+        (response) => {
+          if (response !== null) {
+            setData(response);
+          }
         }
-      }
-    );
-  });
+      );
+  }, [user, boardFound]);
 
   const value = useMemo(() => {
     return {
@@ -95,6 +96,9 @@ export function UserToolsProvider(props) {
     data,
     newData,
     idBoard,
+    deleteElementCallback,
+    render,
+    state,
   ]);
 
   return <UserContext.Provider value={value} {...props} />;
