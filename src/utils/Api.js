@@ -86,7 +86,7 @@ export async function LFBoard(idBoard) {
       output = querySnapshot.data().user;
     })
     .catch((err) => {
-      console.log("Error (LFAula) --> ", err);
+      console.log("Error (LFBoard) --> ", err);
     });
 
   return output;
@@ -94,12 +94,34 @@ export async function LFBoard(idBoard) {
 
 /*
 Adds a session to a new user
---> CHECK DUPLICATES
 */
 export function addBoard(uid) {
+  let unique,
+    values = [];
+  let newID = Math.floor(Math.random() * (100000 - 1000)).toString();
+
+  db.collection("sessions")
+    .get()
+    .then((querySnapshot) => {
+      querySnapshot.forEach(function (doc) {
+        values.push(doc.id);
+      });
+    });
+
+  do {
+    unique = true;
+    for (let i of values) {
+      if (newID === i) {
+        unique = false;
+        newID = Math.floor(Math.random() * (100000 - 1000)).toString();
+        break;
+      }
+    }
+  } while (!unique);
+
   return db
     .collection("sessions")
-    .doc(Math.floor(Math.random() * (100000 - 1000)).toString())
+    .doc(newID)
     .set({ user: uid, activeUsers: 0 });
 }
 
@@ -113,36 +135,31 @@ export function deleteFile(uid, index, folder) {
     .ref()
     .child(`${folder}/${uid}/${index}`)
     .delete()
-    .then(() => {
-      console.log("Success!");
-    })
-    .catch(() => {
-      console.log("Something went wrong :(");
+    .catch((err) => {
+      console.log("Error (deleteFile) --> ", err);
     });
 }
 
 export function googleLogin() {
   let provider = new firebase.auth.GoogleAuthProvider();
 
-  firebase
-    .auth()
-    .signInWithPopup(provider)
-    //.then((result) => {
-    /** @type {firebase.auth.OAuthCredential} */
-    //var credential = result.credential;
-    // This gives you a Google Access Token. You can use it to access the Google API.
-    //var token = credential.accessToken;
-    // The signed-in user info.
-    //var user = result.user;
-    // ...
-    //})
-    .catch((error) => {
-      // Handle Errors here.
-      //var errorCode = error.code;
-      //var errorMessage = error.message;
-      // The email of the user's account used.
-      //var email = error.email;
-      // The firebase.auth.AuthCredential type that was used.
-      //var credential = error.credential;
-    });
+  return firebase.auth().signInWithPopup(provider);
+  //.then((result) => {
+  /** @type {firebase.auth.OAuthCredential} */
+  //var credential = result.credential;
+  // This gives you a Google Access Token. You can use it to access the Google API.
+  //var token = credential.accessToken;
+  // The signed-in user info.
+  //var user = result.user;
+  // ...
+  //})
+  //.catch((err) => {
+  //  console.log("Error (googleLogin) --> ", err);
+  // Handle Errors here.
+  //var errorCode = error.code;
+  //var errorMessage = error.message;
+  // The email of the user's account used.
+  //var email = error.email;
+  // The firebase.auth.AuthCredential type that was used.
+  //var credential = error.credential;
 }

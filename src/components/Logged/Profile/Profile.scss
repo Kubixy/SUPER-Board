@@ -22,6 +22,7 @@
       border-radius: 100px;
     }
   }
+
   .user-email,
   .user-password,
   .user-name {
@@ -41,6 +42,11 @@
       cursor: pointer;
       color: green;
     }
+  }
+
+  .ui.inverted.button {
+    width: 100%;
+    margin-bottom: 1rem;
   }
 
   .ui.button.goBack {

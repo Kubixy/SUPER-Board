@@ -3,6 +3,7 @@ import UploadAvatar from "../../Settings/UpdateAvatar";
 import UserName from "../../Settings/UserName";
 import UserEmail from "../../Settings/UserEmail";
 import UserPassword from "../../Settings/UserPassword";
+import DeleteAccount from "../../Settings/DeleteAccount";
 import BasicModal from "../../../components/Modal/BasicModal";
 import { Button, Icon } from "semantic-ui-react";
 
@@ -36,7 +37,16 @@ export default function Profile(props) {
           setContentModal={setContentModal}
         />
 
-        <UserPassword
+        {user.providerData[0].providerId === "password" && (
+          <UserPassword
+            setShowModal={setShowModal}
+            setTitleModal={setTitleModal}
+            setContentModal={setContentModal}
+          />
+        )}
+
+        <DeleteAccount
+          user={user}
           setShowModal={setShowModal}
           setTitleModal={setTitleModal}
           setContentModal={setContentModal}

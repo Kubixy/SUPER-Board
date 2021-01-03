@@ -34,7 +34,7 @@ export default function (props) {
   };
 
   return (
-    <div className="LFClass">
+    <div className="LFBoard">
       <Header as="h2">
         <Icon name="search" />
         <Header.Content>Search a board by ID</Header.Content>
