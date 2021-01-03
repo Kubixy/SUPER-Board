@@ -20,17 +20,16 @@ function reducer(state, action) {
     case "reset":
       return { files: 0, images: 0 };
     default:
-      throw new Error();
   }
 }
 
 export function UserToolsProvider(props) {
-  const [idClass, setIdClass] = useState(null);
+  const [idBoard, setIdBoard] = useState(null);
   const [user, setUser] = useState(null);
   const [isBuilding, setIsBuilding] = useState(false);
   const [managementON, setManagment] = useState(true);
-  const [classFound, setClassFound] = useState(null);
-  const [classON, setClassON] = useState(false);
+  const [boardFound, setBoardFound] = useState(null);
+  const [boardON, setBoardON] = useState(false);
   const [data, setData] = useState([{}]);
   const [newData, setNewData] = useState(true);
   const [deleteIndex, setDeleteIndex] = useState(null);
@@ -40,9 +39,9 @@ export function UserToolsProvider(props) {
   const endClassCallback = useCallback(() => {
     setIsBuilding(false);
     setManagment(true);
-    setClassFound(null);
-    setClassON(false);
-  }, [idClass, classFound]);
+    setBoardFound(null);
+    setBoardON(false);
+  }, [idBoard, boardFound]);
 
   const deleteElementCallback = useCallback(() => {
     if (deleteIndex !== null) {
@@ -52,7 +51,7 @@ export function UserToolsProvider(props) {
   }, [deleteIndex, data]);
 
   const render = useCallback(() => {
-    readUserData(classFound === null ? user.uid : classFound).then(
+    readUserData(boardFound === null ? user.uid : boardFound).then(
       (response) => {
         if (response !== null) {
           setData(response);
@@ -68,13 +67,13 @@ export function UserToolsProvider(props) {
       setIsBuilding,
       managementON,
       setManagment,
-      classFound,
-      setClassFound,
-      classON,
-      setClassON,
+      boardFound,
+      setBoardFound,
+      boardON,
+      setBoardON,
       endClassCallback,
-      idClass,
-      setIdClass,
+      idBoard,
+      setIdBoard,
       data,
       setData,
       user,
@@ -91,14 +90,11 @@ export function UserToolsProvider(props) {
     user,
     isBuilding,
     managementON,
-    classFound,
-    classON,
-    endClassCallback,
-    idClass,
+    boardFound,
+    boardON,
     data,
     newData,
-    deleteElementCallback,
-    render,
+    idBoard,
   ]);
 
   return <UserContext.Provider value={value} {...props} />;

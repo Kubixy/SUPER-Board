@@ -27,7 +27,11 @@ export default function Video(props) {
         position="right center"
         pinned
         trigger={
-          <a href="https://www.youtube.com" target="_blank">
+          <a
+            href="https://www.youtube.com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <Icon name="youtube" size="big" link circular />
           </a>
         }

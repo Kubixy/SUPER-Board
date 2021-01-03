@@ -18,7 +18,7 @@ export default function ShowImage(props) {
     managementON,
     setDeleteIndex,
     userId,
-    classFound,
+    boardFound,
     dispatch,
   } = useUserTools();
 
@@ -29,7 +29,7 @@ export default function ShowImage(props) {
     firebase
       .storage()
       .ref()
-      .child(`images/${classFound === null ? userId : classFound}/${indexImg}`)
+      .child(`images/${boardFound === null ? userId : boardFound}/${indexImg}`)
       .getDownloadURL()
       .then((response) => {
         setUrl(response);

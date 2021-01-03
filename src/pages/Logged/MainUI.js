@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import BackgroundAuth from "../../assets/jpg/MainBackground.jpg";
 import LoggedOptions from "../../components/Logged/LoggedOptions";
-import LFClass from "../../components/Logged/LFClass";
+import LFBoard from "../../components/Logged/LFBoard";
 import Profile from "../../components/Logged/Profile";
 
 import "./MainUI.scss";
@@ -12,8 +12,8 @@ export default function (props) {
     user,
     setIsBuilding,
     setManagment,
-    setClassFound,
-    setClassON,
+    setBoardFound,
+    setBoardON,
   } = useUserTools();
   const [selectedOpt, setSelectedOpt] = useState(null);
 
@@ -21,12 +21,12 @@ export default function (props) {
     switch (selectedOpt) {
       case "find":
         return (
-          <LFClass
+          <LFBoard
             setSelectedOpt={setSelectedOpt}
             setManagment={setManagment}
             setIsBuilding={setIsBuilding}
-            setClassFound={setClassFound}
-            setClassON={setClassON}
+            setBoardFound={setBoardFound}
+            setBoardON={setBoardON}
           />
         );
       case "profile":

@@ -3,16 +3,17 @@ import { Header, Icon, Input, Button } from "semantic-ui-react";
 import { LFBoard } from "../../../utils/Api";
 import { toast } from "react-toastify";
 
-import "./LFClass.scss";
+import "./LFBoard.scss";
 
 export default function (props) {
   const {
     setSelectedOpt,
     setManagment,
     setIsBuilding,
-    setClassFound,
-    setClassON,
+    setBoardFound,
+    setBoardON,
   } = props;
+
   const [input, setInput] = useState(null);
   const [error, setError] = useState(false);
 
@@ -20,13 +21,13 @@ export default function (props) {
     if (input !== null) {
       LFBoard(input).then((response) => {
         if (response !== undefined) {
-          setClassFound(response);
+          setBoardFound(response);
           setManagment(false);
           setIsBuilding(true);
-          setClassON(true);
+          setBoardON(true);
         } else {
           setError(true);
-          toast.warning("Classroom not found");
+          toast.warning("Board not found");
         }
       });
     }
@@ -35,8 +36,8 @@ export default function (props) {
   return (
     <div className="LFClass">
       <Header as="h2">
-        <Icon name="student" />
-        <Header.Content>Search class by ID</Header.Content>
+        <Icon name="search" />
+        <Header.Content>Search a board by ID</Header.Content>
       </Header>
       <div className="input">
         <Input

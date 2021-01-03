@@ -18,7 +18,7 @@ export default function FileUploader(props) {
     setNewData,
     managementON,
     setDeleteIndex,
-    classFound,
+    boardFound,
     userId,
     dispatch,
   } = useUserTools();
@@ -27,7 +27,7 @@ export default function FileUploader(props) {
     firebase
       .storage()
       .ref()
-      .child(`files/${classFound === null ? userId : classFound}/${fileIndex}`)
+      .child(`files/${boardFound === null ? userId : boardFound}/${fileIndex}`)
       .getDownloadURL()
       .then((response) => {
         setUrl(response);

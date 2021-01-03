@@ -11,10 +11,10 @@ export default function NavBar(props) {
 
   const {
     endClassCallback,
-    idClass,
+    idBoard,
     setManagment,
     managementON,
-    classFound,
+    boardFound,
     data,
     newData,
     setNewData,
@@ -59,7 +59,7 @@ export default function NavBar(props) {
       </div>
       <div className="navBar__center">
         <Icon name="slideshare" size="huge" />
-        <h1>{idClass}</h1>
+        <h1>{idBoard}</h1>
       </div>
       <div className="navBar__right">
         <Icon name="users" size="big" />
@@ -70,7 +70,7 @@ export default function NavBar(props) {
           {
             <AskForSaveNavBar
               setShowModal={setShowModal}
-              classFound={classFound}
+              boardFound={boardFound}
               data={data}
               setManagment={setManagment}
               setNewData={setNewData}

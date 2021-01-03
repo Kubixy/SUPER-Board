@@ -9,9 +9,9 @@ import FileUploader from "../../components/Tools/FileUploader";
 import ErrorMessage from "../../components/Tools/ErrorMessage";
 import { addBoard, userIdFinder, deleteFile } from "../../utils/Api";
 
-import "./ClassMaker.scss";
+import "./BoardMaker.scss";
 
-export default function ClassMaker(props) {
+export default function BoardMaker(props) {
   const [imageIndex, setimageIndex] = useState(1);
   const [fileIndex, setFileIndex] = useState(1);
   const [imgArrayToDelete, setImgArrayToDelete] = useState([]);
@@ -21,10 +21,10 @@ export default function ClassMaker(props) {
   const { useUserTools } = props;
   const {
     userId,
-    classFound,
-    classON,
+    boardFound,
+    boardON,
     managementON,
-    setIdClass,
+    setIdBoard,
     data,
     deleteElementCallback,
     render,
@@ -48,21 +48,19 @@ export default function ClassMaker(props) {
   };
 
   const userLoader = () => {
-    userIdFinder(classFound === null ? userId : classFound).then(
-      (response) => {
-        if (managementON) {
-          if (response.status) {
-            setIdClass(response.id);
-          } else {
-            addBoard(userId);
-            userLoader();
-          }
+    userIdFinder(boardFound === null ? userId : boardFound).then((response) => {
+      if (managementON) {
+        if (response.status) {
+          setIdBoard(response.id);
         } else {
-          setIdClass(response.id);
-          setAllowEdit(userId === classFound);
+          addBoard(userId);
+          userLoader();
         }
+      } else {
+        setIdBoard(response.id);
+        setAllowEdit(userId === boardFound);
       }
-    );
+    });
   };
 
   useEffect(() => {
@@ -72,7 +70,7 @@ export default function ClassMaker(props) {
 
   return (
     <>
-      {(!managementON || classON) && <NavBar allowEdit={allowEdit} />}
+      {(!managementON || boardON) && <NavBar allowEdit={allowEdit} />}
       <div className="background" />
       <div className="panel">
         <div className="panel__all" />

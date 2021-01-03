@@ -4,11 +4,11 @@ import "firebase/auth";
 import Auth from "./pages/Auth";
 import { ToastContainer } from "react-toastify";
 import Logged from "./pages/Logged/MainUI";
-import ClassMaker from "./pages/ClassMaker";
+import BoardMaker from "./pages/BoardMaker";
 
 function App(props) {
   const { useUserTools } = props;
-  const { setUser, user, isBuilding, guestSession } = useUserTools();
+  const { setUser, user, isBuilding } = useUserTools();
   const [isLoading, setIsLoading] = useState(true);
 
   firebase.auth().onAuthStateChanged((currentUser) => {
@@ -28,12 +28,12 @@ function App(props) {
 
   return (
     <>
-      {!user && !guestSession ? (
+      {!user ? (
         <Auth />
       ) : !isBuilding ? (
         <Logged useUserTools={useUserTools} />
       ) : (
-        <ClassMaker useUserTools={useUserTools} />
+        <BoardMaker useUserTools={useUserTools} />
       )}
       <ToastContainer
         position="top-center"

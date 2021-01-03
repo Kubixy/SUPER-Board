@@ -28,8 +28,8 @@ export default function Box(props) {
     setNewData,
     data,
     setData,
-    idClass,
-    classON,
+    idBoard,
+    boardON,
     setIsBuilding,
     dispatch,
   } = useUserTools();
@@ -41,9 +41,9 @@ export default function Box(props) {
   useEffect(() => {
     dispatch({ type: "reset" });
     data.map((x) => {
-      if (x.type == "image") {
+      if (x.type === "image") {
         dispatch({ type: "increImg" });
-      } else if (x.type == "file") {
+      } else if (x.type === "file") {
         dispatch({ type: "increFil" });
       }
     });
@@ -124,16 +124,16 @@ export default function Box(props) {
 
   const saveData = () => {
     if (!newData)
-    writeUserData(user.uid, data)
-      .then(() => {    
-        onDelete();
-        setNewData(true);
-        toast.success("Changes saved");
-      })
-      .catch((error) => {
-        toast.warning("Something went wrong");
-      })
-  }
+      writeUserData(user.uid, data)
+        .then(() => {
+          onDelete();
+          setNewData(true);
+          toast.success("Changes saved");
+        })
+        .catch(() => {
+          toast.warning("Something went wrong");
+        });
+  };
 
   const options = [
     { key: "text", text: "Text", value: "text" },
@@ -154,7 +154,7 @@ export default function Box(props) {
               trigger={
                 <h3>
                   <Icon name="id badge outline" size="large" />
-                  {idClass}
+                  {idBoard}
                 </h3>
               }
             />
@@ -172,18 +172,14 @@ export default function Box(props) {
 
               <Icon
                 name="arrow alternate circle left"
-                className={classON ? "no-arrow" : null}
+                className={boardON ? "no-arrow" : null}
                 size="large"
                 onClick={() => {
                   if (!newData) setSaveChangesModal(true);
                   else setIsBuilding(false);
                 }}
               />
-              <Icon
-                name="save"
-                size="large"
-                onClick={() => saveData()}
-              />
+              <Icon name="save" size="large" onClick={() => saveData()} />
               <Icon
                 name="close"
                 size="large"

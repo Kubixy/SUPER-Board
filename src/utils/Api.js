@@ -75,12 +75,12 @@ export async function userIdFinder(uid) {
 Looks for a session with the id introduced 
 and returns the owner of the session
 */
-export async function LFBoard(idClass) {
+export async function LFBoard(idBoard) {
   let output;
 
   await db
     .collection("sessions")
-    .doc(idClass)
+    .doc(idBoard)
     .get()
     .then(function (querySnapshot) {
       output = querySnapshot.data().user;
@@ -128,13 +128,13 @@ export function googleLogin() {
     .auth()
     .signInWithPopup(provider)
     //.then((result) => {
-      /** @type {firebase.auth.OAuthCredential} */
-      //var credential = result.credential;
-      // This gives you a Google Access Token. You can use it to access the Google API.
-      //var token = credential.accessToken;
-      // The signed-in user info.
-      //var user = result.user;
-      // ...
+    /** @type {firebase.auth.OAuthCredential} */
+    //var credential = result.credential;
+    // This gives you a Google Access Token. You can use it to access the Google API.
+    //var token = credential.accessToken;
+    // The signed-in user info.
+    //var user = result.user;
+    // ...
     //})
     .catch((error) => {
       // Handle Errors here.
