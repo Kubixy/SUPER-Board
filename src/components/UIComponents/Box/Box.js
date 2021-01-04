@@ -138,10 +138,10 @@ export default function Box(props) {
 
   const options = [
     { key: "text", text: "Text", value: "text" },
-    { key: "video", text: "Video", value: "video" },
-    { key: "quiz", text: "Quiz", value: "quiz" },
     { key: "image", text: "Image", value: "image" },
     { key: "file", text: "PDF", value: "file" },
+    { key: "video", text: "Video", value: "video" },
+    { key: "quiz", text: "Quiz", value: "quiz" },
   ];
 
   return (
@@ -165,7 +165,17 @@ export default function Box(props) {
                 content="You can create up to 20 items"
                 position="bottom center"
                 trigger={
-                  <Label basic size="medium" as="a" circular>
+                  <Label
+                    basic
+                    size="medium"
+                    as="a"
+                    circular
+                    style={
+                      data.length < 21
+                        ? null
+                        : { "background-color": "red", color: "white" }
+                    }
+                  >
                     <p>{data.length - 1}</p>
                   </Label>
                 }

@@ -18,22 +18,28 @@ export default function File(props) {
   const { state } = useUserTools();
 
   const [file, setFile] = useState(null);
-  const [input, setInput] = useState("");
+  const [input, setInput] = useState(null);
 
-  const onClickFile = async () => {
+  const onClickFile = () => {
     if (file) {
       if (state.files < 3) {
-        if (file[0].type.includes("pdf")) {
+        if (file.length === 1 && file[0].type.includes("pdf")) {
           if (file[0].size / 1024 <= 5120) {
-            await uploadFile(file[0], uid, fileIndex, "files");
-            setData(
-              data.concat({ type: userInput, title: input, index: fileIndex })
-            );
-            setFileIndex(fileIndex + 1);
-            setNewData(false);
-            toast.success("PDF added");
+            if (input) {
+              uploadFile(file[0], uid, fileIndex, "files");
+              setData(
+                data.concat({ type: userInput, title: input, index: fileIndex })
+              );
+              setFileIndex(fileIndex + 1);
+              setNewData(false);
+              document.getElementById("fileInput").value = "";
+              toast.success("PDF added");
+            } else {
+              toast.warning("You must pick a name for your file");
+            }
           } else {
             toast.warning("That file is too heavy (5MB limit)");
+            document.getElementById("fileInput").value = "";
           }
         } else {
           toast.warning("That's not a PDF file");
@@ -44,7 +50,6 @@ export default function File(props) {
     } else {
       toast.warning("No PDF selected");
     }
-    document.getElementById("fileInput").value = "";
     document.getElementById("inputFileName").value = "";
   };
 
@@ -68,8 +73,8 @@ export default function File(props) {
       </div>
       <Input
         id="inputFileName"
-        placeholder="Pick a name for your file (optional)"
-        maxLength="100"
+        placeholder="Pick a name for your file"
+        maxLength="50"
         type="text"
         onChange={(e) => setInput(e.target.value)}
       ></Input>

@@ -1,7 +1,12 @@
 import React, { useState } from "react";
 import { Form, Input, Button } from "semantic-ui-react";
 import { toast } from "react-toastify";
-import { reauthenticate, googleLogin } from "../../utils/Api";
+import {
+  reauthenticate,
+  googleLogin,
+  deleteUserDataStorage,
+  deleteUserDataFirestore,
+} from "../../utils/Api";
 
 export default function DeleteAccount(props) {
   const { user, setShowModal, setTitleModal, setContentModal } = props;
@@ -26,19 +31,18 @@ function AccountDeletion(props) {
   const [formData, setFormData] = useState({ userPass: "" });
   const [isLoading, setIsLoading] = useState(false);
 
+  const userDataDeletionCall = () => {
+    deleteUserDataStorage(["files", "images", "avatar"], user.uid);
+    deleteUserDataFirestore(user.uid, "boards", ["data"]);
+    user.delete();
+  };
+
   const onSubmit = () => {
     setIsLoading(true);
     reauthenticate(formData.userPass)
       .then(() => {
-        user
-          .delete()
-          .then(() => {
-            toast.success("Account successfully deleted");
-          })
-          .catch((error) => {
-            toast.warning("Something went wrong");
-            console.log(error);
-          });
+        userDataDeletionCall();
+        toast.success("Account successfully deleted");
       })
       .catch(() => {
         toast.warning("Incorrect password");
@@ -70,14 +74,14 @@ function AccountDeletion(props) {
             <Button
               size="large"
               negative
-              onClick={() =>
+              onClick={() => {
                 googleLogin()
                   .then(() => {
-                    user.delete();
+                    userDataDeletionCall();
                     toast.success("Account successfully deleted");
                   })
-                  .catch(() => toast.warning("Something went wrong"))
-              }
+                  .catch(() => toast.warning("Something went wrong"));
+              }}
             >
               Delete
             </Button>

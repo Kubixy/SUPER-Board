@@ -31,11 +31,7 @@ export async function readUserData(userId) {
     .doc(userId)
     .get()
     .then((doc) => {
-      if (!doc.exists) {
-        console.log("Error loading the doc (readUserData)");
-      } else {
-        output = doc.data().data;
-      }
+      if (doc.exists) output = doc.data().data;
     })
     .catch((err) => {
       console.log("Error (readUserData) --> ", err);
@@ -180,6 +176,46 @@ export function deleteFile(uid, index, folder) {
       console.log("Error (deleteFile) --> ", err);
     });
 }
+
+export const deleteUserDataStorage = (folders, uid) => {
+  for (let i = 0; i < folders.length; i++) {
+    firebase
+      .storage()
+      .ref()
+      .child(`${folders[i]}/${uid}`)
+      .listAll()
+      .then(({ items }) => {
+        for (let j = 0; j < items.length; j++) {
+          deleteFile(uid, items[j].name, folders[i]);
+        }
+      })
+      .catch((error) => {
+        console.log("Error (deleteUserData) --> ", error);
+      });
+  }
+};
+
+export const deleteUserDataFirestore = (uid, document, toDelete) => {
+  let myCollection = db.collection(document).doc(uid);
+
+  for (let i = 0; i < toDelete.length; i++) {
+    myCollection
+      .update({ [toDelete[i]]: firebase.firestore.FieldValue.delete() })
+      .catch((error) => {
+        console.log("Error (deleteUserDataFirestore) --> ", error);
+      });
+  }
+
+  myCollection.delete().catch((error) => {
+    console.log("Error (deleteUserDataFirestore) --> ", error);
+  });
+
+  userIdFinder(uid).then(({ id }) => {
+    if (id) {
+      deleteUserDataFirestore(id, "sessions", ["user", "visitors"]);
+    }
+  });
+};
 
 export function googleLogin() {
   let provider = new firebase.auth.GoogleAuthProvider();

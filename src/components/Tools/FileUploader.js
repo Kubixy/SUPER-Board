@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button, Divider } from "semantic-ui-react";
+import { Button, Icon } from "semantic-ui-react";
 import firebase from "../../utils/Firebase";
 import { toast } from "react-toastify";
 import "firebase/storage";
@@ -63,8 +63,8 @@ export default function FileUploader(props) {
         />
       )}
       <Button href onClick={() => copyToClipboard()}>
-        Click to copy the download link <Divider fitted={true} />
-        {title !== null ? title : ""}
+        <Icon name="file pdf outline" size="big" />
+        <p>{title}</p>
       </Button>
     </div>
   );
