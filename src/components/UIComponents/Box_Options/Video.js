@@ -9,7 +9,12 @@ export default function Video(props) {
   const onClickVideo = () => {
     if (userInputVideo) {
       if (userInputVideo.includes("youtube.com/watch?v=")) {
-        setData(data.concat({ type: userInput, content: userInputVideo }));
+        let newData = data;
+        newData.push({
+          type: userInput,
+          content: userInputVideo,
+        });
+        setData(data);
         toast.success("Video added");
         setNewData(false);
         console.log(userInputVideo);

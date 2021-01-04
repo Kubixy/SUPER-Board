@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Dropdown, Icon, Label, Popup, Message } from "semantic-ui-react";
 import BasicModal from "../../Modal/BasicModal";
 import { writeUserData } from "../../../utils/Api";
@@ -31,27 +31,14 @@ export default function Box(props) {
     idBoard,
     boardON,
     setIsBuilding,
-    dispatch,
   } = useUserTools();
 
   const [userInput, setUserInput] = useState(null);
   const [toggleStatus, setToggleStatus] = useState(true);
   const [saveChangesModal, setSaveChangesModal] = useState(false);
 
-  useEffect(() => {
-    dispatch({ type: "reset" });
-    // eslint-disable-next-line
-    data.map((x) => {
-      if (x.type === "image") {
-        dispatch({ type: "increImg" });
-      } else if (x.type === "file") {
-        dispatch({ type: "increFil" });
-      }
-    });
-  }, [data, dispatch]);
-
   const selector = () => {
-    if (data.length - 1 < 20) {
+    if (data.length < 20) {
       switch (userInput) {
         case "video":
           return (
@@ -176,7 +163,7 @@ export default function Box(props) {
                         : { "background-color": "red", color: "white" }
                     }
                   >
-                    <p>{data.length - 1}</p>
+                    <p>{data.length}</p>
                   </Label>
                 }
               />

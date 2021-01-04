@@ -15,7 +15,7 @@ export default function Image(props) {
     setNewData,
   } = props;
 
-  const { state } = useUserTools();
+  const { state, dispatch } = useUserTools();
 
   const [file, setFile] = useState(null);
   const [subtitle, setSubtitle] = useState("");
@@ -26,16 +26,18 @@ export default function Image(props) {
         if (state.images < 3) {
           if (file[0].size / 1024 <= 5120) {
             await uploadFile(file[0], uid, imageIndex, "images");
-            setData(
-              data.concat({
-                type: userInput,
-                index: imageIndex,
-                subtitle: subtitle,
-              })
-            );
+            let newData = data;
+            newData.push({
+              type: userInput,
+              index: imageIndex,
+              subtitle: subtitle,
+            });
+            setData(newData);
 
             setimageIndex(imageIndex + 1);
             setNewData(false);
+            dispatch({ type: "increImg" });
+            setSubtitle("");
             toast.success("Image added");
           } else {
             toast.warning("That image is too heavy (5MB limit)");

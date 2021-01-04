@@ -13,13 +13,13 @@ export default function Text(props) {
       document.getElementById("header").value &&
       document.getElementById("body").value
     ) {
-      setData(
-        data.concat({
-          type: userInput,
-          header: userInputHeader,
-          body: userInputBody,
-        })
-      );
+      let newData = data;
+      newData.push({
+        type: userInput,
+        header: userInputHeader,
+        body: userInputBody,
+      });
+      setData(newData);
       document.getElementById("header").value = "";
       document.getElementById("body").value = "";
       toast.success("Text added");

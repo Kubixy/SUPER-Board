@@ -30,7 +30,7 @@ export function UserToolsProvider(props) {
   const [managementON, setManagment] = useState(true);
   const [boardFound, setBoardFound] = useState(null);
   const [boardON, setBoardON] = useState(false);
-  const [data, setData] = useState([{}]);
+  const [data, setData] = useState([]);
   const [newData, setNewData] = useState(true);
   const [deleteIndex, setDeleteIndex] = useState(null);
 

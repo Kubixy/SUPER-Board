@@ -54,7 +54,12 @@ export default function Quiz(props) {
       toast.error("Add at least one question");
     } else {
       setUserInputQuiz(userInputQuiz.shift());
-      setData(data.concat({ type: userInput, questions: userInputQuiz }));
+      let newData = data;
+      newData.push({
+        type: userInput,
+        questions: userInputQuiz,
+      });
+      setData(data);
       resetHandlers();
       toast.success("Quiz added");
       setNewData(false);

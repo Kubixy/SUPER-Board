@@ -37,6 +37,7 @@ export default function BoardMaker(props) {
     deleteElementCallback,
     render,
     user,
+    dispatch,
   } = useUserTools();
 
   const onDelete = async () => {
@@ -80,6 +81,18 @@ export default function BoardMaker(props) {
     userLoader();
     render();
   }, [userLoader, render]);
+
+  useEffect(() => {
+    dispatch({ type: "reset" });
+    // eslint-disable-next-line
+    data.map((x) => {
+      if (x.type === "image") {
+        dispatch({ type: "increImg" });
+      } else if (x.type === "file") {
+        dispatch({ type: "increFil" });
+      }
+    });
+  }, [data, dispatch]);
 
   return (
     <>

@@ -16,7 +16,7 @@ Loads the user data on Firebase when the user presses the save button
 ClassMaker > Box
 */
 export function writeUserData(userId, data) {
-  return db.collection("boards").doc(userId).set({ data });
+  return db.collection("boards").doc(userId).update({ data: data });
 }
 
 /*
