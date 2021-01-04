@@ -1,13 +1,14 @@
 import React, { useState } from "react";
-import { Icon } from "semantic-ui-react";
+import { Icon, Label } from "semantic-ui-react";
 import BasicModal from "../../Modal/BasicModal";
 import AskForSaveNavBar from "../../Modal/Functions/AskForSaveNavBar";
+import UserListNavBar from "../../Modal/Functions/UserListNavBar";
 import { useUserTools } from "../../../context/UserToolsProvider";
 
 import "./NavBar.scss";
 
 export default function NavBar(props) {
-  const { allowEdit } = props;
+  const { allowEdit, visitorState } = props;
 
   const {
     endClassCallback,
@@ -21,7 +22,8 @@ export default function NavBar(props) {
     render,
   } = useUserTools();
 
-  const [showModal, setShowModal] = useState(false);
+  const [showModalManagment, setShowModalshowModalManagment] = useState(false);
+  const [showModalUserList, setShowModalUserList] = useState(false);
 
   return (
     <div className="navBar">
@@ -48,7 +50,7 @@ export default function NavBar(props) {
             size="big"
             circular="true"
             onClick={() => {
-              if (!newData) setShowModal(true);
+              if (!newData) setShowModalshowModalManagment(true);
               else {
                 setManagment(!managementON);
                 render();
@@ -58,23 +60,42 @@ export default function NavBar(props) {
         )}
       </div>
       <div className="navBar__center">
-        <Icon name="slideshare" size="huge" />
-        <h1>{idBoard}</h1>
+        <Label basic size="medium" as="a" circular>
+          <p>{idBoard}</p>
+        </Label>
       </div>
-      <div className="navBar__right">
+      <div className="navBar__right" onClick={() => setShowModalUserList(true)}>
         <Icon name="users" size="big" />
-        <h1>999</h1>
+        <h1>{visitorState.length}</h1>
       </div>
       {
-        <BasicModal show={showModal} setShow={setShowModal} title="Warning">
+        <BasicModal
+          show={showModalManagment}
+          setShow={setShowModalshowModalManagment}
+          title="Warning"
+        >
           {
             <AskForSaveNavBar
-              setShowModal={setShowModal}
+              setShowModal={setShowModalshowModalManagment}
               boardFound={boardFound}
               data={data}
               setManagment={setManagment}
               setNewData={setNewData}
               render={render}
+            />
+          }
+        </BasicModal>
+      }
+      {
+        <BasicModal
+          show={showModalUserList}
+          setShow={setShowModalUserList}
+          title=""
+        >
+          {
+            <UserListNavBar
+              setShowModal={setShowModalUserList}
+              visitorState={visitorState}
             />
           }
         </BasicModal>

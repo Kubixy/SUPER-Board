@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Header, Icon, Input, Button } from "semantic-ui-react";
 import { LFBoard } from "../../../utils/Api";
+import { useUserTools } from "../../../context/UserToolsProvider";
 import { toast } from "react-toastify";
 
 import "./LFBoard.scss";
@@ -14,6 +15,8 @@ export default function (props) {
     setBoardON,
   } = props;
 
+  const { setIdBoard } = useUserTools();
+
   const [input, setInput] = useState(null);
   const [error, setError] = useState(false);
 
@@ -21,6 +24,7 @@ export default function (props) {
     if (input !== null) {
       LFBoard(input).then((response) => {
         if (response !== undefined) {
+          setIdBoard(input);
           setBoardFound(response);
           setManagment(false);
           setIsBuilding(true);

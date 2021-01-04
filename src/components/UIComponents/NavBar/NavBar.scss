@@ -8,16 +8,19 @@
   display: flex;
   align-items: center;
   border-bottom: solid 5px $primary-color;
+  justify-content: space-between;
   color: $font-light;
 
   &__center {
-    position: absolute;
-    display: flex;
-    margin-left: 47%;
+    .ui.medium.basic.label {
+      width: 6rem;
+      font-size: 1.3rem;
+      text-align: center;
 
-    h1 {
-      margin: 0px;
-      padding-top: 12px;
+      a {
+        color: $font-dark !important;
+        opacity: 1;
+      }
     }
   }
 
@@ -39,10 +42,16 @@
 
   &__right {
     margin-right: 20px;
-    right: 0;
-    position: absolute;
+
     display: flex;
     align-items: center;
+    padding: 0.7rem;
+
+    &:hover {
+      cursor: pointer;
+      background-color: $primary-color-hover !important;
+      border-radius: 0.5rem;
+    }
 
     h1 {
       margin: 0px;

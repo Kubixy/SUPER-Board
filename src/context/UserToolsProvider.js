@@ -50,9 +50,9 @@ export function UserToolsProvider(props) {
     }
   }, [deleteIndex, data]);
 
-  const render = useCallback(() => {
+  const render = useCallback(async () => {
     if (user)
-      readUserData(boardFound === null ? user.uid : boardFound).then(
+      await readUserData(boardFound === null ? user.uid : boardFound).then(
         (response) => {
           if (response !== null) {
             setData(response);

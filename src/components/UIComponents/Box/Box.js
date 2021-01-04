@@ -160,17 +160,19 @@ export default function Box(props) {
               }
             />
 
-            <div className="top-icons">
+            <div className="top-id">
               <Popup
                 content="You can create up to 20 items"
                 position="bottom center"
                 trigger={
-                  <Label basic size="medium" as="a">
+                  <Label basic size="medium" as="a" circular>
                     <p>{data.length - 1}</p>
                   </Label>
                 }
               />
+            </div>
 
+            <div className="top-icons">
               <Icon
                 name="arrow alternate circle left"
                 className={boardON ? "no-arrow" : null}

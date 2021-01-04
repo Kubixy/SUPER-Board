@@ -20,7 +20,7 @@ export function writeUserData(userId, data) {
 }
 
 /*
-Loads the user data on Classmaker
+Loads the user data on Classmaker (render)
 If there is none, it returns a null value
 */
 export async function readUserData(userId) {
@@ -119,11 +119,52 @@ export function addBoard(uid) {
     }
   } while (!unique);
 
-  return db
-    .collection("sessions")
-    .doc(newID)
-    .set({ user: uid, activeUsers: 0 });
+  return db.collection("sessions").doc(newID).set({ user: uid, visitors: [] });
 }
+
+export const getVisitors = async (idBoard) => {
+  let output;
+
+  await db
+    .collection("sessions")
+    .doc(idBoard)
+    .get()
+    .then((querySnapshot) => {
+      output = querySnapshot.data().visitors;
+    });
+
+  return output;
+};
+
+export const setVisitors = async (idBoard, user) => {
+  let visitors_local,
+    isRepeated = false;
+
+  visitors_local = await getVisitors(idBoard);
+
+  for (let i of visitors_local) {
+    if (i.visitorUID === user.uid) {
+      isRepeated = true;
+      break;
+    }
+  }
+
+  if (!isRepeated) {
+    let d = new Date();
+
+    visitors_local.push({
+      visitorUID: user.uid,
+      photo: user.photoURL,
+      name: user.displayName,
+      visitDate: d.getFullYear() + "/" + d.getMonth() + 1 + "/" + d.getDate(),
+    });
+
+    await db
+      .collection("sessions")
+      .doc(idBoard)
+      .update({ visitors: visitors_local });
+  }
+};
 
 export function uploadFile(file, uid, index, folder) {
   firebase.storage().ref().child(`${folder}/${uid}/${index}`).put(file);

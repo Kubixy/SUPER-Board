@@ -7,7 +7,13 @@ import MakeQuiz from "../../components/Tools/Quiz/MakeQuiz";
 import ShowImage from "../../components/Tools/ShowImage";
 import FileUploader from "../../components/Tools/FileUploader";
 import ErrorMessage from "../../components/Tools/ErrorMessage";
-import { addBoard, userIdFinder, deleteFile } from "../../utils/Api";
+import {
+  addBoard,
+  userIdFinder,
+  deleteFile,
+  setVisitors,
+  getVisitors,
+} from "../../utils/Api";
 
 import "./BoardMaker.scss";
 
@@ -17,6 +23,7 @@ export default function BoardMaker(props) {
   const [imgArrayToDelete, setImgArrayToDelete] = useState([]);
   const [fileArrayToDelete, setFileArrayToDelete] = useState([]);
   const [allowEdit, setAllowEdit] = useState(false);
+  const [visitorState, setVisitorState] = useState([]);
 
   const { useUserTools } = props;
   const {
@@ -24,10 +31,12 @@ export default function BoardMaker(props) {
     boardFound,
     boardON,
     managementON,
+    idBoard,
     setIdBoard,
     data,
     deleteElementCallback,
     render,
+    user,
   } = useUserTools();
 
   const onDelete = async () => {
@@ -59,9 +68,13 @@ export default function BoardMaker(props) {
       } else {
         setIdBoard(response.id);
         setAllowEdit(userId === boardFound);
+        setVisitors(idBoard, user);
+        getVisitors(idBoard).then((result) => {
+          setVisitorState(result);
+        });
       }
     });
-  }, [boardFound, managementON, userId, setIdBoard]);
+  }, [boardFound, managementON, userId, setIdBoard, idBoard, user]);
 
   useEffect(() => {
     userLoader();
@@ -70,7 +83,9 @@ export default function BoardMaker(props) {
 
   return (
     <>
-      {(!managementON || boardON) && <NavBar allowEdit={allowEdit} />}
+      {(!managementON || boardON) && (
+        <NavBar allowEdit={allowEdit} visitorState={visitorState} />
+      )}
       <div className="background" />
       <div className="panel">
         <div className="panel__all" />

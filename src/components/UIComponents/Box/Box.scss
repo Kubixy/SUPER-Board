@@ -29,30 +29,23 @@
   }
 
   .top-bar {
+    width: 100%;
     display: flex;
     flex-direction: row;
     padding-top: 0.7rem;
-    align-self: flex-end;
+    justify-content: space-between;
 
     .no-arrow {
       visibility: hidden;
     }
 
-    h3 {
-      margin-right: 5.2rem;
-    }
-
-    .top-icons {
-      display: flex;
-      flex-direction: row;
-
-      .ui.medium.basic.label {
-        margin-right: 4.2rem;
-        height: 2.2rem;
-        font-size: 1.2rem;
+    .top-id {
+      .ui.medium.basic.circular.label {
+        height: 0;
+        font-size: 1rem;
 
         p {
-          margin-top: -0.5rem;
+          margin-top: -0.3rem;
         }
 
         &:hover {
@@ -60,6 +53,11 @@
           background-color: $primary-color-hover;
         }
       }
+    }
+
+    .top-icons {
+      display: flex;
+      flex-direction: row;
 
       .arrow.alternate.circle.left.large.icon {
         &:hover {
