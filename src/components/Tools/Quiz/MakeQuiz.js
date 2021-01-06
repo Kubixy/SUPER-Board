@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Button, Form } from "semantic-ui-react";
 import QuestionQuiz from "./QuestionQuiz";
 import { useUserTools } from "../../../context/UserToolsProvider";
+import Draggable from "react-draggable";
 
 export default function MakeQuiz(props) {
   const { questions, index } = props;
@@ -12,7 +13,7 @@ export default function MakeQuiz(props) {
   const [rightAnswers, setRightAnswers] = useState(0);
 
   return (
-    <>
+    <Draggable>
       <div className="quiz">
         {managementON && (
           <Button
@@ -58,6 +59,6 @@ export default function MakeQuiz(props) {
           </h2>
         )}
       </div>
-    </>
+    </Draggable>
   );
 }

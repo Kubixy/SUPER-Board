@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useCallback, useReducer } from "react";
-import { readUserData } from "../utils/Api";
+import { readUserData, readItemPosition } from "../utils/Api";
 
 const UserContext = React.createContext();
 
@@ -33,6 +33,7 @@ export function UserToolsProvider(props) {
   const [data, setData] = useState([]);
   const [newData, setNewData] = useState(true);
   const [deleteIndex, setDeleteIndex] = useState(null);
+  const [positionRecord, setPositionRecord] = useState([]);
 
   const [state, dispatch] = useReducer(reducer, { files: 0, images: 0 });
 
@@ -45,7 +46,12 @@ export function UserToolsProvider(props) {
 
   const deleteElementCallback = useCallback(() => {
     if (deleteIndex !== null) {
-      data.splice(deleteIndex, 1);
+      data.splice(
+        data.findIndex((x) => {
+          return x.mainindex === deleteIndex;
+        }),
+        1
+      );
       setDeleteIndex(null);
     }
   }, [deleteIndex, data]);
@@ -56,10 +62,66 @@ export function UserToolsProvider(props) {
         (response) => {
           if (response !== null) {
             setData(response);
+            getPositionRecord();
           }
         }
       );
   }, [user, boardFound]);
+
+  const getPositionRecord = useCallback(async () => {
+    if (user)
+      await readItemPosition(user.uid).then((response) => {
+        if (response !== null) setPositionRecord(response);
+      });
+  }, [user]);
+
+  const updatePositionRecord = useCallback(
+    (index, values) => {
+      let exits = false;
+
+      for (let i = 0; i < positionRecord.length; i++) {
+        if (positionRecord[i].index === index) {
+          positionRecord[i].position = {
+            x: values.x,
+            y: values.y,
+          };
+          setPositionRecord(positionRecord);
+          exits = true;
+        }
+      }
+
+      if (!exits) {
+        positionRecord.push({
+          index: index,
+          position: {
+            x: values.x,
+            y: values.y,
+          },
+        });
+        setPositionRecord(positionRecord);
+      }
+
+      setNewData(false);
+    },
+    [positionRecord]
+  );
+
+  const generateItemID = (myData) => {
+    let newID = Math.floor(Math.random() * (100000 - 1000));
+    if (data.length > 0) {
+      let unique;
+      do {
+        unique = true;
+        myData.map((x) => {
+          if (newID === x.index) {
+            unique = false;
+            newID = Math.floor(Math.random() * (100000 - 1000));
+          }
+        });
+      } while (!unique);
+    }
+    return newID;
+  };
 
   const value = useMemo(() => {
     return {
@@ -86,6 +148,10 @@ export function UserToolsProvider(props) {
       render,
       state,
       dispatch,
+      positionRecord,
+      updatePositionRecord,
+      getPositionRecord,
+      generateItemID,
     };
   }, [
     user,
@@ -99,6 +165,10 @@ export function UserToolsProvider(props) {
     deleteElementCallback,
     render,
     state,
+    positionRecord,
+    updatePositionRecord,
+    getPositionRecord,
+    generateItemID,
   ]);
 
   return <UserContext.Provider value={value} {...props} />;

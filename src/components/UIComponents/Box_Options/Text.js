@@ -1,26 +1,21 @@
 import React, { useState } from "react";
-import { Input, Form, Button } from "semantic-ui-react";
+import { Form, Button } from "semantic-ui-react";
 import { toast } from "react-toastify";
+import { useUserTools } from "../../../context/UserToolsProvider";
 
 export default function Text(props) {
   const { setData, data, setNewData, userInput } = props;
-
-  const [userInputHeader, setUserInputHeader] = useState(null);
+  const { generateItemID } = useUserTools();
   const [userInputBody, setUserInputBody] = useState(null);
 
   const onClickText = () => {
-    if (
-      document.getElementById("header").value &&
-      document.getElementById("body").value
-    ) {
-      let newData = data;
-      newData.push({
+    if (document.getElementById("body").value) {
+      data.push({
+        mainindex: generateItemID(data),
         type: userInput,
-        header: userInputHeader,
         body: userInputBody,
       });
-      setData(newData);
-      document.getElementById("header").value = "";
+      setData(data);
       document.getElementById("body").value = "";
       toast.success("Text added");
       setNewData(false);
@@ -31,13 +26,6 @@ export default function Text(props) {
 
   return (
     <div className="options-text">
-      <Input
-        id="header"
-        type="text"
-        onChange={(e) => setUserInputHeader(e.target.value)}
-        placeholder="Header"
-        maxLength="40"
-      ></Input>
       <Form.TextArea
         id="body"
         onChange={(e) => setUserInputBody(e.target.value)}

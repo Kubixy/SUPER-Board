@@ -3,6 +3,7 @@ import { Button } from "semantic-ui-react";
 import firebase from "../../utils/Firebase";
 import "firebase/storage";
 import { useUserTools } from "../../context/UserToolsProvider";
+import Draggable from "react-draggable";
 
 export default function ShowImage(props) {
   const {
@@ -11,7 +12,6 @@ export default function ShowImage(props) {
     index,
     setImgArrayToDelete,
     imgArrayToDelete,
-    subtitle,
   } = props;
   const {
     setNewData,
@@ -61,31 +61,31 @@ export default function ShowImage(props) {
   };
 
   return (
-    <div className="image">
-      {managementON && (
-        <Button
-          className="close-button"
-          icon="close"
-          onClick={() => {
-            setDeleteIndex(index);
-            setImgArrayToDelete([...imgArrayToDelete, indexImg]);
-            setNewData(false);
-            dispatch({ type: "decreImg" });
+    <Draggable>
+      <div className="image">
+        {managementON && (
+          <Button
+            className="close-button"
+            icon="close"
+            onClick={() => {
+              setDeleteIndex(index);
+              setImgArrayToDelete([...imgArrayToDelete, indexImg]);
+              setNewData(false);
+              dispatch({ type: "decreImg" });
+            }}
+          />
+        )}
+        <img
+          ref={(ref) => setImg(ref)}
+          onLoad={() => {
+            onLoad();
           }}
+          src={url}
+          width={img.width !== 1 ? img.width : 1}
+          height={img.height !== 1 ? img.height : 1}
+          alt=""
         />
-      )}
-      <img
-        ref={(ref) => setImg(ref)}
-        onLoad={() => {
-          onLoad();
-        }}
-        src={url}
-        width={img.width !== 1 ? img.width : 1}
-        height={img.height !== 1 ? img.height : 1}
-        alt=""
-      />
-
-      {subtitle !== "" && <h1> {subtitle} </h1>}
-    </div>
+      </div>
+    </Draggable>
   );
 }

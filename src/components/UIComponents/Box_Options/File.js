@@ -14,9 +14,7 @@ export default function File(props) {
     userInput,
     setNewData,
   } = props;
-
-  const { state, dispatch } = useUserTools();
-
+  const { state, dispatch, generateItemID } = useUserTools();
   const [file, setFile] = useState(null);
   const [input, setInput] = useState(null);
 
@@ -27,13 +25,13 @@ export default function File(props) {
           if (file[0].size / 1024 <= 5120) {
             if (input) {
               uploadFile(file[0], uid, fileIndex, "files");
-              let newData = data;
-              newData.push({
+              data.push({
+                mainindex: generateItemID(data),
                 type: userInput,
                 title: input,
                 index: fileIndex,
               });
-              setData(newData);
+              setData(data);
               setFileIndex(fileIndex + 1);
               setNewData(false);
               document.getElementById("fileInput").value = "";

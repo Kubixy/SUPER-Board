@@ -1,14 +1,15 @@
 import React from "react";
-import { Container, Divider, Button } from "semantic-ui-react";
+import { Container, Button, Icon } from "semantic-ui-react";
 import { useUserTools } from "../../context/UserToolsProvider";
+import DrawAndResize from "../UIComponents/DrawAndResize/DrawAndResize";
 
 export default function ShowText(props) {
-  const { header, body, index } = props;
+  const { body, index } = props;
   const { setNewData, managementON, setDeleteIndex } = useUserTools();
 
   return (
-    <>
-      <div className="text">
+    <DrawAndResize index={index}>
+      <div className="text" id={"item" + index}>
         {managementON && (
           <Button
             className="close-button"
@@ -20,11 +21,10 @@ export default function ShowText(props) {
           />
         )}
         <Container textAlign="center">
-          <h1>{header}</h1>
-          <Divider />
-          <h3>{body}</h3>
+          <Icon name="move" size="large" />
+          <h1>{body}</h1>
         </Container>
       </div>
-    </>
+    </DrawAndResize>
   );
 }

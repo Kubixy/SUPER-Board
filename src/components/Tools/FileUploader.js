@@ -4,6 +4,7 @@ import firebase from "../../utils/Firebase";
 import { toast } from "react-toastify";
 import "firebase/storage";
 import { useUserTools } from "../../context/UserToolsProvider";
+import Draggable from "react-draggable";
 
 export default function FileUploader(props) {
   const {
@@ -49,23 +50,25 @@ export default function FileUploader(props) {
   };
 
   return (
-    <div className="file">
-      {managementON && (
-        <Button
-          className="close-button"
-          icon="close"
-          onClick={() => {
-            setDeleteIndex(index);
-            setFileArrayToDelete([...fileArrayToDelete, fileIndex]);
-            setNewData(false);
-            dispatch({ type: "decreFil" });
-          }}
-        />
-      )}
-      <Button href onClick={() => copyToClipboard()}>
-        <Icon name="file pdf outline" size="big" />
-        <p>{title}</p>
-      </Button>
-    </div>
+    <Draggable>
+      <div className="file">
+        {managementON && (
+          <Button
+            className="close-button"
+            icon="close"
+            onClick={() => {
+              setDeleteIndex(index);
+              setFileArrayToDelete([...fileArrayToDelete, fileIndex]);
+              setNewData(false);
+              dispatch({ type: "decreFil" });
+            }}
+          />
+        )}
+        <Button href onClick={() => copyToClipboard()}>
+          <Icon name="file pdf outline" size="big" />
+          <p>{title}</p>
+        </Button>
+      </div>
+    </Draggable>
   );
 }

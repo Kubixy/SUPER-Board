@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { Input, Dropdown, Button, Form, Icon } from "semantic-ui-react";
 import { toast } from "react-toastify";
+import { useUserTools } from "../../../context/UserToolsProvider";
 
 export default function Quiz(props) {
   const { setData, data, userInput, setNewData } = props;
   const [userInputQuiz, setUserInputQuiz] = useState([{}]);
   const [questions, setQuestions] = useState([{}]);
   const [solution, setSolution] = useState(null);
+  const { generateItemID } = useUserTools();
 
   const resetForm = () => {
     for (var i = 0; i < 5; i++) {
@@ -54,8 +56,8 @@ export default function Quiz(props) {
       toast.error("Add at least one question");
     } else {
       setUserInputQuiz(userInputQuiz.shift());
-      let newData = data;
-      newData.push({
+      data.push({
+        mainindex: generateItemID(data),
         type: userInput,
         questions: userInputQuiz,
       });

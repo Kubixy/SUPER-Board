@@ -1,16 +1,18 @@
 import React, { useState } from "react";
 import { Input, Button, Icon, Popup } from "semantic-ui-react";
 import { toast } from "react-toastify";
+import { useUserTools } from "../../../context/UserToolsProvider";
 
 export default function Video(props) {
   const { setData, data, userInput, setNewData } = props;
+  const { generateItemID } = useUserTools();
   const [userInputVideo, setInputVideo] = useState(null);
 
   const onClickVideo = () => {
     if (userInputVideo) {
       if (userInputVideo.includes("youtube.com/watch?v=")) {
-        let newData = data;
-        newData.push({
+        data.push({
+          mainindex: generateItemID(data),
           type: userInput,
           content: userInputVideo,
         });

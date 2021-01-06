@@ -101,7 +101,6 @@ export default function BoardMaker(props) {
       )}
       <div className="background" />
       <div className="panel">
-        <div className="panel__all" />
         {managementON && (
           <Box
             setimageIndex={setimageIndex}
@@ -116,27 +115,26 @@ export default function BoardMaker(props) {
         <div className="panel__input">
           {deleteElementCallback()}
           {/* eslint-disable-next-line*/}
-          {data.map((x, index) => {
+          {data.map((x) => {
             if (x.type)
               switch (x.type) {
                 case "video":
-                  return <VideoPlayer url={x.content} index={index} />;
+                  return <VideoPlayer url={x.content} index={x.mainindex} />;
 
                 case "text":
-                  return (
-                    <ShowText header={x.header} body={x.body} index={index} />
-                  );
+                  return <ShowText body={x.body} index={x.mainindex} />;
 
                 case "quiz":
-                  return <MakeQuiz questions={x.questions} index={index} />;
+                  return (
+                    <MakeQuiz questions={x.questions} index={x.mainindex} />
+                  );
 
                 case "image":
                   return (
                     <ShowImage
                       indexImg={x.index}
                       setimageIndex={setimageIndex}
-                      subtitle={x.subtitle}
-                      index={index}
+                      index={x.mainindex}
                       setImgArrayToDelete={setImgArrayToDelete}
                       imgArrayToDelete={imgArrayToDelete}
                     />
@@ -148,14 +146,14 @@ export default function BoardMaker(props) {
                       fileIndex={x.index}
                       setFileIndex={setFileIndex}
                       title={x.title}
-                      index={index}
+                      index={x.mainindex}
                       fileArrayToDelete={fileArrayToDelete}
                       setFileArrayToDelete={setFileArrayToDelete}
                     />
                   );
 
                 default:
-                  return <ErrorMessage index={index} />;
+                  return <ErrorMessage index={x.mainindex} />;
               }
           })}
         </div>

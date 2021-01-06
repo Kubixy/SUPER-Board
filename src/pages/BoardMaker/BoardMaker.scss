@@ -9,9 +9,6 @@
 }
 
 .panel {
-  display: flex;
-  align-items: center;
-  justify-content: center;
   color: $font-light;
 
   .button.ui.button {
@@ -70,10 +67,11 @@
 
   &__input {
     top: 100px;
+    width: 100vw;
+    height: 90vh;
     position: absolute;
     display: flex;
     align-items: center;
-    flex-direction: column;
 
     .error-message {
       background-color: red;
@@ -89,8 +87,13 @@
       &.close-button {
         position: absolute;
         z-index: 1;
-        width: 3rem;
+        width: 1rem;
+        height: 1rem;
         background-color: $main-red;
+
+        i {
+          display: none !important;
+        }
 
         &:hover {
           background-color: $red-hover;
@@ -276,18 +279,31 @@
     }
 
     .text {
+      position: absolute;
       background-color: $background-grey-dark-light;
       border-radius: 20px;
-      margin: 20px;
       padding: 20px;
       border: 3px solid $primary-color;
-      width: 590px;
+      box-sizing: border-box;
+      width: 200px;
+      height: 200px;
       word-spacing: 0.2rem;
+
+      .move.large.icon {
+        position: absolute;
+        left: 0;
+        top: 0;
+        padding: 0.5rem;
+
+        &:hover {
+          color: $background-grey-hover-2;
+        }
+      }
 
       button.ui.button {
         &.close-button {
-          margin-left: -0.5rem;
-          margin-top: -0.7rem;
+          right: 0;
+          margin-top: -1rem;
         }
       }
 

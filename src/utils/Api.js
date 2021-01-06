@@ -16,7 +16,7 @@ Loads the user data on Firebase when the user presses the save button
 ClassMaker > Box
 */
 export function writeUserData(userId, data) {
-  return db.collection("boards").doc(userId).update({ data: data });
+  return db.collection("boards").doc(userId).set({ data: data });
 }
 
 /*
@@ -239,4 +239,33 @@ export function googleLogin() {
   //var email = error.email;
   // The firebase.auth.AuthCredential type that was used.
   //var credential = error.credential;
+}
+
+export function saveItemPosition(userId, value) {
+  db.collection("itemdata")
+    .doc(userId)
+    .set({
+      value,
+    })
+    .catch((err) => {
+      console.log("Error (saveItemPosition) --> ", err);
+    });
+}
+
+export async function readItemPosition(userId) {
+  let output;
+
+  await db
+    .collection("itemdata")
+    .doc(userId)
+    .get()
+    .then((doc) => {
+      //console.log(doc.data().value);
+      output = doc.data().value;
+    })
+    .catch((err) => {
+      console.log("Error (readItemPosition) --> ", err);
+    });
+
+  return output;
 }

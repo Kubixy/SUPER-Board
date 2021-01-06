@@ -14,11 +14,8 @@ export default function Image(props) {
     userInput,
     setNewData,
   } = props;
-
-  const { state, dispatch } = useUserTools();
-
+  const { state, dispatch, generateItemID } = useUserTools();
   const [file, setFile] = useState(null);
-  const [subtitle, setSubtitle] = useState("");
 
   const onClickImage = async () => {
     if (file) {
@@ -26,18 +23,15 @@ export default function Image(props) {
         if (state.images < 3) {
           if (file[0].size / 1024 <= 5120) {
             await uploadFile(file[0], uid, imageIndex, "images");
-            let newData = data;
-            newData.push({
+            data.push({
+              mainindex: generateItemID(data),
               type: userInput,
               index: imageIndex,
-              subtitle: subtitle,
             });
-            setData(newData);
-
+            setData(data);
             setimageIndex(imageIndex + 1);
             setNewData(false);
             dispatch({ type: "increImg" });
-            setSubtitle("");
             toast.success("Image added");
           } else {
             toast.warning("That image is too heavy (5MB limit)");
@@ -52,7 +46,6 @@ export default function Image(props) {
       toast.warning("No image selected");
     }
     document.getElementById("imageInput").value = "";
-    document.getElementById("subtitleInput").value = "";
   };
 
   return (
@@ -73,14 +66,7 @@ export default function Image(props) {
           trigger={<Icon name="question circle" size="large" />}
         />
       </div>
-      <Input
-        id="subtitleInput"
-        placeholder="Write a subtitle (optional)"
-        maxLength="100"
-        onChange={(event, { value }) => {
-          setSubtitle(value);
-        }}
-      />
+
       <Button onClick={onClickImage}>Add image</Button>
     </div>
   );
