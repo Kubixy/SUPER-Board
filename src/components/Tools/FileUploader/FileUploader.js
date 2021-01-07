@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Button, Icon } from "semantic-ui-react";
-import firebase from "../../utils/Firebase";
+import firebase from "../../../utils/Firebase";
 import { toast } from "react-toastify";
 import "firebase/storage";
-import { useUserTools } from "../../context/UserToolsProvider";
-import Draggable from "react-draggable";
+import { useUserTools } from "../../../context/UserToolsProvider";
+import DrawAndResize from "../../UIComponents/DrawAndResize/";
+
+import "./FileUploader.scss";
 
 export default function FileUploader(props) {
   const {
@@ -50,8 +52,8 @@ export default function FileUploader(props) {
   };
 
   return (
-    <Draggable>
-      <div className="file">
+    <DrawAndResize index={index}>
+      <div className="file" id={"item" + index}>
         {managementON && (
           <Button
             className="close-button"
@@ -69,6 +71,6 @@ export default function FileUploader(props) {
           <p>{title}</p>
         </Button>
       </div>
-    </Draggable>
+    </DrawAndResize>
   );
 }

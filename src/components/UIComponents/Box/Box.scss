@@ -1,11 +1,5 @@
 @import "../../../scss/index.scss";
 
-.offset {
-  padding-top: 6vh;
-  width: 100vh;
-  height: 100vh;
-}
-
 .panel__box {
   display: flex;
   align-items: center;
@@ -13,10 +7,9 @@
   flex-direction: column;
   left: 0;
   top: 0;
-  position: fixed;
+  position: absolute;
   background-color: $background-grey-dark-light;
   width: 350px;
-  height: auto;
   margin-top: 100px;
   box-sizing: border-box;
   z-index: 2;
@@ -314,11 +307,5 @@
         }
       }
     }
-  }
-}
-
-@media (max-height: 53rem) {
-  .panel__box {
-    position: absolute;
   }
 }

@@ -10,7 +10,6 @@ import Quiz from "../Box_Options/Quiz";
 import AskForSave from "../../Modal/Functions/AskForSave";
 import { useUserTools } from "../../../context/UserToolsProvider";
 import { toast } from "react-toastify";
-import Draggable from "react-draggable";
 
 import "./Box.scss";
 
@@ -135,101 +134,97 @@ export default function Box(props) {
   ];
 
   return (
-    <div className="offset">
-      <Draggable axis="y" bounds="parent">
-        <div className={toggleStatus ? "panel__box" : "panel__closed"}>
-          {toggleStatus ? (
-            <>
-              <div className="top-bar">
-                <Popup
-                  content="Board ID"
-                  position="bottom center"
-                  trigger={
-                    <h3>
-                      <Icon name="id badge outline" size="large" />
-                      {idBoard}
-                    </h3>
-                  }
-                />
-
-                <div className="top-id">
-                  <Popup
-                    content="You can create up to 20 items"
-                    position="bottom center"
-                    trigger={
-                      <Label
-                        basic
-                        size="medium"
-                        as="a"
-                        circular
-                        style={
-                          data.length < 21
-                            ? null
-                            : { "background-color": "red", color: "white" }
-                        }
-                      >
-                        <p>{data.length}</p>
-                      </Label>
-                    }
-                  />
-                </div>
-
-                <div className="top-icons">
-                  <Icon
-                    name="arrow alternate circle left"
-                    className={boardON ? "no-arrow" : null}
-                    size="large"
-                    onClick={() => {
-                      if (!newData) setSaveChangesModal(true);
-                      else setIsBuilding(false);
-                    }}
-                  />
-                  <Icon name="save" size="large" onClick={() => saveData()} />
-                  <Icon
-                    name="close"
-                    size="large"
-                    onClick={() => {
-                      setToggleStatus(!toggleStatus);
-                    }}
-                  />
-                </div>
-              </div>
-              <div className="selector">
-                <h2>Control panel</h2>
-                <Dropdown
-                  placeholder="Pick an option"
-                  fluid
-                  selection
-                  options={options}
-                  onChange={(event, { value }) => {
-                    setUserInput(value);
-                  }}
-                />
-              </div>
-
-              {selector()}
-
-              {
-                <BasicModal
-                  show={saveChangesModal}
-                  setShow={setSaveChangesModal}
-                  title="Warning"
-                >
-                  {<AskForSave setShowModal={setSaveChangesModal} />}
-                </BasicModal>
+    <div className={toggleStatus ? "panel__box" : "panel__closed"}>
+      {toggleStatus ? (
+        <>
+          <div className="top-bar">
+            <Popup
+              content="Board ID"
+              position="bottom center"
+              trigger={
+                <h3>
+                  <Icon name="id badge outline" size="large" />
+                  {idBoard}
+                </h3>
               }
-            </>
-          ) : (
-            <Icon
-              className="close-icon"
-              name="pen square"
-              onClick={() => {
-                setToggleStatus(!toggleStatus);
+            />
+
+            <div className="top-id">
+              <Popup
+                content="You can create up to 20 items"
+                position="bottom center"
+                trigger={
+                  <Label
+                    basic
+                    size="medium"
+                    as="a"
+                    circular
+                    style={
+                      data.length < 21
+                        ? null
+                        : { "background-color": "red", color: "white" }
+                    }
+                  >
+                    <p>{data.length}</p>
+                  </Label>
+                }
+              />
+            </div>
+
+            <div className="top-icons">
+              <Icon
+                name="arrow alternate circle left"
+                className={boardON ? "no-arrow" : null}
+                size="large"
+                onClick={() => {
+                  if (!newData) setSaveChangesModal(true);
+                  else setIsBuilding(false);
+                }}
+              />
+              <Icon name="save" size="large" onClick={() => saveData()} />
+              <Icon
+                name="close"
+                size="large"
+                onClick={() => {
+                  setToggleStatus(!toggleStatus);
+                }}
+              />
+            </div>
+          </div>
+          <div className="selector">
+            <h2>Control panel</h2>
+            <Dropdown
+              placeholder="Pick an option"
+              fluid
+              selection
+              options={options}
+              onChange={(event, { value }) => {
+                setUserInput(value);
               }}
             />
-          )}
-        </div>
-      </Draggable>
+          </div>
+
+          {selector()}
+
+          {
+            <BasicModal
+              show={saveChangesModal}
+              setShow={setSaveChangesModal}
+              title="Warning"
+            >
+              {<AskForSave setShowModal={setSaveChangesModal} />}
+            </BasicModal>
+          }
+        </>
+      ) : (
+        <Icon
+          className="close-icon"
+          name="pen square"
+          onClick={() => {
+            setToggleStatus(!toggleStatus);
+          }}
+        />
+      )}
     </div>
   );
 }

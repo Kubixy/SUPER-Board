@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Button } from "semantic-ui-react";
-import firebase from "../../utils/Firebase";
+import firebase from "../../../utils/Firebase";
 import "firebase/storage";
-import { useUserTools } from "../../context/UserToolsProvider";
-import Draggable from "react-draggable";
+import { useUserTools } from "../../../context/UserToolsProvider";
+import DrawAndResize from "../../UIComponents/DrawAndResize";
 
 export default function ShowImage(props) {
   const {
@@ -61,8 +61,8 @@ export default function ShowImage(props) {
   };
 
   return (
-    <Draggable>
-      <div className="image">
+    <DrawAndResize index={index}>
+      <div className="image" id={"item" + index}>
         {managementON && (
           <Button
             className="close-button"
@@ -86,6 +86,6 @@ export default function ShowImage(props) {
           alt=""
         />
       </div>
-    </Draggable>
+    </DrawAndResize>
   );
 }

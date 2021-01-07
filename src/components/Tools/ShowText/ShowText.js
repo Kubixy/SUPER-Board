@@ -1,7 +1,9 @@
 import React from "react";
-import { Container, Button, Icon } from "semantic-ui-react";
-import { useUserTools } from "../../context/UserToolsProvider";
-import DrawAndResize from "../UIComponents/DrawAndResize/DrawAndResize";
+import { Container, Button } from "semantic-ui-react";
+import { useUserTools } from "../../../context/UserToolsProvider";
+import DrawAndResize from "../../UIComponents/DrawAndResize";
+
+import "./ShowText.scss";
 
 export default function ShowText(props) {
   const { body, index } = props;
@@ -9,7 +11,7 @@ export default function ShowText(props) {
 
   return (
     <DrawAndResize index={index}>
-      <div className="text" id={"item" + index}>
+      <div className="ShowText" id={"item" + index}>
         {managementON && (
           <Button
             className="close-button"
@@ -21,7 +23,6 @@ export default function ShowText(props) {
           />
         )}
         <Container textAlign="center">
-          <Icon name="move" size="large" />
           <h1>{body}</h1>
         </Container>
       </div>

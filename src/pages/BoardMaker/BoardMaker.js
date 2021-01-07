@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useCallback } from "react";
 import Box from "../../components/UIComponents/Box";
 import NavBar from "../../components/UIComponents/NavBar";
-import VideoPlayer from "../../components/Tools/VideoPlayer";
+import VideoPlayer from "../../components/Tools/VideoPlayer/VideoPlayer";
 import ShowText from "../../components/Tools/ShowText";
 import MakeQuiz from "../../components/Tools/Quiz/MakeQuiz";
-import ShowImage from "../../components/Tools/ShowImage";
-import FileUploader from "../../components/Tools/FileUploader";
+import ShowImage from "../../components/Tools/ShowImage/ShowImage";
+import FileUploader from "../../components/Tools/FileUploader/FileUploader";
 import ErrorMessage from "../../components/Tools/ErrorMessage";
 import {
   addBoard,

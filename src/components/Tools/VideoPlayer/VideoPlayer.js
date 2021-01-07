@@ -1,16 +1,16 @@
 import React from "react";
 import ReactPlayer from "react-player";
 import { Button } from "semantic-ui-react";
-import { useUserTools } from "../../context/UserToolsProvider";
-import Draggable from "react-draggable";
+import { useUserTools } from "../../../context/UserToolsProvider";
+import DrawAndResize from "../../UIComponents/DrawAndResize";
 
 export default function VideoPlayer(props) {
   const { url, index } = props;
   const { setNewData, managementON, setDeleteIndex } = useUserTools();
 
   return (
-    <Draggable handle="#handler">
-      <div className="video">
+    <DrawAndResize index={index}>
+      <div className="video" id={"item" + index}>
         {managementON && (
           <Button
             id="handler"
@@ -24,6 +24,6 @@ export default function VideoPlayer(props) {
         )}
         <ReactPlayer controls url={url} width="720px" height="400px" />
       </div>
-    </Draggable>
+    </DrawAndResize>
   );
 }

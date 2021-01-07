@@ -1,0 +1,25 @@
+@import "../../../scss/index.scss";
+
+.ShowText {
+  background-color: $background-grey-dark-light;
+  border-radius: 20px;
+  padding: 20px;
+  border: 3px solid $primary-color;
+  box-sizing: border-box;
+  width: 200px;
+  height: 200px;
+  word-spacing: 0.2rem;
+
+  button.ui.button {
+    &.close-button {
+      right: 0;
+      margin-top: -1rem;
+    }
+  }
+
+  .ui.center.aligned.container {
+    .ui.divider {
+      background-color: $font-grey;
+    }
+  }
+}

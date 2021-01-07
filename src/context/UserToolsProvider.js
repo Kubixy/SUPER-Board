@@ -44,6 +44,7 @@ export function UserToolsProvider(props) {
     setBoardON(false);
   };
 
+  // eslint-disable-next-line
   const deleteElementCallback = useCallback(() => {
     if (deleteIndex !== null) {
       data.splice(
@@ -65,9 +66,10 @@ export function UserToolsProvider(props) {
             getPositionRecord();
           }
         }
-      );
+      ); // eslint-disable-next-line
   }, [user, boardFound]);
 
+  // eslint-disable-next-line
   const getPositionRecord = useCallback(async () => {
     if (user)
       await readItemPosition(user.uid).then((response) => {
@@ -112,6 +114,7 @@ export function UserToolsProvider(props) {
       let unique;
       do {
         unique = true;
+        // eslint-disable-next-line
         myData.map((x) => {
           if (newID === x.index) {
             unique = false;
@@ -153,6 +156,7 @@ export function UserToolsProvider(props) {
       getPositionRecord,
       generateItemID,
     };
+    // eslint-disable-next-line
   }, [
     user,
     isBuilding,
@@ -168,7 +172,6 @@ export function UserToolsProvider(props) {
     positionRecord,
     updatePositionRecord,
     getPositionRecord,
-    generateItemID,
   ]);
 
   return <UserContext.Provider value={value} {...props} />;
