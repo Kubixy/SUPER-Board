@@ -1,75 +1,40 @@
 import React, { useState } from "react";
 import { Dropdown, Icon, Label, Popup, Message } from "semantic-ui-react";
-import BasicModal from "../../Modal/BasicModal";
-import { writeUserData, saveItemPosition } from "../../../utils/Api";
 import File from "../Box_Options/File";
 import Text from "../Box_Options/Text";
 import Video from "../Box_Options/Video";
 import Image from "../Box_Options/Image";
 import Quiz from "../Box_Options/Quiz";
-import AskForSave from "../../Modal/Functions/AskForSave";
 import { useUserTools } from "../../../context/UserToolsProvider";
-import { toast } from "react-toastify";
 
 import "./Box.scss";
 
 export default function Box(props) {
-  const {
-    imageIndex,
-    setimageIndex,
-    fileIndex,
-    setFileIndex,
-    onDelete,
-  } = props;
+  const { imageIndex, setimageIndex, fileIndex, setFileIndex } = props;
 
   const {
     user,
-    newData,
-    setNewData,
     data,
     setData,
     idBoard,
     boardON,
     setIsBuilding,
-    positionRecord,
   } = useUserTools();
 
   const [userInput, setUserInput] = useState(null);
   const [toggleStatus, setToggleStatus] = useState(true);
-  const [saveChangesModal, setSaveChangesModal] = useState(false);
 
   const selector = () => {
     if (data.length < 20) {
       switch (userInput) {
         case "video":
-          return (
-            <Video
-              setData={setData}
-              data={data}
-              userInput={userInput}
-              setNewData={setNewData}
-            />
-          );
+          return <Video setData={setData} data={data} userInput={userInput} />;
 
         case "text":
-          return (
-            <Text
-              setData={setData}
-              data={data}
-              setNewData={setNewData}
-              userInput={userInput}
-            />
-          );
+          return <Text setData={setData} data={data} userInput={userInput} />;
 
         case "quiz":
-          return (
-            <Quiz
-              setData={setData}
-              data={data}
-              setNewData={setNewData}
-              userInput={userInput}
-            />
-          );
+          return <Quiz setData={setData} data={data} userInput={userInput} />;
 
         case "image":
           return (
@@ -80,7 +45,6 @@ export default function Box(props) {
               imageIndex={imageIndex}
               setimageIndex={setimageIndex}
               userInput={userInput}
-              setNewData={setNewData}
             />
           );
 
@@ -93,7 +57,6 @@ export default function Box(props) {
               data={data}
               setFileIndex={setFileIndex}
               userInput={userInput}
-              setNewData={setNewData}
             />
           );
         default:
@@ -109,20 +72,6 @@ export default function Box(props) {
         <p>To be able to add new items, you must first delete some</p>
       </Message>
     );
-  };
-
-  const saveData = () => {
-    if (!newData)
-      writeUserData(user.uid, data)
-        .then(() => {
-          saveItemPosition(user.uid, positionRecord);
-          onDelete();
-          setNewData(true);
-          toast.success("Changes saved");
-        })
-        .catch(() => {
-          toast.warning("Something went wrong");
-        });
   };
 
   const options = [
@@ -177,11 +126,9 @@ export default function Box(props) {
                 className={boardON ? "no-arrow" : null}
                 size="large"
                 onClick={() => {
-                  if (!newData) setSaveChangesModal(true);
-                  else setIsBuilding(false);
+                  setIsBuilding(false);
                 }}
               />
-              <Icon name="save" size="large" onClick={() => saveData()} />
               <Icon
                 name="close"
                 size="large"
@@ -205,16 +152,6 @@ export default function Box(props) {
           </div>
 
           {selector()}
-
-          {
-            <BasicModal
-              show={saveChangesModal}
-              setShow={setSaveChangesModal}
-              title="Warning"
-            >
-              {<AskForSave setShowModal={setSaveChangesModal} />}
-            </BasicModal>
-          }
         </>
       ) : (
         <Icon

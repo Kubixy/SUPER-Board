@@ -6,7 +6,6 @@ import ShowText from "../../components/Tools/ShowText";
 import MakeQuiz from "../../components/Tools/Quiz/MakeQuiz";
 import ShowImage from "../../components/Tools/ShowImage/ShowImage";
 import FileUploader from "../../components/Tools/FileUploader/FileUploader";
-import ErrorMessage from "../../components/Tools/ErrorMessage";
 import {
   addBoard,
   userIdFinder,
@@ -119,14 +118,30 @@ export default function BoardMaker(props) {
             if (x.type)
               switch (x.type) {
                 case "video":
-                  return <VideoPlayer url={x.content} index={x.mainindex} />;
+                  return (
+                    <VideoPlayer
+                      url={x.content}
+                      index={x.mainindex}
+                      position={x.position}
+                    />
+                  );
 
                 case "text":
-                  return <ShowText body={x.body} index={x.mainindex} />;
+                  return (
+                    <ShowText
+                      body={x.body}
+                      index={x.mainindex}
+                      position={x.position}
+                    />
+                  );
 
                 case "quiz":
                   return (
-                    <MakeQuiz questions={x.questions} index={x.mainindex} />
+                    <MakeQuiz
+                      questions={x.questions}
+                      index={x.mainindex}
+                      position={x.position}
+                    />
                   );
 
                 case "image":
@@ -135,6 +150,7 @@ export default function BoardMaker(props) {
                       indexImg={x.index}
                       setimageIndex={setimageIndex}
                       index={x.mainindex}
+                      position={x.position}
                       setImgArrayToDelete={setImgArrayToDelete}
                       imgArrayToDelete={imgArrayToDelete}
                     />
@@ -147,13 +163,13 @@ export default function BoardMaker(props) {
                       setFileIndex={setFileIndex}
                       title={x.title}
                       index={x.mainindex}
+                      position={x.position}
                       fileArrayToDelete={fileArrayToDelete}
                       setFileArrayToDelete={setFileArrayToDelete}
                     />
                   );
 
                 default:
-                  return <ErrorMessage index={x.mainindex} />;
               }
           })}
         </div>

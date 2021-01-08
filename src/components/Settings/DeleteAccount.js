@@ -38,7 +38,6 @@ function AccountDeletion(props) {
   };
 
   const onSubmit = () => {
-    setIsLoading(true);
     reauthenticate(formData.userPass)
       .then(() => {
         userDataDeletionCall();
@@ -47,7 +46,6 @@ function AccountDeletion(props) {
       .catch(() => {
         toast.warning("Incorrect password");
       });
-    setIsLoading(false);
   };
 
   switch (user.providerData[0].providerId) {
@@ -74,10 +72,13 @@ function AccountDeletion(props) {
             <Button
               size="large"
               negative
+              loading={isLoading}
               onClick={() => {
+                setIsLoading(true);
                 googleLogin()
                   .then(() => {
                     userDataDeletionCall();
+                    setIsLoading(false);
                     toast.success("Account successfully deleted");
                   })
                   .catch(() => toast.warning("Something went wrong"));

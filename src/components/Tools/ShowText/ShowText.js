@@ -6,11 +6,11 @@ import DrawAndResize from "../../UIComponents/DrawAndResize";
 import "./ShowText.scss";
 
 export default function ShowText(props) {
-  const { body, index } = props;
-  const { setNewData, managementON, setDeleteIndex } = useUserTools();
+  const { body, index, position } = props;
+  const { managementON, setDeleteIndex } = useUserTools();
 
   return (
-    <DrawAndResize index={index}>
+    <DrawAndResize index={index} position={position}>
       <div className="ShowText" id={"item" + index}>
         {managementON && (
           <Button
@@ -18,7 +18,6 @@ export default function ShowText(props) {
             icon="close"
             onClick={() => {
               setDeleteIndex(index);
-              setNewData(false);
             }}
           />
         )}

@@ -3,6 +3,7 @@ import { toast } from "react-toastify";
 import { Input, Button, Icon, Popup } from "semantic-ui-react";
 import { uploadFile } from "../../../utils/Api";
 import { useUserTools } from "../../../context/UserToolsProvider";
+import { writeUserData } from "../../../utils/Api";
 
 export default function File(props) {
   const {
@@ -12,7 +13,6 @@ export default function File(props) {
     data,
     setFileIndex,
     userInput,
-    setNewData,
   } = props;
   const { state, dispatch, generateItemID } = useUserTools();
   const [file, setFile] = useState(null);
@@ -30,13 +30,19 @@ export default function File(props) {
                 type: userInput,
                 title: input,
                 index: fileIndex,
+                position: {
+                  x: 500,
+                  y: 500,
+                },
               });
+
               setData(data);
+              writeUserData(uid, data).catch((error) => {
+                console.log("Error (File) --> ", error);
+              });
               setFileIndex(fileIndex + 1);
-              setNewData(false);
               document.getElementById("fileInput").value = "";
               dispatch({ type: "increFil" });
-              toast.success("PDF added");
             } else {
               toast.warning("You must pick a name for your file");
             }
@@ -63,7 +69,7 @@ export default function File(props) {
         type="file"
         onChange={(e) => setFile(e.target.files)}
         icon="pdf file outline"
-      />{" "}
+      />
       <div className="options-file__count">
         <h3>{state.files}/3</h3>
         <Popup

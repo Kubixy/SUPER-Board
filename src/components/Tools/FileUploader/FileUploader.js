@@ -16,9 +16,9 @@ export default function FileUploader(props) {
     fileArrayToDelete,
     index,
     setFileArrayToDelete,
+    position,
   } = props;
   const {
-    setNewData,
     managementON,
     setDeleteIndex,
     boardFound,
@@ -52,7 +52,7 @@ export default function FileUploader(props) {
   };
 
   return (
-    <DrawAndResize index={index}>
+    <DrawAndResize index={index} position={position}>
       <div className="file" id={"item" + index}>
         {managementON && (
           <Button
@@ -61,7 +61,6 @@ export default function FileUploader(props) {
             onClick={() => {
               setDeleteIndex(index);
               setFileArrayToDelete([...fileArrayToDelete, fileIndex]);
-              setNewData(false);
               dispatch({ type: "decreFil" });
             }}
           />

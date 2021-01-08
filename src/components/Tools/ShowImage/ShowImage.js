@@ -12,9 +12,9 @@ export default function ShowImage(props) {
     index,
     setImgArrayToDelete,
     imgArrayToDelete,
+    position,
   } = props;
   const {
-    setNewData,
     managementON,
     setDeleteIndex,
     userId,
@@ -61,7 +61,7 @@ export default function ShowImage(props) {
   };
 
   return (
-    <DrawAndResize index={index}>
+    <DrawAndResize index={index} position={position}>
       <div className="image" id={"item" + index}>
         {managementON && (
           <Button
@@ -70,7 +70,7 @@ export default function ShowImage(props) {
             onClick={() => {
               setDeleteIndex(index);
               setImgArrayToDelete([...imgArrayToDelete, indexImg]);
-              setNewData(false);
+
               dispatch({ type: "decreImg" });
             }}
           />

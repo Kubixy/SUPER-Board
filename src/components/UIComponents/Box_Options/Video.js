@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import { Input, Button, Icon, Popup } from "semantic-ui-react";
 import { toast } from "react-toastify";
 import { useUserTools } from "../../../context/UserToolsProvider";
+import { writeUserData } from "../../../utils/Api";
 
 export default function Video(props) {
-  const { setData, data, userInput, setNewData } = props;
-  const { generateItemID } = useUserTools();
+  const { setData, data, userInput } = props;
+  const { generateItemID, user } = useUserTools();
   const [userInputVideo, setInputVideo] = useState(null);
 
   const onClickVideo = () => {
@@ -15,11 +16,15 @@ export default function Video(props) {
           mainindex: generateItemID(data),
           type: userInput,
           content: userInputVideo,
+          position: {
+            x: 500,
+            y: 500,
+          },
         });
         setData(data);
-        toast.success("Video added");
-        setNewData(false);
-        console.log(userInputVideo);
+        writeUserData(user.uid, data).catch((error) => {
+          console.log("Error (Video) --> ", error);
+        });
       } else {
         toast.error("That's not a Youtube video");
       }

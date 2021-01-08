@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useCallback, useReducer } from "react";
-import { readUserData, readItemPosition } from "../utils/Api";
+import { writeUserData, readUserData } from "../utils/Api";
 
 const UserContext = React.createContext();
 
@@ -25,15 +25,13 @@ function reducer(state, action) {
 
 export function UserToolsProvider(props) {
   const [idBoard, setIdBoard] = useState(null);
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState({});
   const [isBuilding, setIsBuilding] = useState(false);
   const [managementON, setManagment] = useState(true);
   const [boardFound, setBoardFound] = useState(null);
   const [boardON, setBoardON] = useState(false);
   const [data, setData] = useState([]);
-  const [newData, setNewData] = useState(true);
   const [deleteIndex, setDeleteIndex] = useState(null);
-  const [positionRecord, setPositionRecord] = useState([]);
 
   const [state, dispatch] = useReducer(reducer, { files: 0, images: 0 });
 
@@ -53,9 +51,11 @@ export function UserToolsProvider(props) {
         }),
         1
       );
+
+      writeUserData(user.uid, data);
       setDeleteIndex(null);
     }
-  }, [deleteIndex, data]);
+  }, [deleteIndex, data, user]);
 
   const render = useCallback(async () => {
     if (user)
@@ -63,49 +63,26 @@ export function UserToolsProvider(props) {
         (response) => {
           if (response !== null) {
             setData(response);
-            getPositionRecord();
           }
         }
       ); // eslint-disable-next-line
   }, [user, boardFound]);
 
-  // eslint-disable-next-line
-  const getPositionRecord = useCallback(async () => {
-    if (user)
-      await readItemPosition(user.uid).then((response) => {
-        if (response !== null) setPositionRecord(response);
-      });
-  }, [user]);
-
   const updatePositionRecord = useCallback(
     (index, values) => {
-      let exits = false;
-
-      for (let i = 0; i < positionRecord.length; i++) {
-        if (positionRecord[i].index === index) {
-          positionRecord[i].position = {
+      for (let i = 0; i < data.length; i++) {
+        if (data[i].mainindex === index) {
+          data[i].position = {
             x: values.x,
             y: values.y,
           };
-          setPositionRecord(positionRecord);
-          exits = true;
         }
       }
 
-      if (!exits) {
-        positionRecord.push({
-          index: index,
-          position: {
-            x: values.x,
-            y: values.y,
-          },
-        });
-        setPositionRecord(positionRecord);
-      }
-
-      setNewData(false);
+      setData(data);
+      writeUserData(user.uid, data);
     },
-    [positionRecord]
+    [data, user]
   );
 
   const generateItemID = (myData) => {
@@ -144,16 +121,12 @@ export function UserToolsProvider(props) {
       setData,
       user,
       userId: user !== null ? user.uid : null,
-      newData,
-      setNewData,
       setDeleteIndex,
       deleteElementCallback,
       render,
       state,
       dispatch,
-      positionRecord,
       updatePositionRecord,
-      getPositionRecord,
       generateItemID,
     };
     // eslint-disable-next-line
@@ -164,14 +137,11 @@ export function UserToolsProvider(props) {
     boardFound,
     boardON,
     data,
-    newData,
     idBoard,
     deleteElementCallback,
     render,
     state,
-    positionRecord,
     updatePositionRecord,
-    getPositionRecord,
   ]);
 
   return <UserContext.Provider value={value} {...props} />;

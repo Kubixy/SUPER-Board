@@ -4,19 +4,27 @@ import { useUserTools } from "../../../context/UserToolsProvider";
 import "./DrawAndResize.scss";
 
 export default function DrawAndResize(props) {
-  const { children, index } = props;
-  const { updatePositionRecord, positionRecord } = useUserTools();
+  const { children, index, position } = props;
+  const { updatePositionRecord } = useUserTools();
   const [itemPosition, setItemPosition] = useState({ x: 0, y: 0 });
   const [offset, setOffset] = useState([0, 0]);
   const [isDown, setIsDown] = useState(false);
 
+  const container = document.getElementById("movingContainer" + index);
+  const item = document.getElementById("item" + index);
+  const panel = document.getElementsByClassName("panel__input")[0];
+  const windowResolution = {
+    width: window.innerWidth,
+    heigth: window.innerHeight,
+  };
+
   const mousedown = (e) => {
-    let divOverlay = document.getElementById("movingContainer" + index);
     setIsDown(true);
-    setOffset([
-      divOverlay.offsetLeft - e.clientX,
-      divOverlay.offsetTop - e.clientY,
-    ]);
+    if (offset)
+      setOffset([
+        container.offsetLeft - e.clientX,
+        container.offsetTop - e.clientY,
+      ]);
   };
 
   const mouseup = () => {
@@ -24,46 +32,53 @@ export default function DrawAndResize(props) {
   };
 
   const mousemove = (e) => {
-    let divOverlay = document.getElementById("movingContainer" + index);
     if (isDown) {
       setItemPosition({
         x: e.clientX + offset[0],
         y: e.clientY + offset[1],
       });
-      divOverlay.style.left = fixLimits(e.clientX + offset[0], "x") + "px";
-      divOverlay.style.top = fixLimits(e.clientY + offset[1], "y") + "px";
+      container.style.left = fixLimits(e.clientX + offset[0], "x") + "px";
+      container.style.top = fixLimits(e.clientY + offset[1], "y") + "px";
     }
   };
 
   const fixLimits = (value, axis) => {
-    let panelHeight = document.getElementsByClassName("panel__input")[0]
-      .clientHeight;
-    let panelWidth = document.getElementsByClassName("panel__input")[0]
-      .clientWidth;
-    let itemHeight = document.getElementById("item" + index).clientHeight;
-    let itemWidth = document.getElementById("item" + index).clientWidth;
-
-    if (axis === "y" && value + itemHeight > panelHeight)
-      return panelHeight - itemHeight;
-    else if (axis === "x" && value + itemWidth > panelWidth)
-      return panelWidth - itemWidth;
+    if (axis === "y" && value + item.clientHeight > panel.clientHeight)
+      return panel.clientHeight - item.clientHeight;
+    else if (axis === "x" && value + item.clientWidth > panel.clientWidth)
+      return panel.clientWidth - item.clientWidth;
 
     return value > 0 ? value : 0;
   };
 
   useEffect(() => {
-    if (positionRecord && positionRecord.length > 0) {
-      for (let i = 0; i < positionRecord.length; i++) {
-        if (positionRecord[i].index === index) {
-          document.getElementById("movingContainer" + index).style.left =
-            positionRecord[i].position.x + "px";
-          document.getElementById("movingContainer" + index).style.top =
-            positionRecord[i].position.y + "px";
-          break;
-        }
+    if (container && position) {
+      container.style.left = position.x + "px";
+      container.style.top = position.y + "px";
+      setItemPosition({
+        x: position.x,
+        y: position.y,
+      });
+    }
+  }, [position, index, container]);
+
+  useEffect(() => {
+    function handleWindowResize() {
+      if (container) {
+        container.style.left =
+          fixLimits(
+            itemPosition.x - (windowResolution.width - window.innerWidth),
+            "x"
+          ) + "px";
+        container.style.top =
+          fixLimits(
+            itemPosition.y - (windowResolution.heigth - window.innerHeight),
+            "y"
+          ) + "px";
       }
     }
-  }, [positionRecord, index]);
+    window.addEventListener("resize", handleWindowResize);
+  });
 
   return (
     <div

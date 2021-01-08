@@ -5,11 +5,11 @@ import { useUserTools } from "../../../context/UserToolsProvider";
 import DrawAndResize from "../../UIComponents/DrawAndResize";
 
 export default function VideoPlayer(props) {
-  const { url, index } = props;
-  const { setNewData, managementON, setDeleteIndex } = useUserTools();
+  const { url, index, position } = props;
+  const { managementON, setDeleteIndex } = useUserTools();
 
   return (
-    <DrawAndResize index={index}>
+    <DrawAndResize index={index} position={position}>
       <div className="video" id={"item" + index}>
         {managementON && (
           <Button
@@ -18,7 +18,6 @@ export default function VideoPlayer(props) {
             icon="close"
             onClick={() => {
               setDeleteIndex(index);
-              setNewData(false);
             }}
           />
         )}

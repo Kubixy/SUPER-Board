@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Icon, Label } from "semantic-ui-react";
 import BasicModal from "../../Modal/BasicModal";
-import AskForSaveNavBar from "../../Modal/Functions/AskForSaveNavBar";
 import UserListNavBar from "../../Modal/Functions/UserListNavBar";
 import { useUserTools } from "../../../context/UserToolsProvider";
 
@@ -18,7 +17,6 @@ export default function NavBar(props) {
     boardFound,
     data,
     newData,
-    setNewData,
     render,
   } = useUserTools();
 
@@ -68,24 +66,6 @@ export default function NavBar(props) {
         <Icon name="users" size="big" />
         <h1>{visitorState.length}</h1>
       </div>
-      {
-        <BasicModal
-          show={showModalManagment}
-          setShow={setShowModalshowModalManagment}
-          title="Warning"
-        >
-          {
-            <AskForSaveNavBar
-              setShowModal={setShowModalshowModalManagment}
-              boardFound={boardFound}
-              data={data}
-              setManagment={setManagment}
-              setNewData={setNewData}
-              render={render}
-            />
-          }
-        </BasicModal>
-      }
       {
         <BasicModal
           show={showModalUserList}
