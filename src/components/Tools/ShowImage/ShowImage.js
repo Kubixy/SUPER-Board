@@ -13,14 +13,9 @@ export default function ShowImage(props) {
     setImgArrayToDelete,
     imgArrayToDelete,
     position,
+    allowEdit,
   } = props;
-  const {
-    managementON,
-    setDeleteIndex,
-    userId,
-    boardFound,
-    dispatch,
-  } = useUserTools();
+  const { setDeleteIndex, userId, boardFound, dispatch } = useUserTools();
 
   const [url, setUrl] = useState(null);
   const [img, setImg] = useState({ width: 1, height: 1 });
@@ -63,7 +58,7 @@ export default function ShowImage(props) {
   return (
     <DrawAndResize index={index} position={position}>
       <div className="image" id={"item" + index}>
-        {managementON && (
+        {allowEdit && (
           <Button
             className="close-button"
             icon="close"

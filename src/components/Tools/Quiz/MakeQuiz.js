@@ -7,8 +7,8 @@ import DrawAndResize from "../../UIComponents/DrawAndResize";
 import "./quiz.scss";
 
 export default function MakeQuiz(props) {
-  const { questions, index, position } = props;
-  const { managementON, setDeleteIndex } = useUserTools();
+  const { questions, index, position, allowEdit } = props;
+  const { setDeleteIndex } = useUserTools();
 
   const [showExamen, setShowExamen] = useState(true);
   const [corrector, setCorrector] = useState(false);
@@ -17,7 +17,7 @@ export default function MakeQuiz(props) {
   return (
     <DrawAndResize index={index} position={position}>
       <div className="quiz" id={"item" + index}>
-        {managementON && (
+        {allowEdit && (
           <Button
             className="close-button"
             icon="close"

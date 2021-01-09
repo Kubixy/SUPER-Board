@@ -7,20 +7,8 @@ import { useUserTools } from "../../../context/UserToolsProvider";
 import "./NavBar.scss";
 
 export default function NavBar(props) {
-  const { allowEdit, visitorState } = props;
-
-  const {
-    endClassCallback,
-    idBoard,
-    setManagment,
-    managementON,
-    boardFound,
-    data,
-    newData,
-    render,
-  } = useUserTools();
-
-  const [showModalManagment, setShowModalshowModalManagment] = useState(false);
+  const { allowEdit, visitorState, toggleStatus, setToggleStatus } = props;
+  const { endClassCallback, idBoard, render } = useUserTools();
   const [showModalUserList, setShowModalUserList] = useState(false);
 
   return (
@@ -48,11 +36,7 @@ export default function NavBar(props) {
             size="big"
             circular="true"
             onClick={() => {
-              if (!newData) setShowModalshowModalManagment(true);
-              else {
-                setManagment(!managementON);
-                render();
-              }
+              setToggleStatus(!toggleStatus);
             }}
           />
         )}

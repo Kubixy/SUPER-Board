@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Form, Input, Button, Icon } from "semantic-ui-react";
 import { toast } from "react-toastify";
-import firebase from "../../utils/Firebase";
+import firebase from "../../../../utils/Firebase";
 import "firebase/auth";
 
 export default function UserName(props) {

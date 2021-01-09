@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import Box from "../../components/UIComponents/Box";
+import SideBar from "../../components/UIComponents/SideBar";
 import NavBar from "../../components/UIComponents/NavBar";
 import VideoPlayer from "../../components/Tools/VideoPlayer/VideoPlayer";
 import ShowText from "../../components/Tools/ShowText";
@@ -23,13 +23,12 @@ export default function BoardMaker(props) {
   const [fileArrayToDelete, setFileArrayToDelete] = useState([]);
   const [allowEdit, setAllowEdit] = useState(false);
   const [visitorState, setVisitorState] = useState([]);
+  const [toggleStatus, setToggleStatus] = useState(true);
 
   const { useUserTools } = props;
   const {
     userId,
     boardFound,
-    boardON,
-    managementON,
     idBoard,
     setIdBoard,
     data,
@@ -56,25 +55,23 @@ export default function BoardMaker(props) {
     setFileArrayToDelete([]);
   };
 
-  const userLoader = useCallback(() => {
-    userIdFinder(boardFound === null ? userId : boardFound).then((response) => {
-      if (managementON) {
-        if (response.status) {
+  const userLoader = useCallback(async () => {
+    await userIdFinder(boardFound === null ? userId : boardFound).then(
+      (response) => {
+        if (response.id) {
           setIdBoard(response.id);
+          setAllowEdit(userId === response.user);
+          //setVisitors(idBoard, user);
+          //getVisitors(idBoard).then((result) => {
+          //  setVisitorState(result);
+          //});
         } else {
           addBoard(userId);
           userLoader();
         }
-      } else {
-        setIdBoard(response.id);
-        setAllowEdit(userId === boardFound);
-        setVisitors(idBoard, user);
-        getVisitors(idBoard).then((result) => {
-          setVisitorState(result);
-        });
       }
-    });
-  }, [boardFound, managementON, userId, setIdBoard, idBoard, user]);
+    );
+  }, [boardFound, userId, setIdBoard, idBoard, user]);
 
   useEffect(() => {
     userLoader();
@@ -95,22 +92,21 @@ export default function BoardMaker(props) {
 
   return (
     <>
-      {(!managementON || boardON) && (
-        <NavBar allowEdit={allowEdit} visitorState={visitorState} />
-      )}
+      {/* <NavBar
+        allowEdit={allowEdit}
+        visitorState={visitorState}
+        setToggleStatus={setToggleStatus}
+        toggleStatus={toggleStatus}
+      /> */}
       <div className="background" />
       <div className="panel">
-        {managementON && (
-          <Box
-            setimageIndex={setimageIndex}
-            imageIndex={imageIndex}
-            setFileIndex={setFileIndex}
-            fileIndex={fileIndex}
-            imgArrayToDelete={imgArrayToDelete}
-            fileArrayToDelete={fileArrayToDelete}
-            onDelete={onDelete}
-          />
-        )}
+        <SideBar
+          imageIndex={imageIndex}
+          setimageIndex={setimageIndex}
+          fileIndex={fileIndex}
+          setFileIndex={setFileIndex}
+        />
+
         <div className="panel__input">
           {deleteElementCallback()}
           {/* eslint-disable-next-line*/}
@@ -123,6 +119,7 @@ export default function BoardMaker(props) {
                       url={x.content}
                       index={x.mainindex}
                       position={x.position}
+                      allowEdit={allowEdit}
                     />
                   );
 
@@ -132,6 +129,7 @@ export default function BoardMaker(props) {
                       body={x.body}
                       index={x.mainindex}
                       position={x.position}
+                      allowEdit={allowEdit}
                     />
                   );
 
@@ -141,6 +139,7 @@ export default function BoardMaker(props) {
                       questions={x.questions}
                       index={x.mainindex}
                       position={x.position}
+                      allowEdit={allowEdit}
                     />
                   );
 
@@ -153,6 +152,7 @@ export default function BoardMaker(props) {
                       position={x.position}
                       setImgArrayToDelete={setImgArrayToDelete}
                       imgArrayToDelete={imgArrayToDelete}
+                      allowEdit={allowEdit}
                     />
                   );
 
@@ -166,6 +166,7 @@ export default function BoardMaker(props) {
                       position={x.position}
                       fileArrayToDelete={fileArrayToDelete}
                       setFileArrayToDelete={setFileArrayToDelete}
+                      allowEdit={allowEdit}
                     />
                   );
 

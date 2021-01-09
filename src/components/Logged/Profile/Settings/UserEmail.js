@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { Button, Form, Input, Icon } from "semantic-ui-react";
 import { toast } from "react-toastify";
-import { reauthenticate } from "../../utils/Api";
-import { alertErrors } from "../../utils/AlertErrors";
-import firebase from "../../utils/Firebase";
+import { reauthenticate } from "../../../../utils/Api";
+import { alertErrors } from "../../../../utils/AlertErrors";
+import firebase from "../../../../utils/Firebase";
 import "firebase/auth";
-import { validateEmail } from "../../utils/Validations";
+import { validateEmail } from "../../../../utils/Validations";
 
 export default function UserEmail(props) {
   const { user, setShowModal, setTitleModal, setContentModal } = props;

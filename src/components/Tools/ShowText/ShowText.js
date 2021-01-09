@@ -6,13 +6,13 @@ import DrawAndResize from "../../UIComponents/DrawAndResize";
 import "./ShowText.scss";
 
 export default function ShowText(props) {
-  const { body, index, position } = props;
-  const { managementON, setDeleteIndex } = useUserTools();
+  const { body, index, position, allowEdit } = props;
+  const { setDeleteIndex } = useUserTools();
 
   return (
     <DrawAndResize index={index} position={position}>
       <div className="ShowText" id={"item" + index}>
-        {managementON && (
+        {allowEdit && (
           <Button
             className="close-button"
             icon="close"

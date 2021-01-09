@@ -1,12 +1,10 @@
 import React, { useState } from "react";
 import { Input, Button, Icon, Popup } from "semantic-ui-react";
 import { toast } from "react-toastify";
-import { useUserTools } from "../../../context/UserToolsProvider";
-import { writeUserData } from "../../../utils/Api";
+import { useUserTools } from "../../../../context/UserToolsProvider";
 
-export default function Video(props) {
-  const { setData, data, userInput } = props;
-  const { generateItemID, user } = useUserTools();
+export default function Video() {
+  const { generateItemID, userId, data, writeNewData } = useUserTools();
   const [userInputVideo, setInputVideo] = useState(null);
 
   const onClickVideo = () => {
@@ -14,17 +12,15 @@ export default function Video(props) {
       if (userInputVideo.includes("youtube.com/watch?v=")) {
         data.push({
           mainindex: generateItemID(data),
-          type: userInput,
+          type: "quiz",
           content: userInputVideo,
           position: {
             x: 500,
             y: 500,
           },
         });
-        setData(data);
-        writeUserData(user.uid, data).catch((error) => {
-          console.log("Error (Video) --> ", error);
-        });
+
+        writeNewData();
       } else {
         toast.error("That's not a Youtube video");
       }

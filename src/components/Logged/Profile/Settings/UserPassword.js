@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Button, Form, Icon, Input } from "semantic-ui-react";
 import { toast } from "react-toastify";
-import { reauthenticate } from "../../utils/Api";
-import { alertErrors } from "../../utils/AlertErrors";
-import firebase from "../../utils/Firebase";
+import { reauthenticate } from "../../../../utils/Api";
+import { alertErrors } from "../../../../utils/AlertErrors";
+import firebase from "../../../../utils/Firebase";
 import "firebase/auth";
 
 export default function UserPassword(props) {

@@ -7,13 +7,7 @@ import { toast } from "react-toastify";
 import "./LFBoard.scss";
 
 export default function (props) {
-  const {
-    setSelectedOpt,
-    setManagment,
-    setIsBuilding,
-    setBoardFound,
-    setBoardON,
-  } = props;
+  const { setSelectedOpt, setIsBuilding } = props;
 
   const { setIdBoard } = useUserTools();
 
@@ -25,10 +19,7 @@ export default function (props) {
       LFBoard(input).then((response) => {
         if (response !== undefined) {
           setIdBoard(input);
-          setBoardFound(response);
-          setManagment(false);
           setIsBuilding(true);
-          setBoardON(true);
         } else {
           setError(true);
           toast.warning("Board not found");

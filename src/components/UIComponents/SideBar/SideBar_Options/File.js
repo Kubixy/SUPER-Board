@@ -1,20 +1,19 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 import { Input, Button, Icon, Popup } from "semantic-ui-react";
-import { uploadFile } from "../../../utils/Api";
-import { useUserTools } from "../../../context/UserToolsProvider";
-import { writeUserData } from "../../../utils/Api";
+import { useUserTools } from "../../../../context/UserToolsProvider";
+import { uploadFile } from "../../../../utils/Api";
 
 export default function File(props) {
+  const { fileIndex, setFileIndex } = props;
   const {
-    setData,
-    uid, //user.uid
-    fileIndex,
+    state,
+    dispatch,
+    generateItemID,
+    userId,
     data,
-    setFileIndex,
-    userInput,
-  } = props;
-  const { state, dispatch, generateItemID } = useUserTools();
+    writeNewData,
+  } = useUserTools();
   const [file, setFile] = useState(null);
   const [input, setInput] = useState(null);
 
@@ -24,10 +23,10 @@ export default function File(props) {
         if (file.length === 1 && file[0].type.includes("pdf")) {
           if (file[0].size / 1024 <= 5120) {
             if (input) {
-              uploadFile(file[0], uid, fileIndex, "files");
+              uploadFile(file[0], userId, fileIndex, "files");
               data.push({
                 mainindex: generateItemID(data),
-                type: userInput,
+                type: "file",
                 title: input,
                 index: fileIndex,
                 position: {
@@ -36,10 +35,7 @@ export default function File(props) {
                 },
               });
 
-              setData(data);
-              writeUserData(uid, data).catch((error) => {
-                console.log("Error (File) --> ", error);
-              });
+              writeNewData();
               setFileIndex(fileIndex + 1);
               document.getElementById("fileInput").value = "";
               dispatch({ type: "increFil" });

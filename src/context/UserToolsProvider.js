@@ -27,9 +27,7 @@ export function UserToolsProvider(props) {
   const [idBoard, setIdBoard] = useState(null);
   const [user, setUser] = useState({});
   const [isBuilding, setIsBuilding] = useState(false);
-  const [managementON, setManagment] = useState(true);
   const [boardFound, setBoardFound] = useState(null);
-  const [boardON, setBoardON] = useState(false);
   const [data, setData] = useState([]);
   const [deleteIndex, setDeleteIndex] = useState(null);
 
@@ -37,9 +35,7 @@ export function UserToolsProvider(props) {
 
   const endClassCallback = () => {
     setIsBuilding(false);
-    setManagment(true);
     setBoardFound(null);
-    setBoardON(false);
   };
 
   // eslint-disable-next-line
@@ -67,6 +63,13 @@ export function UserToolsProvider(props) {
         }
       ); // eslint-disable-next-line
   }, [user, boardFound]);
+
+  const writeNewData = () => {
+    setData(data);
+    writeUserData(user.uid, data).catch((error) => {
+      console.log("Error (UserToolsProvider) --> ", error);
+    });
+  };
 
   const updatePositionRecord = useCallback(
     (index, values) => {
@@ -108,12 +111,8 @@ export function UserToolsProvider(props) {
       setUser,
       isBuilding,
       setIsBuilding,
-      managementON,
-      setManagment,
       boardFound,
       setBoardFound,
-      boardON,
-      setBoardON,
       endClassCallback,
       idBoard,
       setIdBoard,
@@ -128,14 +127,13 @@ export function UserToolsProvider(props) {
       dispatch,
       updatePositionRecord,
       generateItemID,
+      writeNewData,
     };
     // eslint-disable-next-line
   }, [
     user,
     isBuilding,
-    managementON,
     boardFound,
-    boardON,
     data,
     idBoard,
     deleteElementCallback,

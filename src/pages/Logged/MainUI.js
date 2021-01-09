@@ -8,13 +8,7 @@ import "./MainUI.scss";
 
 export default function (props) {
   const { useUserTools } = props;
-  const {
-    user,
-    setIsBuilding,
-    setManagment,
-    setBoardFound,
-    setBoardON,
-  } = useUserTools();
+  const { user, setIsBuilding } = useUserTools();
   const [selectedOpt, setSelectedOpt] = useState(null);
 
   const handlerMain = () => {
@@ -23,10 +17,7 @@ export default function (props) {
         return (
           <LFBoard
             setSelectedOpt={setSelectedOpt}
-            setManagment={setManagment}
             setIsBuilding={setIsBuilding}
-            setBoardFound={setBoardFound}
-            setBoardON={setBoardON}
           />
         );
       case "profile":

@@ -1,19 +1,17 @@
 import React, { useState } from "react";
 import { Form, Button } from "semantic-ui-react";
 import { toast } from "react-toastify";
-import { useUserTools } from "../../../context/UserToolsProvider";
-import { writeUserData } from "../../../utils/Api";
+import { useUserTools } from "../../../../context/UserToolsProvider";
 
-export default function Text(props) {
-  const { setData, data, userInput } = props;
-  const { generateItemID, user } = useUserTools();
+export default function Text() {
+  const { generateItemID, data, writeNewData } = useUserTools();
   const [userInputBody, setUserInputBody] = useState(null);
 
   const onClickText = () => {
     if (document.getElementById("body").value) {
       data.push({
         mainindex: generateItemID(data),
-        type: userInput,
+        type: "text",
         body: userInputBody,
         position: {
           x: 500,
@@ -21,11 +19,8 @@ export default function Text(props) {
         },
       });
 
-      setData(data);
+      writeNewData();
       document.getElementById("body").value = "";
-      writeUserData(user.uid, data).catch((error) => {
-        console.log("Error (Text) --> ", error);
-      });
     } else {
       toast.warning("Please, fill all the fields");
     }

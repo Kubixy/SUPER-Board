@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import UploadAvatar from "../../Settings/UpdateAvatar";
-import UserName from "../../Settings/UserName";
-import UserEmail from "../../Settings/UserEmail";
-import UserPassword from "../../Settings/UserPassword";
-import DeleteAccount from "../../Settings/DeleteAccount";
+import UploadAvatar from "./Settings/UpdateAvatar";
+import UserName from "./Settings/UserName";
+import UserEmail from "./Settings/UserEmail";
+import UserPassword from "./Settings/UserPassword";
+import DeleteAccount from "./Settings/DeleteAccount";
 import BasicModal from "../../../components/Modal/BasicModal";
 import { Button, Icon } from "semantic-ui-react";
 

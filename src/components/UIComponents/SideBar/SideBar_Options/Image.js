@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { Input, Button, Icon, Popup } from "semantic-ui-react";
 import { toast } from "react-toastify";
-import { uploadFile, writeUserData } from "../../../utils/Api";
-import { useUserTools } from "../../../context/UserToolsProvider";
+import { uploadFile } from "../../../../utils/Api";
+import { useUserTools } from "../../../../context/UserToolsProvider";
 
 export default function Image(props) {
-  const { setData, data, uid, imageIndex, setimageIndex, userInput } = props;
-  const { state, dispatch, generateItemID, user } = useUserTools();
+  const { imageIndex, setimageIndex, writeNewData } = props;
+  const { state, dispatch, generateItemID, userId, data } = useUserTools();
   const [file, setFile] = useState(null);
 
   const onClickImage = () => {
@@ -14,10 +14,10 @@ export default function Image(props) {
       if (file[0].type.includes("image")) {
         if (state.images < 3) {
           if (file[0].size / 1024 <= 5120) {
-            uploadFile(file[0], uid, imageIndex, "images");
+            uploadFile(file[0], userId, imageIndex, "images");
             data.push({
               mainindex: generateItemID(data),
-              type: userInput,
+              type: "image",
               index: imageIndex,
               position: {
                 x: 500,
@@ -25,10 +25,7 @@ export default function Image(props) {
               },
             });
 
-            setData(data);
-            writeUserData(user.uid, data).catch((error) => {
-              console.log("Error (Image) --> ", error);
-            });
+            writeNewData();
             setimageIndex(imageIndex + 1);
             dispatch({ type: "increImg" });
           } else {

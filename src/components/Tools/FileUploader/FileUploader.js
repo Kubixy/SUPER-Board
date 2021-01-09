@@ -17,14 +17,9 @@ export default function FileUploader(props) {
     index,
     setFileArrayToDelete,
     position,
+    allowEdit,
   } = props;
-  const {
-    managementON,
-    setDeleteIndex,
-    boardFound,
-    userId,
-    dispatch,
-  } = useUserTools();
+  const { setDeleteIndex, boardFound, userId, dispatch } = useUserTools();
 
   useEffect(() => {
     firebase
@@ -54,7 +49,7 @@ export default function FileUploader(props) {
   return (
     <DrawAndResize index={index} position={position}>
       <div className="file" id={"item" + index}>
-        {managementON && (
+        {allowEdit && (
           <Button
             className="close-button"
             icon="close"

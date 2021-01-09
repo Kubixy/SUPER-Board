@@ -47,7 +47,7 @@ If the user doesn't have one, Classmaker will recieve a null value
 and will call add board to create one.
 */
 export async function userIdFinder(uid) {
-  let output = { status: false, id: null };
+  let output = { id: null, user: null };
 
   await db
     .collection("sessions")
@@ -55,8 +55,8 @@ export async function userIdFinder(uid) {
     .then(function (querySnapshot) {
       querySnapshot.forEach(function (doc) {
         if (doc.data().user !== undefined && uid === doc.data().user) {
-          output.status = true;
           output.id = doc.id;
+          output.user = doc.data().user;
         }
       });
     })

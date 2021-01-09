@@ -1,15 +1,14 @@
 import React, { useState } from "react";
 import { Input, Dropdown, Button, Form, Icon } from "semantic-ui-react";
 import { toast } from "react-toastify";
-import { useUserTools } from "../../../context/UserToolsProvider";
-import { writeUserData } from "../../../utils/Api";
+import { useUserTools } from "../../../../context/UserToolsProvider";
+import { writeUserData } from "../../../../utils/Api";
 
-export default function Quiz(props) {
-  const { setData, data, userInput } = props;
+export default function Quiz() {
   const [userInputQuiz, setUserInputQuiz] = useState([{}]);
   const [questions, setQuestions] = useState([{}]);
   const [solution, setSolution] = useState(null);
-  const { generateItemID, user } = useUserTools();
+  const { generateItemID, userId, writeNewData, data } = useUserTools();
 
   const resetForm = () => {
     for (var i = 0; i < 5; i++) {
@@ -59,17 +58,14 @@ export default function Quiz(props) {
       setUserInputQuiz(userInputQuiz.shift());
       data.push({
         mainindex: generateItemID(data),
-        type: userInput,
+        type: "quiz",
         questions: userInputQuiz,
         position: {
           x: 500,
           y: 500,
         },
       });
-      setData(data);
-      writeUserData(user.uid, data).catch((error) => {
-        console.log("Error (Quiz) --> ", error);
-      });
+      writeNewData();
       resetHandlers();
     }
   };

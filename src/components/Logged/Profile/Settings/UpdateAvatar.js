@@ -2,8 +2,8 @@ import React, { useState, useCallback } from "react";
 import { Image } from "semantic-ui-react";
 import { useDropzone } from "react-dropzone";
 import { toast } from "react-toastify";
-import NoAvatar from "../../assets/png/DefaultUser.png";
-import firebase from "../../utils/Firebase";
+import NoAvatar from "../../../../assets/png/DefaultUser.png";
+import firebase from "../../../../utils/Firebase";
 import "firebase/storage";
 import "firebase/auth";
 

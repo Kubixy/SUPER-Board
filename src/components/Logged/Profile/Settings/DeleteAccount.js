@@ -6,7 +6,7 @@ import {
   googleLogin,
   deleteUserDataStorage,
   deleteUserDataFirestore,
-} from "../../utils/Api";
+} from "../../../../utils/Api";
 
 export default function DeleteAccount(props) {
   const { user, setShowModal, setTitleModal, setContentModal } = props;
