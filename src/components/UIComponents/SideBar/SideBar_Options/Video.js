@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import { useUserTools } from "../../../../context/UserToolsProvider";
 
 export default function Video() {
-  const { generateItemID, userId, data, writeNewData } = useUserTools();
+  const { generateItemID, data, writeNewData, render } = useUserTools();
   const [userInputVideo, setInputVideo] = useState(null);
 
   const onClickVideo = () => {
@@ -21,6 +21,7 @@ export default function Video() {
         });
 
         writeNewData();
+        render();
       } else {
         toast.error("That's not a Youtube video");
       }

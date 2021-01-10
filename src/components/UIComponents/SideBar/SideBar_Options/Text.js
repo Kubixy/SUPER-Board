@@ -4,8 +4,9 @@ import { toast } from "react-toastify";
 import { useUserTools } from "../../../../context/UserToolsProvider";
 
 export default function Text() {
-  const { generateItemID, data, writeNewData } = useUserTools();
+  const { generateItemID, data, writeNewData, render } = useUserTools();
   const [userInputBody, setUserInputBody] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const onClickText = () => {
     if (document.getElementById("body").value) {
@@ -19,8 +20,9 @@ export default function Text() {
         },
       });
 
-      writeNewData();
+      writeNewData(setLoading);
       document.getElementById("body").value = "";
+      setUserInputBody("");
     } else {
       toast.warning("Please, fill all the fields");
     }
@@ -34,7 +36,9 @@ export default function Text() {
         placeholder="Write here"
         maxLength="600"
       />
-      <Button onClick={onClickText}>Add text</Button>
+      <Button loading={loading} onClick={onClickText}>
+        Add text
+      </Button>
     </div>
   );
 }

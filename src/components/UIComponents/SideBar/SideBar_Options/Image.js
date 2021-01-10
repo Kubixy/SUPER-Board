@@ -6,7 +6,14 @@ import { useUserTools } from "../../../../context/UserToolsProvider";
 
 export default function Image(props) {
   const { imageIndex, setimageIndex, writeNewData } = props;
-  const { state, dispatch, generateItemID, userId, data } = useUserTools();
+  const {
+    state,
+    dispatch,
+    generateItemID,
+    userId,
+    data,
+    render,
+  } = useUserTools();
   const [file, setFile] = useState(null);
 
   const onClickImage = () => {
@@ -26,6 +33,7 @@ export default function Image(props) {
             });
 
             writeNewData();
+            render();
             setimageIndex(imageIndex + 1);
             dispatch({ type: "increImg" });
           } else {

@@ -61,6 +61,7 @@ export default function BoardMaker(props) {
         if (response.id) {
           setIdBoard(response.id);
           setAllowEdit(userId === response.user);
+          render();
           //setVisitors(idBoard, user);
           //getVisitors(idBoard).then((result) => {
           //  setVisitorState(result);
@@ -75,8 +76,7 @@ export default function BoardMaker(props) {
 
   useEffect(() => {
     userLoader();
-    render();
-  }, [userLoader, render]);
+  }, []);
 
   useEffect(() => {
     dispatch({ type: "reset" });

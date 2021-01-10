@@ -211,10 +211,7 @@ export const deleteUserDataFirestore = (uid, document, toDelete) => {
   });
 
   userIdFinder(uid).then(({ id }) => {
-    if (id) {
-      deleteUserDataFirestore(uid, "itemdata", ["value"]);
-      deleteUserDataFirestore(id, "sessions", ["user", "visitors"]);
-    }
+    if (id) deleteUserDataFirestore(id, "sessions", ["user", "visitors"]);
   });
 };
 

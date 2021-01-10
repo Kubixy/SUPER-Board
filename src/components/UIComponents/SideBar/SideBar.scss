@@ -1,6 +1,9 @@
 @import "../../../scss/index.scss";
 
 @mixin buttonStyle() {
+  color: $font-light;
+  margin-top: 0.5rem;
+  width: 10rem;
   border-radius: 1rem;
   background-color: $sidebar-button-color;
 
@@ -26,7 +29,7 @@
     padding: 0.5rem;
     border-top-right-radius: 1rem;
     border-top-left-radius: 1rem;
-    background-color: $font-grey-light;
+    background-color: $sidebar-topbar;
 
     .ui.medium.basic.circular.label {
       height: 0;
@@ -45,7 +48,7 @@
     &--right {
       .arrow.alternate.circle.left.large.icon {
         &:hover {
-          color: $warning;
+          color: $font-grey-light;
           cursor: pointer;
         }
       }

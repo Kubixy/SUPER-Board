@@ -13,6 +13,7 @@ export default function File(props) {
     userId,
     data,
     writeNewData,
+    render,
   } = useUserTools();
   const [file, setFile] = useState(null);
   const [input, setInput] = useState(null);
@@ -36,6 +37,7 @@ export default function File(props) {
               });
 
               writeNewData();
+              render();
               setFileIndex(fileIndex + 1);
               document.getElementById("fileInput").value = "";
               dispatch({ type: "increFil" });

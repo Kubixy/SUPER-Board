@@ -57,18 +57,19 @@ export function UserToolsProvider(props) {
     if (user)
       await readUserData(boardFound === null ? user.uid : boardFound).then(
         (response) => {
-          if (response !== null) {
-            setData(response);
-          }
+          if (response !== null) setData(response);
         }
       ); // eslint-disable-next-line
-  }, [user, boardFound]);
+  }, [user, boardFound, setData, user, boardFound]);
 
-  const writeNewData = () => {
+  const writeNewData = async (setLoading) => {
+    setLoading(true);
     setData(data);
-    writeUserData(user.uid, data).catch((error) => {
+    await writeUserData(user.uid, data).catch((error) => {
       console.log("Error (UserToolsProvider) --> ", error);
     });
+    render();
+    setLoading(false);
   };
 
   const updatePositionRecord = useCallback(
@@ -89,21 +90,7 @@ export function UserToolsProvider(props) {
   );
 
   const generateItemID = (myData) => {
-    let newID = Math.floor(Math.random() * (100000 - 1000));
-    if (data.length > 0) {
-      let unique;
-      do {
-        unique = true;
-        // eslint-disable-next-line
-        myData.map((x) => {
-          if (newID === x.index) {
-            unique = false;
-            newID = Math.floor(Math.random() * (100000 - 1000));
-          }
-        });
-      } while (!unique);
-    }
-    return newID;
+    return myData.length > 0 ? myData[myData.length - 1].mainindex + 1 : 1;
   };
 
   const value = useMemo(() => {
