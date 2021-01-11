@@ -30,6 +30,7 @@ export function UserToolsProvider(props) {
   const [boardFound, setBoardFound] = useState(null);
   const [data, setData] = useState([]);
   const [deleteIndex, setDeleteIndex] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const [state, dispatch] = useReducer(reducer, { files: 0, images: 0 });
 
@@ -62,7 +63,7 @@ export function UserToolsProvider(props) {
       ); // eslint-disable-next-line
   }, [user, boardFound, setData, user, boardFound]);
 
-  const writeNewData = async (setLoading) => {
+  const writeNewData = async () => {
     setLoading(true);
     setData(data);
     await writeUserData(user.uid, data).catch((error) => {
@@ -115,6 +116,7 @@ export function UserToolsProvider(props) {
       updatePositionRecord,
       generateItemID,
       writeNewData,
+      loading,
     };
     // eslint-disable-next-line
   }, [
@@ -127,6 +129,7 @@ export function UserToolsProvider(props) {
     render,
     state,
     updatePositionRecord,
+    loading,
   ]);
 
   return <UserContext.Provider value={value} {...props} />;

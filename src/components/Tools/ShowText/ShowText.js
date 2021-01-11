@@ -1,35 +1,23 @@
 import React from "react";
-import { Container, Button, Icon } from "semantic-ui-react";
-import { useUserTools } from "../../../context/UserToolsProvider";
+import { Container } from "semantic-ui-react";
 import DrawAndResize from "../../UIComponents/DrawAndResize";
+import CustomBorders from "../../UIComponents/ToolsUtils/CustomBorders";
+import Topbar from "../../UIComponents/ToolsUtils/Topbar";
 
 import "./ShowText.scss";
 
 export default function ShowText(props) {
   const { body, index, position, allowEdit } = props;
-  const { setDeleteIndex } = useUserTools();
 
   return (
     <DrawAndResize index={index} position={position}>
       <div className="ShowText" id={"item" + index}>
-        {allowEdit && (
-          <div className="ShowText__topbar">
-            <Icon name="setting" size="large" />
-            <Button
-              className="close-button"
-              icon="close"
-              onClick={() => {
-                setDeleteIndex(index);
-              }}
-            />
-          </div>
-        )}
+        {allowEdit && <Topbar index={index} tool="standard" />}
         <Container>
           <p>{body}</p>
         </Container>
       </div>
-      <div className="left-custom-border"></div>
-      <div className="left-bottom-border"></div>
+      <CustomBorders />
     </DrawAndResize>
   );
 }

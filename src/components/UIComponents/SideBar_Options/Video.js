@@ -1,10 +1,16 @@
 import React, { useState } from "react";
 import { Input, Button, Icon, Popup } from "semantic-ui-react";
 import { toast } from "react-toastify";
-import { useUserTools } from "../../../../context/UserToolsProvider";
+import { useUserTools } from "../../../context/UserToolsProvider";
 
 export default function Video() {
-  const { generateItemID, data, writeNewData, render } = useUserTools();
+  const {
+    generateItemID,
+    data,
+    writeNewData,
+    render,
+    loading,
+  } = useUserTools();
   const [userInputVideo, setInputVideo] = useState(null);
 
   const onClickVideo = () => {
@@ -15,8 +21,8 @@ export default function Video() {
           type: "quiz",
           content: userInputVideo,
           position: {
-            x: 500,
-            y: 500,
+            x: -1,
+            y: -1,
           },
         });
 
@@ -52,7 +58,9 @@ export default function Video() {
         maxLength="100"
         onChange={(e) => setInputVideo(e.target.value)}
       />
-      <Button onClick={onClickVideo}>Add video</Button>
+      <Button loading={loading} onClick={onClickVideo}>
+        Add video
+      </Button>
     </div>
   );
 }

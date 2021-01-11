@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 import { Input, Button, Icon, Popup } from "semantic-ui-react";
-import { useUserTools } from "../../../../context/UserToolsProvider";
-import { uploadFile } from "../../../../utils/Api";
+import { useUserTools } from "../../../context/UserToolsProvider";
+import { uploadFile } from "../../../utils/Api";
 
 export default function File(props) {
-  const { fileIndex, setFileIndex } = props;
   const {
     state,
     dispatch,
@@ -13,7 +12,7 @@ export default function File(props) {
     userId,
     data,
     writeNewData,
-    render,
+    loading,
   } = useUserTools();
   const [file, setFile] = useState(null);
   const [input, setInput] = useState(null);
@@ -24,21 +23,19 @@ export default function File(props) {
         if (file.length === 1 && file[0].type.includes("pdf")) {
           if (file[0].size / 1024 <= 5120) {
             if (input) {
-              uploadFile(file[0], userId, fileIndex, "files");
+              let index = generateItemID(data);
+              uploadFile(file[0], userId, index, "files");
               data.push({
-                mainindex: generateItemID(data),
+                mainindex: index,
                 type: "file",
                 title: input,
-                index: fileIndex,
                 position: {
-                  x: 500,
-                  y: 500,
+                  x: -1,
+                  y: -1,
                 },
               });
 
               writeNewData();
-              render();
-              setFileIndex(fileIndex + 1);
               document.getElementById("fileInput").value = "";
               dispatch({ type: "increFil" });
             } else {
@@ -81,11 +78,13 @@ export default function File(props) {
       <Input
         id="inputFileName"
         placeholder="Pick a name for your file"
-        maxLength="50"
+        maxLength="25"
         type="text"
         onChange={(e) => setInput(e.target.value)}
       ></Input>
-      <Button onClick={onClickFile}>Add file</Button>
+      <Button loading={loading} onClick={onClickFile}>
+        Add file
+      </Button>
     </div>
   );
 }

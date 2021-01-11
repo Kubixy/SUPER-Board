@@ -1,31 +1,10 @@
 @import "../../../scss/index.scss";
-$main-color: #778899;
 
 .ShowText {
   border-radius: 1.2rem;
   width: 200px;
   height: 200px;
   background-color: $font-light;
-
-  &__topbar {
-    position: absolute;
-    width: 100%;
-    height: 15%;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-    align-items: center;
-    background-color: $main-color;
-    border-top-left-radius: 1rem;
-    border-top-right-radius: 1rem;
-
-    .setting.large.icon {
-      &:hover {
-        cursor: pointer;
-        color: $background-grey-hover-2;
-      }
-    }
-  }
 
   .ui.container {
     padding: 0.5rem;
@@ -38,37 +17,4 @@ $main-color: #778899;
       font-size: 1.2rem;
     }
   }
-}
-
-div.ShowText:before {
-  content: "";
-  position: absolute;
-  right: 0;
-  top: 15%;
-  height: 85%;
-  border-bottom-right-radius: 1rem;
-  width: 50%;
-  border-right: 3px solid $main-color;
-}
-
-div.left-custom-border:before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 15%;
-  height: 85%;
-  border-bottom-left-radius: 1rem;
-  width: 50%;
-  border-left: 3px solid $main-color;
-}
-
-div.left-bottom-border:before {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  height: 2rem;
-  width: 100%;
-  border-radius: 2rem;
-  border-bottom: 3px solid $main-color;
 }

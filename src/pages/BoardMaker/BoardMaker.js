@@ -17,10 +17,6 @@ import {
 import "./BoardMaker.scss";
 
 export default function BoardMaker(props) {
-  const [imageIndex, setimageIndex] = useState(1);
-  const [fileIndex, setFileIndex] = useState(1);
-  const [imgArrayToDelete, setImgArrayToDelete] = useState([]);
-  const [fileArrayToDelete, setFileArrayToDelete] = useState([]);
   const [allowEdit, setAllowEdit] = useState(false);
   const [visitorState, setVisitorState] = useState([]);
   const [toggleStatus, setToggleStatus] = useState(true);
@@ -37,23 +33,6 @@ export default function BoardMaker(props) {
     user,
     dispatch,
   } = useUserTools();
-
-  const onDelete = async () => {
-    if (imgArrayToDelete.length > 0) {
-      for (let i = 0; i < imgArrayToDelete.length; i++) {
-        await deleteFile(userId, imgArrayToDelete[i], "images");
-      }
-    }
-
-    if (fileArrayToDelete.length > 0) {
-      for (let i = 0; i < fileArrayToDelete.length; i++) {
-        await deleteFile(userId, fileArrayToDelete[i], "files");
-      }
-    }
-
-    setImgArrayToDelete([]);
-    setFileArrayToDelete([]);
-  };
 
   const userLoader = useCallback(async () => {
     await userIdFinder(boardFound === null ? userId : boardFound).then(
@@ -100,12 +79,7 @@ export default function BoardMaker(props) {
       /> */}
       <div className="background" />
       <div className="panel">
-        <SideBar
-          imageIndex={imageIndex}
-          setimageIndex={setimageIndex}
-          fileIndex={fileIndex}
-          setFileIndex={setFileIndex}
-        />
+        <SideBar />
 
         <div className="panel__input">
           {deleteElementCallback()}
@@ -146,12 +120,8 @@ export default function BoardMaker(props) {
                 case "image":
                   return (
                     <ShowImage
-                      indexImg={x.index}
-                      setimageIndex={setimageIndex}
                       index={x.mainindex}
                       position={x.position}
-                      setImgArrayToDelete={setImgArrayToDelete}
-                      imgArrayToDelete={imgArrayToDelete}
                       allowEdit={allowEdit}
                     />
                   );
@@ -159,13 +129,9 @@ export default function BoardMaker(props) {
                 case "file":
                   return (
                     <FileUploader
-                      fileIndex={x.index}
-                      setFileIndex={setFileIndex}
                       title={x.title}
                       index={x.mainindex}
                       position={x.position}
-                      fileArrayToDelete={fileArrayToDelete}
-                      setFileArrayToDelete={setFileArrayToDelete}
                       allowEdit={allowEdit}
                     />
                   );

@@ -1,40 +1,38 @@
 import React, { useState } from "react";
 import { Input, Button, Icon, Popup } from "semantic-ui-react";
 import { toast } from "react-toastify";
-import { uploadFile } from "../../../../utils/Api";
-import { useUserTools } from "../../../../context/UserToolsProvider";
+import { uploadFile } from "../../../utils/Api";
+import { useUserTools } from "../../../context/UserToolsProvider";
 
 export default function Image(props) {
-  const { imageIndex, setimageIndex, writeNewData } = props;
+  const { loading } = props;
   const {
     state,
     dispatch,
     generateItemID,
     userId,
     data,
-    render,
+    writeNewData,
   } = useUserTools();
   const [file, setFile] = useState(null);
 
-  const onClickImage = () => {
+  const onClickImage = async () => {
     if (file) {
       if (file[0].type.includes("image")) {
         if (state.images < 3) {
           if (file[0].size / 1024 <= 5120) {
-            uploadFile(file[0], userId, imageIndex, "images");
+            let index = generateItemID(data);
+            uploadFile(file[0], userId, index, "images");
             data.push({
-              mainindex: generateItemID(data),
+              mainindex: index,
               type: "image",
-              index: imageIndex,
               position: {
-                x: 500,
-                y: 500,
+                x: -1,
+                y: -1,
               },
             });
 
             writeNewData();
-            render();
-            setimageIndex(imageIndex + 1);
             dispatch({ type: "increImg" });
           } else {
             toast.warning("That image is too heavy (5MB limit)");
@@ -70,7 +68,9 @@ export default function Image(props) {
         />
       </div>
 
-      <Button onClick={onClickImage}>Add image</Button>
+      <Button loading={loading} onClick={onClickImage}>
+        Add image
+      </Button>
     </div>
   );
 }

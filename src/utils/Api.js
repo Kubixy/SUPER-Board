@@ -92,30 +92,20 @@ export async function LFBoard(idBoard) {
 Adds a session to a new user
 */
 export function addBoard(uid) {
-  let unique,
-    values = [];
-  let newID = Math.floor(Math.random() * (100000 - 1000)).toString();
+  let newID = 1000;
 
   db.collection("sessions")
     .get()
     .then((querySnapshot) => {
       querySnapshot.forEach(function (doc) {
-        values.push(doc.id);
+        if (newID < doc.newID) newID = doc.id + 10;
       });
     });
 
-  do {
-    unique = true;
-    for (let i of values) {
-      if (newID === i) {
-        unique = false;
-        newID = Math.floor(Math.random() * (100000 - 1000)).toString();
-        break;
-      }
-    }
-  } while (!unique);
-
-  return db.collection("sessions").doc(newID).set({ user: uid, visitors: [] });
+  return db
+    .collection("sessions")
+    .doc(newID.toString())
+    .set({ user: uid, visitors: [] });
 }
 
 export const getVisitors = async (idBoard) => {

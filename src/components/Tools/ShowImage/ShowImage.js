@@ -1,21 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Button } from "semantic-ui-react";
 import firebase from "../../../utils/Firebase";
 import "firebase/storage";
 import { useUserTools } from "../../../context/UserToolsProvider";
 import DrawAndResize from "../../UIComponents/DrawAndResize";
+import Topbar from "../../UIComponents/ToolsUtils/Topbar";
 
 export default function ShowImage(props) {
-  const {
-    indexImg,
-    setimageIndex,
-    index,
-    setImgArrayToDelete,
-    imgArrayToDelete,
-    position,
-    allowEdit,
-  } = props;
-  const { setDeleteIndex, userId, boardFound, dispatch } = useUserTools();
+  const { index, position, allowEdit } = props;
+  const { userId, boardFound } = useUserTools();
 
   const [url, setUrl] = useState(null);
   const [img, setImg] = useState({ width: 1, height: 1 });
@@ -24,13 +16,11 @@ export default function ShowImage(props) {
     firebase
       .storage()
       .ref()
-      .child(`images/${boardFound === null ? userId : boardFound}/${indexImg}`)
+      .child(`images/${boardFound === null ? userId : boardFound}/${index}`)
       .getDownloadURL()
       .then((response) => {
         setUrl(response);
       });
-
-    setimageIndex(index + 1);
   });
 
   const onLoad = () => {
@@ -58,18 +48,7 @@ export default function ShowImage(props) {
   return (
     <DrawAndResize index={index} position={position}>
       <div className="image" id={"item" + index}>
-        {allowEdit && (
-          <Button
-            className="close-button"
-            icon="close"
-            onClick={() => {
-              setDeleteIndex(index);
-              setImgArrayToDelete([...imgArrayToDelete, indexImg]);
-
-              dispatch({ type: "decreImg" });
-            }}
-          />
-        )}
+        {allowEdit && <Topbar index={index} tool="image" />}
         <img
           ref={(ref) => setImg(ref)}
           onLoad={() => {

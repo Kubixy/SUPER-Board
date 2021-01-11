@@ -5,21 +5,14 @@ import { toast } from "react-toastify";
 import "firebase/storage";
 import { useUserTools } from "../../../context/UserToolsProvider";
 import DrawAndResize from "../../UIComponents/DrawAndResize/";
+import CustomBorders from "../../UIComponents/ToolsUtils/CustomBorders";
+import Topbar from "../../UIComponents/ToolsUtils/Topbar";
 
 import "./FileUploader.scss";
 
 export default function FileUploader(props) {
-  const {
-    fileIndex,
-    setFileIndex,
-    title,
-    fileArrayToDelete,
-    index,
-    setFileArrayToDelete,
-    position,
-    allowEdit,
-  } = props;
-  const { setDeleteIndex, boardFound, userId, dispatch } = useUserTools();
+  const { fileIndex, title, index, position, allowEdit } = props;
+  const { boardFound, userId } = useUserTools();
 
   useEffect(() => {
     firebase
@@ -30,8 +23,6 @@ export default function FileUploader(props) {
       .then((response) => {
         setUrl(response);
       });
-
-    setFileIndex(fileIndex + 1);
   });
 
   const [url, setUrl] = useState(null);
@@ -48,23 +39,14 @@ export default function FileUploader(props) {
 
   return (
     <DrawAndResize index={index} position={position}>
-      <div className="file" id={"item" + index}>
-        {allowEdit && (
-          <Button
-            className="close-button"
-            icon="close"
-            onClick={() => {
-              setDeleteIndex(index);
-              setFileArrayToDelete([...fileArrayToDelete, fileIndex]);
-              dispatch({ type: "decreFil" });
-            }}
-          />
-        )}
-        <Button href onClick={() => copyToClipboard()}>
-          <Icon name="file pdf outline" size="big" />
+      <div className="fileItem" id={"item" + index}>
+        {allowEdit && <Topbar index={index} tool="file" />}
+        <div className="fileItem__link" onDoubleClick={() => copyToClipboard()}>
+          <Icon name="file pdf outline" size="huge" />
           <p>{title}</p>
-        </Button>
+        </div>
       </div>
+      <CustomBorders />
     </DrawAndResize>
   );
 }

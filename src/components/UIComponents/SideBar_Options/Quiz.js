@@ -1,13 +1,19 @@
 import React, { useState } from "react";
 import { Input, Dropdown, Button, Form, Icon } from "semantic-ui-react";
 import { toast } from "react-toastify";
-import { useUserTools } from "../../../../context/UserToolsProvider";
+import { useUserTools } from "../../../context/UserToolsProvider";
 
 export default function Quiz() {
   const [userInputQuiz, setUserInputQuiz] = useState([{}]);
   const [questions, setQuestions] = useState([{}]);
   const [solution, setSolution] = useState(null);
-  const { generateItemID, writeNewData, data, render } = useUserTools();
+  const {
+    generateItemID,
+    writeNewData,
+    data,
+    render,
+    loading,
+  } = useUserTools();
 
   const resetForm = () => {
     for (var i = 0; i < 5; i++) {
@@ -60,8 +66,8 @@ export default function Quiz() {
         type: "quiz",
         questions: userInputQuiz,
         position: {
-          x: 500,
-          y: 500,
+          x: -1,
+          y: -1,
         },
       });
       writeNewData();
@@ -144,7 +150,9 @@ export default function Quiz() {
         />
 
         <Button onClick={addQuestion}>Add question</Button>
-        <Button onClick={() => onClickQuiz()}>Add quiz</Button>
+        <Button loading={loading} onClick={() => onClickQuiz()}>
+          Add quiz
+        </Button>
         <div className="counter">
           <h3>
             {userInputQuiz.length <= 1

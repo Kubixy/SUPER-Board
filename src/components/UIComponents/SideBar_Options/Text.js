@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import { Form, Button } from "semantic-ui-react";
 import { toast } from "react-toastify";
-import { useUserTools } from "../../../../context/UserToolsProvider";
+import { useUserTools } from "../../../context/UserToolsProvider";
 
 export default function Text() {
-  const { generateItemID, data, writeNewData, render } = useUserTools();
+  const { generateItemID, data, writeNewData, loading } = useUserTools();
   const [userInputBody, setUserInputBody] = useState(null);
-  const [loading, setLoading] = useState(false);
 
   const onClickText = () => {
     if (document.getElementById("body").value) {
@@ -15,12 +14,12 @@ export default function Text() {
         type: "text",
         body: userInputBody,
         position: {
-          x: 500,
-          y: 500,
+          x: -1,
+          y: -1,
         },
       });
 
-      writeNewData(setLoading);
+      writeNewData();
       document.getElementById("body").value = "";
       setUserInputBody("");
     } else {

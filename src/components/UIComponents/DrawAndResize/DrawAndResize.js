@@ -12,10 +12,10 @@ export default function DrawAndResize(props) {
 
   const container = document.getElementById("movingContainer" + index);
   const item = document.getElementById("item" + index);
-  const panel = document.getElementsByClassName("panel__input")[0];
+  const panel = document.getElementsByClassName("panel")[0];
   const windowResolution = {
     width: window.innerWidth,
-    heigth: window.innerHeight,
+    height: window.innerHeight,
   };
 
   const mousedown = (e) => {
@@ -33,10 +33,11 @@ export default function DrawAndResize(props) {
 
   const mousemove = (e) => {
     if (isDown) {
-      setItemPosition({
-        x: e.clientX + offset[0],
-        y: e.clientY + offset[1],
-      });
+      if (position)
+        setItemPosition({
+          x: e.clientX + offset[0],
+          y: e.clientY + offset[1],
+        });
       container.style.left = fixLimits(e.clientX + offset[0], "x") + "px";
       container.style.top = fixLimits(e.clientY + offset[1], "y") + "px";
     }
@@ -53,11 +54,36 @@ export default function DrawAndResize(props) {
 
   useEffect(() => {
     if (container && position) {
-      container.style.left = position.x + "px";
-      container.style.top = position.y + "px";
+      if (position.x > -1) {
+        container.style.left = position.x + "px";
+        container.style.top = position.y + "px";
+
+        setItemPosition({
+          x: position.x,
+          y: position.y,
+        });
+      } else {
+        let firstPositionX = windowResolution.width / 2 - item.clientWidth / 2;
+        let firstPositionY =
+          windowResolution.height / 2 - item.clientHeight / 2;
+
+        container.style.left = firstPositionX + "px";
+        container.style.top = firstPositionY + "px";
+
+        setItemPosition({
+          x: firstPositionX,
+          y: firstPositionY,
+        });
+      }
+
+      container.style.zIndex = 1;
+    } else if (container && !position) {
+      container.style.left = 25 + "px";
+      container.style.top = 125 + "px";
+      container.style.zIndex = 2;
       setItemPosition({
-        x: position.x,
-        y: position.y,
+        x: 25,
+        y: 125,
       });
     }
   }, [position, index, container]);
@@ -72,7 +98,7 @@ export default function DrawAndResize(props) {
           ) + "px";
         container.style.top =
           fixLimits(
-            itemPosition.y - (windowResolution.heigth - window.innerHeight),
+            itemPosition.y - (windowResolution.height - window.innerHeight),
             "y"
           ) + "px";
       }
@@ -88,7 +114,8 @@ export default function DrawAndResize(props) {
         mousedown(e);
       }}
       onMouseUp={() => {
-        updatePositionRecord(index, { x: itemPosition.x, y: itemPosition.y });
+        if (position)
+          updatePositionRecord(index, { x: itemPosition.x, y: itemPosition.y });
         mouseup();
       }}
       onMouseMove={(e) => {
