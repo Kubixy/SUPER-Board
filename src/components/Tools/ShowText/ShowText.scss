@@ -2,19 +2,38 @@
 
 .ShowText {
   border-radius: 1.2rem;
+  max-height: 300px;
+  max-width: 300px;
+  min-height: 100px;
+  min-width: 100px;
   width: 200px;
   height: 200px;
   background-color: $font-light;
+  white-space: pre-line;
+  word-spacing: 0.2rem;
+  z-index: 1;
+  resize: both;
+  overflow: auto;
 
-  .ui.container {
-    padding: 0.5rem;
-    white-space: pre-line;
-    word-spacing: 0.2rem;
+  .enableMovement {
+    margin-top: 10%;
+    width: 100%;
+    height: 85%;
 
     p {
       color: black;
-      padding-top: 15%;
+      padding: 1rem 1rem 0.75rem 1rem;
       font-size: 1.2rem;
     }
   }
+}
+
+.ShowText ~ .bottom-custom-border:before {
+  width: 96%;
+  border-bottom-right-radius: 0;
+}
+
+.ShowText ~ .rigth-custom-border:before {
+  top: 6%;
+  height: 91%;
 }

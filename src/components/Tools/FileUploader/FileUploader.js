@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button, Icon } from "semantic-ui-react";
+import { Icon } from "semantic-ui-react";
 import firebase from "../../../utils/Firebase";
 import { toast } from "react-toastify";
 import "firebase/storage";
@@ -11,21 +11,21 @@ import Topbar from "../../UIComponents/ToolsUtils/Topbar";
 import "./FileUploader.scss";
 
 export default function FileUploader(props) {
-  const { fileIndex, title, index, position, allowEdit } = props;
+  const { title, index, position, allowEdit } = props;
   const { boardFound, userId } = useUserTools();
+  const [url, setUrl] = useState(null);
+  const [allowMovement, setAllowMovement] = useState(false);
 
   useEffect(() => {
     firebase
       .storage()
       .ref()
-      .child(`files/${boardFound === null ? userId : boardFound}/${fileIndex}`)
+      .child(`files/${boardFound === null ? userId : boardFound}/${index}`)
       .getDownloadURL()
       .then((response) => {
         setUrl(response);
       });
   });
-
-  const [url, setUrl] = useState(null);
 
   const copyToClipboard = () => {
     let newElement = document.createElement("input");
@@ -38,10 +38,28 @@ export default function FileUploader(props) {
   };
 
   return (
-    <DrawAndResize index={index} position={position}>
+    <DrawAndResize
+      index={index}
+      position={position}
+      setAllowMovement={setAllowMovement}
+      allowMovement={allowMovement}
+    >
       <div className="fileItem" id={"item" + index}>
-        {allowEdit && <Topbar index={index} tool="file" />}
-        <div className="fileItem__link" onDoubleClick={() => copyToClipboard()}>
+        {allowEdit && (
+          <Topbar
+            index={index}
+            tool="file"
+            setAllowMovement={setAllowMovement}
+            allowMovement={allowMovement}
+          />
+        )}
+        <div
+          className="fileItem__link"
+          onMouseMove={() => {
+            if (allowMovement) setAllowMovement(false);
+          }}
+          onDoubleClick={() => copyToClipboard()}
+        >
           <Icon name="file pdf outline" size="huge" />
           <p>{title}</p>
         </div>

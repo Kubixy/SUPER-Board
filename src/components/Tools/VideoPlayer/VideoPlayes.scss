@@ -1,4 +1,9 @@
 .video {
-  margin-top: 30px;
-  margin-bottom: 30px;
+  .topbar {
+    position: relative;
+  }
+
+  &:last-child {
+    width: 30rem;
+  }
 }

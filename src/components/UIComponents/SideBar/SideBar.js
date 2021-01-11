@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { Menu, Popup, Icon, Label } from "semantic-ui-react";
+import { Menu, Popup, Icon, Label, Button } from "semantic-ui-react";
 import Text from "../SideBar_Options/Text";
 import Image from "../SideBar_Options/Image";
 import File from "../SideBar_Options/File";
 import Video from "../SideBar_Options/Video";
 import Quiz from "../SideBar_Options/Quiz";
+import BasicModal from "../../Modal/BasicModal";
 import DrawAndResize from "../DrawAndResize";
 import { useUserTools } from "../../../context/UserToolsProvider";
 
@@ -13,9 +14,10 @@ import "./SideBar.scss";
 export default function SideBar(props) {
   const { data, idBoard, setIsBuilding } = useUserTools();
   const [userSelection, setUserSelection] = useState("");
+  const [showQuizModal, setShowQuizModal] = useState(false);
 
   return (
-    <DrawAndResize index={0}>
+    <DrawAndResize index={0} noResize={false}>
       <div className="Sidebar" id="item0">
         <div className="Sidebar__topbar">
           <div className="Sidebar__topbar--left">
@@ -107,10 +109,26 @@ export default function SideBar(props) {
               setUserSelection(name);
             }}
           >
-            {userSelection === "quiz" ? "Quiz" : "Quiz"}
+            {userSelection === "quiz" ? (
+              <Button
+                id="quizButton"
+                onClick={() => {
+                  setShowQuizModal(true);
+                }}
+              >
+                Create quiz
+              </Button>
+            ) : (
+              "Quiz"
+            )}
           </Menu.Item>
         </Menu>
       </div>
+      {
+        <BasicModal show={showQuizModal} setShow={setShowQuizModal} title="">
+          {<Quiz />}
+        </BasicModal>
+      }
     </DrawAndResize>
   );
 }

@@ -3,7 +3,7 @@ import { Input, Dropdown, Button, Form, Icon } from "semantic-ui-react";
 import { toast } from "react-toastify";
 import { useUserTools } from "../../../context/UserToolsProvider";
 
-export default function Quiz() {
+export default function Quiz(props) {
   const [userInputQuiz, setUserInputQuiz] = useState([{}]);
   const [questions, setQuestions] = useState([{}]);
   const [solution, setSolution] = useState(null);

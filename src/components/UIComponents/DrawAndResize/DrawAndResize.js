@@ -4,11 +4,12 @@ import { useUserTools } from "../../../context/UserToolsProvider";
 import "./DrawAndResize.scss";
 
 export default function DrawAndResize(props) {
-  const { children, index, position } = props;
+  const { children, index, position, allowMovement, noResize } = props;
   const { updatePositionRecord } = useUserTools();
   const [itemPosition, setItemPosition] = useState({ x: 0, y: 0 });
   const [offset, setOffset] = useState([0, 0]);
   const [isDown, setIsDown] = useState(false);
+  const [itemSize, setItemSize] = useState({ width: 200, height: 200 });
 
   const container = document.getElementById("movingContainer" + index);
   const item = document.getElementById("item" + index);
@@ -55,12 +56,15 @@ export default function DrawAndResize(props) {
   useEffect(() => {
     if (container && position) {
       if (position.x > -1) {
-        container.style.left = position.x + "px";
-        container.style.top = position.y + "px";
+        let x = fixLimits(position.x, "x"),
+          y = fixLimits(position.y, "y");
+
+        container.style.left = x + "px";
+        container.style.top = y + "px";
 
         setItemPosition({
-          x: position.x,
-          y: position.y,
+          x: x,
+          y: y,
         });
       } else {
         let firstPositionX = windowResolution.width / 2 - item.clientWidth / 2;
@@ -111,18 +115,34 @@ export default function DrawAndResize(props) {
       className="movingContainerClass"
       id={"movingContainer" + index}
       onMouseDown={(e) => {
-        mousedown(e);
+        if (allowMovement || position === undefined) mousedown(e);
       }}
       onMouseUp={() => {
-        if (position)
-          updatePositionRecord(index, { x: itemPosition.x, y: itemPosition.y });
-        mouseup();
+        if (allowMovement || position === undefined) {
+          if (position)
+            updatePositionRecord(index, {
+              x: itemPosition.x,
+              y: itemPosition.y,
+            });
+          mouseup();
+        } else {
+          if (
+            itemSize.width !== container.clientWidth ||
+            itemSize.height !== container.clientHeight
+          ) {
+            setItemSize({
+              width: container.clientWidth,
+              height: container.clientHeight,
+            });
+          }
+        }
       }}
       onMouseMove={(e) => {
-        mousemove(e);
+        if (allowMovement || position === undefined) mousemove(e);
       }}
     >
       {children}
+      {noResize === undefined && <div className="resizeStyle" />}
     </div>
   );
 }

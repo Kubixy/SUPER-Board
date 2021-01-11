@@ -39,7 +39,7 @@
 
       &:hover {
         color: $font-light;
-        background-color: $background-grey-hover;
+        background-color: $main-color;
       }
     }
 
@@ -184,4 +184,8 @@
   &:hover {
     font-size: 1.5rem;
   }
+}
+
+#quizButton {
+  @include buttonStyle();
 }

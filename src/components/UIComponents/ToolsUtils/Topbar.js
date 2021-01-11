@@ -6,7 +6,7 @@ import { deleteFile } from "../../../utils/Api";
 import "./Topbar.scss";
 
 export default function Topbar(props) {
-  const { index, tool } = props;
+  const { index, tool, allowMovement, setAllowMovement } = props;
   const { setDeleteIndex, dispatch, uid } = useUserTools();
 
   const onClick = () => {
@@ -29,7 +29,12 @@ export default function Topbar(props) {
   };
 
   return (
-    <div className="topbar">
+    <div
+      className="topbar"
+      onMouseMove={() => {
+        if (!allowMovement) setAllowMovement(true);
+      }}
+    >
       <Icon name="setting" size="large" />
       <Button
         className="close-button"
