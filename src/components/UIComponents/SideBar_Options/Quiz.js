@@ -7,13 +7,10 @@ export default function Quiz(props) {
   const [userInputQuiz, setUserInputQuiz] = useState([{}]);
   const [questions, setQuestions] = useState([{}]);
   const [solution, setSolution] = useState(null);
-  const {
-    generateItemID,
-    writeNewData,
-    data,
-    render,
-    loading,
-  } = useUserTools();
+  const [allowName, setAllowName] = useState(false);
+  const [quizNameState, setQuizNameState] = useState("");
+  const { generateItemID, writeNewData, data, loading } = useUserTools();
+  const { setShowQuizModal } = props;
 
   const resetForm = () => {
     for (var i = 0; i < 5; i++) {
@@ -55,28 +52,33 @@ export default function Quiz(props) {
       resetForm();
     }
   };
-
   const onClickQuiz = () => {
-    if (userInputQuiz.length <= 1) {
-      toast.error("Add at least one question");
+    if (userInputQuiz.length > 1) {
+      if (quizNameState.length > 1 && allowName) {
+        setUserInputQuiz(userInputQuiz.shift());
+        data.push({
+          mainindex: generateItemID(data),
+          type: "quiz",
+          title: quizNameState,
+          questions: userInputQuiz,
+          position: {
+            x: -1,
+            y: -1,
+          },
+        });
+        writeNewData();
+        resetHandlers();
+        setShowQuizModal(false);
+      } else {
+        toast.warning("You must pick a validname for your quiz");
+      }
     } else {
-      setUserInputQuiz(userInputQuiz.shift());
-      data.push({
-        mainindex: generateItemID(data),
-        type: "quiz",
-        questions: userInputQuiz,
-        position: {
-          x: -1,
-          y: -1,
-        },
-      });
-      writeNewData();
-      render();
-      resetHandlers();
+      toast.error("Add at least one question");
     }
   };
 
   const resetHandlers = () => {
+    setQuizNameState("");
     setUserInputQuiz([{}]);
     setQuestions([{}]);
     setSolution(null);
@@ -92,73 +94,94 @@ export default function Quiz(props) {
   return (
     <div className="options-quiz">
       <Form onChange={onChange}>
-        <h3>What do you want to ask?</h3>
+        <div className="options-quiz__question">
+          <p>What do you want to ask?</p>
+          <Input
+            id="input0"
+            name="question"
+            type="text"
+            placeholder="Write your question here"
+            className="mainInput"
+            maxLength="50"
+          />
+        </div>
+        <div className="options-quiz__input">
+          <Form.Field>
+            <Input
+              id="input1"
+              label="Answer 1"
+              name="resp1"
+              placeholder="[...]"
+              maxLength="200"
+            />
+          </Form.Field>
+          <Form.Field>
+            <Input
+              id="input2"
+              label="Answer 2"
+              name="resp2"
+              placeholder="[...]"
+              maxLength="200"
+            />
+          </Form.Field>
+          <Form.Field>
+            <Input
+              id="input3"
+              label="Answer 3"
+              name="resp3"
+              placeholder="[...]"
+              maxLength="200"
+            />
+          </Form.Field>
+          <Form.Field>
+            <Input
+              id="input4"
+              label="Answer 4"
+              name="resp4"
+              placeholder="[...]"
+              maxLength="200"
+            />
+          </Form.Field>
+
+          <Dropdown
+            placeholder="Select the solution to the question"
+            fluid
+            selection
+            options={examOptions}
+            onChange={(event, { value }) => {
+              setSolution(value);
+            }}
+          />
+        </div>
+
+        <Button id="addQuestionButton" onClick={addQuestion}>
+          Add question
+        </Button>
+        <Button
+          id="createQuizButton"
+          loading={loading}
+          onClick={() => {
+            onClickQuiz();
+            setAllowName(true);
+          }}
+        >
+          Create quiz
+        </Button>
         <Input
-          id="input0"
-          name="question"
-          type="text"
-          placeholder="Write your question here"
-          className="mainInput"
-          maxLength="50"
-        />
-
-        <Form.Field>
-          <Input
-            id="input1"
-            label="Answer 1"
-            name="resp1"
-            placeholder="[...]"
-            maxLength="200"
-          />
-        </Form.Field>
-        <Form.Field>
-          <Input
-            id="input2"
-            label="Answer 2"
-            name="resp2"
-            placeholder="[...]"
-            maxLength="200"
-          />
-        </Form.Field>
-        <Form.Field>
-          <Input
-            id="input3"
-            label="Answer 3"
-            name="resp3"
-            placeholder="[...]"
-            maxLength="200"
-          />
-        </Form.Field>
-        <Form.Field>
-          <Input
-            id="input4"
-            label="Answer 4"
-            name="resp4"
-            placeholder="[...]"
-            maxLength="200"
-          />
-        </Form.Field>
-
-        <Dropdown
-          placeholder="Select the solution to the question"
-          fluid
-          selection
-          options={examOptions}
-          onChange={(event, { value }) => {
-            setSolution(value);
+          style={allowName ? { visibility: "visible" } : {}}
+          label="Quiz name"
+          name="quizname"
+          maxLength="20"
+          onChange={(e, { value }) => {
+            setQuizNameState(value);
           }}
         />
-
-        <Button onClick={addQuestion}>Add question</Button>
-        <Button loading={loading} onClick={() => onClickQuiz()}>
-          Add quiz
-        </Button>
         <div className="counter">
-          <h3>
+          <p>
             {userInputQuiz.length <= 1
               ? "There are no questions yet"
               : "You have created " + (userInputQuiz.length - 1) + " questions"}
-          </h3>
+          </p>
           <Icon name="undo" size="large" onClick={() => resetHandlers()} />
         </div>
       </Form>

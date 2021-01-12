@@ -126,7 +126,7 @@ export default function SideBar(props) {
       </div>
       {
         <BasicModal show={showQuizModal} setShow={setShowQuizModal} title="">
-          {<Quiz />}
+          {<Quiz setShowQuizModal={setShowQuizModal} />}
         </BasicModal>
       }
     </DrawAndResize>

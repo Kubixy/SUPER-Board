@@ -110,6 +110,7 @@ export default function BoardMaker(props) {
                 case "quiz":
                   return (
                     <MakeQuiz
+                      title={x.title}
                       questions={x.questions}
                       index={x.mainindex}
                       position={x.position}

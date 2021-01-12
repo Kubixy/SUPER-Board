@@ -1,128 +1,114 @@
 @import "../../../scss/index.scss";
 
 .quiz {
-  color: $font-light;
-  background-color: $background-grey-dark-light;
-  padding: 5px 30px 30px 30px;
-  border-radius: 20px;
-  border: 3px solid $primary-color;
-  width: 590px;
-  margin-top: 30px;
-  margin-bottom: 30px;
+  background-color: $background-grey-light;
+  width: auto;
+  min-width: 25rem;
+  height: auto;
+  padding: 1rem;
+  padding-top: 0rem;
+  z-index: 1;
+  border: {
+    radius: 1rem;
+    top-left-radius: 0;
+    top-right-radius: 0;
+  }
 
-  button.ui.button {
-    &.close-button {
-      left: 5rem;
+  p {
+    margin: 0 !important;
+    text-align: center;
+    font-size: 2rem;
+    padding-top: 1rem;
+    margin-bottom: 2rem !important;
+  }
+
+  .topbar {
+    margin-top: -8%;
+    margin-left: -4%;
+  }
+
+  &__questions {
+    max-height: 20rem;
+    overflow: {
+      x: hidden;
+      y: auto;
+    }
+
+    .fields {
+      display: flex;
+      flex-direction: column !important;
+      align-items: center;
+
+      .toAsk {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 80%;
+
+        .ui.checked.radio.checkbox {
+          background-color: $primary-color-hover;
+        }
+
+        button {
+          margin: 0.2rem;
+          height: 2rem;
+          border: 0;
+          border-radius: 0.5rem;
+
+          &:hover {
+            background-color: $background-grey-hover-2;
+          }
+
+          label {
+            padding: 0;
+
+            &::before {
+              display: none;
+            }
+
+            &::after {
+              display: none;
+            }
+          }
+        }
+      }
     }
   }
 
   .quizButtons {
-    button.ui.button {
-      font-size: 20px;
-      width: 250px;
+    width: 100%;
+
+    .ui.button {
+      background-color: $sidebar-button-color;
+
+      &:hover {
+        background-color: $sidebar-button-color-hover;
+      }
+    }
+  }
+
+  .ui.button.openButton {
+    width: 100%;
+    background-color: $sidebar-button-color;
+    color: $font-light;
+    font-size: 1.2rem;
+    margin-top: 4%;
+
+    &:hover {
+      background-color: $sidebar-button-color-hover;
     }
   }
 
   h2 {
     text-align: center;
   }
+}
 
-  .openButton {
-    height: 40px !important;
-    margin-top: 20px !important;
-    margin-bottom: -5px !important;
-  }
-
-  form.ui.form {
-    div.fields {
-      display: flex;
-      flex-direction: column;
-    }
-  }
-
-  h3 {
-    margin: 25px 0px 10px 0px !important;
-    padding: 10px;
-    background-color: $font-light;
-    margin-bottom: 20px;
-    color: $background-grey-dark;
-    border-radius: 10px;
-    padding-left: 30px;
-    font-size: 23px;
-    text-align: center;
-  }
-
-  .toAsk {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-
-    .ui.checked.radio.checkbox {
-      label {
-        color: $background-grey-dark;
-      }
-
-      background-color: $font-light;
-      border-radius: 30px;
-    }
-
-    .ui.radio.checkbox {
-      font-size: 20px !important;
-      padding: 20px;
-      margin: 5px;
-      word-spacing: 5px;
-      border-spacing: 5px;
-      line-height: 20px;
-      text-align: center;
-
-      label {
-        color: $font-light;
-
-        &::before,
-        &::after {
-          margin-top: 5px;
-        }
-      }
-
-      &:hover {
-        label {
-          color: $background-grey-dark;
-
-          &::before,
-          &::after {
-            border: 2px solid;
-          }
-        }
-        background-color: $font-light;
-        border-radius: 30px;
-      }
-    }
-  }
-
-  .quizButtons {
-    padding-top: 15px;
-  }
-
-  @media (max-width: 600px) {
-    width: 400px;
-
-    button.ui.button {
-      &.close-button {
-        left: 1rem;
-      }
-    }
-
-    .quizButtons {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    button.ui.button {
-      &.close-button {
-        position: relative;
-        margin: 0.2rem 0rem -1rem -2rem;
-      }
-    }
+.borderFixQuiz {
+  div.left-custom-border:before,
+  div.rigth-custom-border:before {
+    top: 0%;
+    height: 100%;
+    border-color: $main-color;
   }
 }

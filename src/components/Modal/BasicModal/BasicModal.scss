@@ -3,9 +3,14 @@
 .ui.modal.basic-modal {
   background-color: $background-grey;
   border-radius: 12px;
-  border: 3px solid $primary-color;
-  max-height: 40rem;
+  border: 2px solid $background-grey-hover-2;
+  max-height: 50rem;
   overflow: auto;
+
+  input {
+    color: $font-dark !important;
+    background-color: $background-grey-hover-2 !important;
+  }
 
   .header {
     text-align: center;
@@ -45,91 +50,6 @@
     margin: 10px;
     font-size: 15px;
     color: $font-dark;
-  }
-}
-
-.classLocker {
-  &__passwordSettings {
-    .ui.block.header {
-      margin-top: -20px;
-      border-radius: 5px;
-      border-color: $primary-color;
-    }
-
-    &__input {
-      display: flex;
-      flex-direction: row;
-      margin-top: 30px;
-      padding: -5px !important;
-
-      .ui.input {
-        margin-top: 10px;
-        margin-left: 15px;
-        height: 40px;
-        width: 150px;
-      }
-
-      &__buttons {
-        display: flex;
-        flex-direction: column;
-
-        .ui.toggle.checkbox {
-          margin-left: 25px;
-          padding: 5px;
-
-          label {
-            text-align: center;
-            color: $font-light;
-
-            &::before {
-              background-color: $font-grey !important;
-            }
-
-            &::after {
-              background-color: $primary-color-hover !important;
-              border: 2px solid $font-light;
-            }
-          }
-        }
-
-        .ui.checked.toggle.checkbox {
-          input[type="checkbox"]:checked + label {
-            color: $font-light !important;
-          }
-
-          input[type="checkbox"]:checked + label::before {
-            background-color: $primary-color !important;
-          }
-
-          input[type="checkbox"]:checked + label::before {
-            background: gray;
-            border: 1px solid #d4d4d5;
-          }
-        }
-      }
-    }
-  }
-
-  &__bottom {
-    .ui.divider {
-      margin: 25px 25px;
-      height: 1px;
-      background-color: $primary-color-hover;
-    }
-  }
-
-  &__preferences {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-
-    button.ui.primary.button {
-      background-color: $primary-color;
-
-      &:hover {
-        background-color: $primary-color-hover;
-      }
-    }
   }
 }
 
