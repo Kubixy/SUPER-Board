@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useUserTools } from "../../../context/UserToolsProvider";
 
-import "./DrawAndResize.scss";
+import "./MoveElements.scss";
 
-export default function DrawAndResize(props) {
-  const { children, index, position, allowMovement, noResize } = props;
-  const { updatePositionRecord } = useUserTools();
+export default function MoveElements(props) {
+  const { children, index, position, allowMovement } = props;
+  const { updateRecord } = useUserTools();
   const [itemPosition, setItemPosition] = useState({ x: 0, y: 0 });
   const [offset, setOffset] = useState([0, 0]);
   const [isDown, setIsDown] = useState(false);
-  const [itemSize, setItemSize] = useState({ width: 200, height: 200 });
 
   const container = document.getElementById("movingContainer" + index);
   const item = document.getElementById("item" + index);
@@ -120,21 +119,15 @@ export default function DrawAndResize(props) {
       onMouseUp={() => {
         if (allowMovement || position === undefined) {
           if (position)
-            updatePositionRecord(index, {
-              x: itemPosition.x,
-              y: itemPosition.y,
-            });
+            updateRecord(
+              index,
+              {
+                x: itemPosition.x,
+                y: itemPosition.y,
+              },
+              "position"
+            );
           mouseup();
-        } else {
-          if (
-            itemSize.width !== container.clientWidth ||
-            itemSize.height !== container.clientHeight
-          ) {
-            setItemSize({
-              width: container.clientWidth,
-              height: container.clientHeight,
-            });
-          }
         }
       }}
       onMouseMove={(e) => {
@@ -142,7 +135,6 @@ export default function DrawAndResize(props) {
       }}
     >
       {children}
-      {noResize === undefined && <div className="resizeStyle" />}
     </div>
   );
 }

@@ -73,14 +73,32 @@ export function UserToolsProvider(props) {
     setLoading(false);
   };
 
-  const updatePositionRecord = useCallback(
-    (index, values) => {
+  const updateRecord = useCallback(
+    (index, values, attribute) => {
       for (let i = 0; i < data.length; i++) {
         if (data[i].mainindex === index) {
-          data[i].position = {
-            x: values.x,
-            y: values.y,
-          };
+          switch (attribute) {
+            case "position":
+              data[i].position = {
+                x: values.x,
+                y: values.y,
+              };
+              break;
+            case "width":
+              data[i].width = values.width;
+              break;
+            case "resolution":
+              data[i].resolution = {
+                width: values.width,
+                height: values.height,
+              };
+              break;
+            case "color":
+              data[i].color = values.color;
+              break;
+            default:
+          }
+          break;
         }
       }
 
@@ -113,7 +131,7 @@ export function UserToolsProvider(props) {
       render,
       state,
       dispatch,
-      updatePositionRecord,
+      updateRecord,
       generateItemID,
       writeNewData,
       loading,
@@ -128,7 +146,7 @@ export function UserToolsProvider(props) {
     deleteElementCallback,
     render,
     state,
-    updatePositionRecord,
+    updateRecord,
     loading,
   ]);
 

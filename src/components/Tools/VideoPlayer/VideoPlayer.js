@@ -1,29 +1,31 @@
 import React, { useState } from "react";
-import DrawAndResize from "../../UIComponents/DrawAndResize";
+import MoveElements from "../../UIComponents/MoveElements";
 import Topbar from "../../UIComponents/ToolsUtils/Topbar";
 import { Embed } from "semantic-ui-react";
 
 import "./VideoPlayes.scss";
 
 export default function VideoPlayer(props) {
-  const { url, index, position, allowEdit } = props;
+  const { url, index, position, allowEdit, width } = props;
   const [allowMovement, setAllowMovement] = useState(false);
+  const [videoWidth, setVideoWidth] = useState(width);
 
   const id = url.split("youtube.com/watch?v=");
 
   return (
-    <DrawAndResize
+    <MoveElements
       index={index}
       position={position}
       setAllowMovement={setAllowMovement}
       allowMovement={allowMovement}
-      noResize={false}
     >
       <div className="video" id={"item" + index}>
         {allowEdit && (
           <Topbar
+            videoWidth={videoWidth}
+            setVideoWidth={setVideoWidth}
             index={index}
-            tool="standard"
+            tool="video"
             allowMovement={allowMovement}
             setAllowMovement={setAllowMovement}
           />
@@ -32,8 +34,11 @@ export default function VideoPlayer(props) {
           id={id.length < 2 ? id[0] : id[1]}
           source="youtube"
           aspectRatio="16:9"
+          defaultActive
+          autoplay={false}
+          style={{ width: videoWidth + "rem" }}
         />
       </div>
-    </DrawAndResize>
+    </MoveElements>
   );
 }

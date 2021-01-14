@@ -1,33 +1,39 @@
 import React, { useState } from "react";
 import { Button, Form } from "semantic-ui-react";
 import QuestionQuiz from "./QuestionQuiz";
-import DrawAndResize from "../../UIComponents/DrawAndResize";
+import MoveElements from "../../UIComponents/MoveElements";
 import Topbar from "../../UIComponents/ToolsUtils/Topbar";
 import CustomBorders from "../../UIComponents/ToolsUtils/CustomBorders";
 
-import "./quiz.scss";
+import "./MakeQuiz.scss";
 
 export default function MakeQuiz(props) {
-  const { questions, index, position, allowEdit, title } = props;
+  const { questions, index, position, allowEdit, title, color } = props;
   const [showQuiz, setShowQuiz] = useState(false);
   const [corrector, setCorrector] = useState(false);
   const [rightAnswers, setRightAnswers] = useState(0);
   const [allowMovement, setAllowMovement] = useState(false);
+  const [backgroundColor, setBackgroundColor] = useState(color);
 
   return (
-    <DrawAndResize
+    <MoveElements
       index={index}
       position={position}
       setAllowMovement={setAllowMovement}
       allowMovement={allowMovement}
-      noResize={false}
     >
       <div className="borderFixQuiz">
-        <div className="quiz" id={"item" + index}>
+        <div
+          className="quiz"
+          id={"item" + index}
+          style={{ "background-color": backgroundColor ? backgroundColor : "" }}
+        >
           {allowEdit && (
             <Topbar
+              defaultcolor="#525252"
+              setBackgroundColor={setBackgroundColor}
               index={index}
-              tool="standard"
+              tool="quiz"
               allowMovement={allowMovement}
               setAllowMovement={setAllowMovement}
             />
@@ -41,9 +47,10 @@ export default function MakeQuiz(props) {
               <p>{title}</p>
 
               <div className="quiz__questions">
-                {questions.map((x) => {
+                {questions.map((x, index) => {
                   return (
                     <QuestionQuiz
+                      key={index}
                       questions={x}
                       setRightAnswers={setRightAnswers}
                       rightAnswers={rightAnswers}
@@ -76,6 +83,6 @@ export default function MakeQuiz(props) {
         </div>
         <CustomBorders />
       </div>
-    </DrawAndResize>
+    </MoveElements>
   );
 }

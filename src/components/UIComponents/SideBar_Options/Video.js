@@ -14,6 +14,7 @@ export default function Video() {
           mainindex: generateItemID(data),
           type: "video",
           content: userInputVideo,
+          width: 30,
           position: {
             x: -1,
             y: -1,

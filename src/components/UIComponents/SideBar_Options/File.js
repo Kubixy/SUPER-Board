@@ -29,6 +29,7 @@ export default function File(props) {
                 mainindex: index,
                 type: "file",
                 title: input,
+                color: "#97a8ff",
                 position: {
                   x: -1,
                   y: -1,

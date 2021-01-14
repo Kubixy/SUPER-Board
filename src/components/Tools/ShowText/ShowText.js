@@ -1,26 +1,35 @@
 import React, { useState } from "react";
-import DrawAndResize from "../../UIComponents/DrawAndResize";
+import MoveElements from "../../UIComponents/MoveElements";
 import CustomBorders from "../../UIComponents/ToolsUtils/CustomBorders";
 import Topbar from "../../UIComponents/ToolsUtils/Topbar";
 
 import "./ShowText.scss";
 
 export default function ShowText(props) {
-  const { body, index, position, allowEdit } = props;
+  const { body, index, position, allowEdit, color } = props;
   const [allowMovement, setAllowMovement] = useState(false);
+  const [backgroundColor, setBackgroundColor] = useState(color);
 
   return (
-    <DrawAndResize
+    <MoveElements
       index={index}
       position={position}
       setAllowMovement={setAllowMovement}
       allowMovement={allowMovement}
     >
-      <div className="ShowText" id={"item" + index}>
+      <div
+        className="ShowText"
+        id={"item" + index}
+        style={{
+          "background-color": backgroundColor ? backgroundColor : "",
+        }}
+      >
         {allowEdit && (
           <Topbar
+            defaultcolor="#fff"
+            setBackgroundColor={setBackgroundColor}
             index={index}
-            tool="standard"
+            tool="text"
             allowMovement={allowMovement}
             setAllowMovement={setAllowMovement}
           />
@@ -35,6 +44,6 @@ export default function ShowText(props) {
         </div>
       </div>
       <CustomBorders />
-    </DrawAndResize>
+    </MoveElements>
   );
 }

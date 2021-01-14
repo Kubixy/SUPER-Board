@@ -26,6 +26,10 @@ export default function Image(props) {
             data.push({
               mainindex: index,
               type: "image",
+              resolution: {
+                width: 1,
+                height: 1,
+              },
               position: {
                 x: -1,
                 y: -1,

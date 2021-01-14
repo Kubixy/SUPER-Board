@@ -7,27 +7,15 @@
   max-width: 10rem;
   max-height: 12rem;
   z-index: 1;
-  resize: both;
-  overflow: auto;
 
   &__link {
     padding: 1rem;
     padding-top: 2.5rem;
 
     &:hover {
-      background-color: $information;
+      opacity: 0.75;
       border-radius: 1rem;
       cursor: pointer;
     }
   }
-}
-
-.fileItem ~ .bottom-custom-border:before {
-  width: 95%;
-  border-bottom-right-radius: 0;
-}
-
-.fileItem ~ .rigth-custom-border:before {
-  top: 9%;
-  height: 85%;
 }

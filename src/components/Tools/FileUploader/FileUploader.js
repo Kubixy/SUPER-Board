@@ -4,17 +4,18 @@ import firebase from "../../../utils/Firebase";
 import { toast } from "react-toastify";
 import "firebase/storage";
 import { useUserTools } from "../../../context/UserToolsProvider";
-import DrawAndResize from "../../UIComponents/DrawAndResize/";
+import MoveElements from "../../UIComponents/MoveElements";
 import CustomBorders from "../../UIComponents/ToolsUtils/CustomBorders";
 import Topbar from "../../UIComponents/ToolsUtils/Topbar";
 
 import "./FileUploader.scss";
 
 export default function FileUploader(props) {
-  const { title, index, position, allowEdit } = props;
+  const { title, index, position, allowEdit, color } = props;
   const { boardFound, userId } = useUserTools();
   const [url, setUrl] = useState(null);
   const [allowMovement, setAllowMovement] = useState(false);
+  const [backgroundColor, setBackgroundColor] = useState(color);
 
   useEffect(() => {
     firebase
@@ -38,15 +39,21 @@ export default function FileUploader(props) {
   };
 
   return (
-    <DrawAndResize
+    <MoveElements
       index={index}
       position={position}
       setAllowMovement={setAllowMovement}
       allowMovement={allowMovement}
     >
-      <div className="fileItem" id={"item" + index}>
+      <div
+        className="fileItem"
+        id={"item" + index}
+        style={{ "background-color": backgroundColor ? backgroundColor : "" }}
+      >
         {allowEdit && (
           <Topbar
+            defaultcolor="#97a8ff"
+            setBackgroundColor={setBackgroundColor}
             index={index}
             tool="file"
             setAllowMovement={setAllowMovement}
@@ -65,6 +72,6 @@ export default function FileUploader(props) {
         </div>
       </div>
       <CustomBorders />
-    </DrawAndResize>
+    </MoveElements>
   );
 }

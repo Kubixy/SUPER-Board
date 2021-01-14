@@ -6,7 +6,7 @@ import File from "../SideBar_Options/File";
 import Video from "../SideBar_Options/Video";
 import Quiz from "../SideBar_Options/Quiz";
 import BasicModal from "../../Modal/BasicModal";
-import DrawAndResize from "../DrawAndResize";
+import MoveElements from "../MoveElements";
 import { useUserTools } from "../../../context/UserToolsProvider";
 
 import "./SideBar.scss";
@@ -17,7 +17,7 @@ export default function SideBar(props) {
   const [showQuizModal, setShowQuizModal] = useState(false);
 
   return (
-    <DrawAndResize index={0} noResize={false}>
+    <MoveElements index={0} noResize={false}>
       <div className="Sidebar" id="item0">
         <div className="Sidebar__topbar">
           <div className="Sidebar__topbar--left">
@@ -129,6 +129,6 @@ export default function SideBar(props) {
           {<Quiz setShowQuizModal={setShowQuizModal} />}
         </BasicModal>
       }
-    </DrawAndResize>
+    </MoveElements>
   );
 }

@@ -13,6 +13,7 @@ export default function Text() {
         mainindex: generateItemID(data),
         type: "text",
         body: userInputBody,
+        color: "#fff",
         position: {
           x: -1,
           y: -1,

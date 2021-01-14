@@ -61,6 +61,7 @@ export default function Quiz(props) {
           type: "quiz",
           title: quizNameState,
           questions: userInputQuiz,
+          color: "#525252",
           position: {
             x: -1,
             y: -1,

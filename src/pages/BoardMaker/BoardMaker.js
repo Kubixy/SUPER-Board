@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
 import SideBar from "../../components/UIComponents/SideBar";
-import NavBar from "../../components/UIComponents/NavBar";
 import VideoPlayer from "../../components/Tools/VideoPlayer/VideoPlayer";
 import ShowText from "../../components/Tools/ShowText";
 import MakeQuiz from "../../components/Tools/Quiz/MakeQuiz";
@@ -84,15 +83,17 @@ export default function BoardMaker(props) {
         <div className="panel__input">
           {deleteElementCallback()}
           {/* eslint-disable-next-line*/}
-          {data.map((x) => {
+          {data.map((x, index) => {
             if (x.type)
               switch (x.type) {
                 case "video":
                   return (
                     <VideoPlayer
+                      key={index}
                       url={x.content}
                       index={x.mainindex}
                       position={x.position}
+                      width={x.width}
                       allowEdit={allowEdit}
                     />
                   );
@@ -100,9 +101,11 @@ export default function BoardMaker(props) {
                 case "text":
                   return (
                     <ShowText
+                      key={index}
                       body={x.body}
                       index={x.mainindex}
                       position={x.position}
+                      color={x.color}
                       allowEdit={allowEdit}
                     />
                   );
@@ -110,10 +113,12 @@ export default function BoardMaker(props) {
                 case "quiz":
                   return (
                     <MakeQuiz
+                      key={index}
                       title={x.title}
                       questions={x.questions}
                       index={x.mainindex}
                       position={x.position}
+                      color={x.color}
                       allowEdit={allowEdit}
                     />
                   );
@@ -121,8 +126,10 @@ export default function BoardMaker(props) {
                 case "image":
                   return (
                     <ShowImage
+                      key={index}
                       index={x.mainindex}
                       position={x.position}
+                      resolution={x.resolution}
                       allowEdit={allowEdit}
                     />
                   );
@@ -130,9 +137,11 @@ export default function BoardMaker(props) {
                 case "file":
                   return (
                     <FileUploader
+                      key={index}
                       title={x.title}
                       index={x.mainindex}
                       position={x.position}
+                      color={x.color}
                       allowEdit={allowEdit}
                     />
                   );
