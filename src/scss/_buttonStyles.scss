@@ -57,13 +57,11 @@ $button-active-blue: #1669f2;
   padding: 10px 0;
   font-size: 25px;
   letter-spacing: 3px;
-  border: 5px $main-background-color solid;
+  border: 3px $main-background-color solid;
 
   &:hover {
-    background-color: $font-grey;
+    background-color: $main-background-color;
     color: $font-light;
     font-weight: bold;
-    border-left: 13px solid $primary-color-hover;
-    border-right: 13px solid $primary-color-hover;
   }
 }

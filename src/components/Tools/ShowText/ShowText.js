@@ -43,7 +43,7 @@ export default function ShowText(props) {
           <p>{body}</p>
         </div>
       </div>
-      <CustomBorders />
+      {allowEdit && <CustomBorders />}
     </MoveElements>
   );
 }

@@ -8,9 +8,12 @@
   max-height: 12rem;
   z-index: 1;
 
+  .topbar {
+    margin-top: -1.2rem !important;
+  }
+
   &__link {
     padding: 1rem;
-    padding-top: 2.5rem;
 
     &:hover {
       opacity: 0.75;

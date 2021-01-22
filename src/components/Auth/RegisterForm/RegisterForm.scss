@@ -2,7 +2,6 @@
 
 .register-form {
   h1 {
-    color: $font-light;
     text-align: center;
     font-size: 30px;
     padding-bottom: 20px;
@@ -11,22 +10,22 @@
   .ui.form {
     .field {
       .input {
+        height: 50px;
+        margin: 0.1rem;
+
         input {
-          background-color: $background-grey;
-          border: 0;
-          font-size: 16px;
-          color: $font-light;
+          background-color: $font-grey-light;
+          font-size: 1rem;
 
           &:hover,
           &:active,
           &:focus {
-            background-color: $background-grey-hover;
+            background-color: $font-grey;
             border: 0;
           }
         }
 
         i {
-          color: $font-light;
           font-size: 19px;
         }
 
@@ -43,14 +42,12 @@
     }
 
     .error-text {
-      color: $font-light;
       padding-left: 15px;
     }
   }
 
   &__options {
     margin-top: 30px;
-    color: $font-light;
     text-align: center;
     font-size: 16px;
     text-transform: uppercase;
@@ -71,9 +68,9 @@
         color: $font-grey;
 
         span {
-          color: $font-light;
           text-decoration: underline;
           padding-left: 5px;
+
           &:hover {
             cursor: pointer;
           }

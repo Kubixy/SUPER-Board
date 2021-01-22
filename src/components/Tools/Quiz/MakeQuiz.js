@@ -81,7 +81,7 @@ export default function MakeQuiz(props) {
             </h2>
           )}
         </div>
-        <CustomBorders />
+        {allowEdit && <CustomBorders />}
       </div>
     </MoveElements>
   );

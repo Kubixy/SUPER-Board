@@ -71,7 +71,7 @@ export default function FileUploader(props) {
           <p>{title}</p>
         </div>
       </div>
-      <CustomBorders />
+      {allowEdit && <CustomBorders />}
     </MoveElements>
   );
 }

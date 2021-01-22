@@ -11,21 +11,6 @@
 .panel {
   color: $font-light;
 
-  &__back {
-    left: 0;
-    top: 0;
-    position: fixed;
-    margin-top: 20px !important;
-    margin-left: 20px !important;
-    background-color: $primary-color;
-    padding-bottom: 20px !important;
-
-    &:hover {
-      cursor: pointer;
-      background-color: $red-hover;
-    }
-  }
-
   &__input {
     width: 100vw;
     height: 100vh;

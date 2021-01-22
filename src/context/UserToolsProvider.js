@@ -60,8 +60,8 @@ export function UserToolsProvider(props) {
         (response) => {
           if (response !== null) setData(response);
         }
-      ); // eslint-disable-next-line
-  }, [user, boardFound, setData, user, boardFound]);
+      );
+  }, [user, boardFound, setData]);
 
   const writeNewData = async () => {
     setLoading(true);

@@ -91,21 +91,24 @@ export async function LFBoard(idBoard) {
 /*
 Adds a session to a new user
 */
-export function addBoard(uid) {
+export async function addBoard(uid) {
   let newID = 1000;
 
-  db.collection("sessions")
+  await db
+    .collection("sessions")
     .get()
     .then((querySnapshot) => {
       querySnapshot.forEach(function (doc) {
-        if (newID < doc.newID) newID = doc.id + 10;
+        if (newID == doc.id) {
+          newID = parseInt(doc.id) + 10;
+        }
       });
     });
 
   return db
     .collection("sessions")
     .doc(newID.toString())
-    .set({ user: uid, visitors: [] });
+    .set({ user: uid, visitors: [], isPublic: true });
 }
 
 export const getVisitors = async (idBoard) => {
@@ -227,4 +230,22 @@ export function googleLogin() {
   //var email = error.email;
   // The firebase.auth.AuthCredential type that was used.
   //var credential = error.credential;
+}
+
+export async function getPublicStatus(idBoard) {
+  let output;
+
+  await db
+    .collection("sessions")
+    .doc(idBoard)
+    .get()
+    .then((querySnapshot) => {
+      output = querySnapshot.data().isPublic;
+    });
+
+  return output;
+}
+
+export async function setPublicStatus(idBoard, status) {
+  await db.collection("sessions").doc(idBoard).update({ isPublic: status });
 }

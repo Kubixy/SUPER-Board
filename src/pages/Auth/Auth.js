@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import AuthOptions from "../../components/Auth/AuthOptions";
 import RegisterForm from "../../components/Auth/RegisterForm";
 import LoginForm from "../../components/Auth/LoginForm";
-import BackgroundAuth from "../../assets/jpg/background-auth.jpg";
 import LogoName from "../../assets/png/logo-main-login.png";
 
 import "./Auth.scss";
@@ -22,11 +21,11 @@ export default function Auth() {
   };
 
   return (
-    <div className="auth" style={{ backgroundImage: `url(${BackgroundAuth})` }}>
+    <div className="auth">
       <div className="auth__dark" />
       <div className="auth__box">
         <div className="auth__box-logo">
-          <img src={LogoName} alt="Aules 2.0" />
+          <img src={LogoName} alt="Board logo" />
         </div>
         {handlerForm()}
       </div>

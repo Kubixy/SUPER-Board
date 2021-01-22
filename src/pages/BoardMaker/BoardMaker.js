@@ -5,20 +5,14 @@ import ShowText from "../../components/Tools/ShowText";
 import MakeQuiz from "../../components/Tools/Quiz/MakeQuiz";
 import ShowImage from "../../components/Tools/ShowImage/ShowImage";
 import FileUploader from "../../components/Tools/FileUploader/FileUploader";
-import {
-  addBoard,
-  userIdFinder,
-  deleteFile,
-  setVisitors,
-  getVisitors,
-} from "../../utils/Api";
+import { addBoard, userIdFinder, getVisitors } from "../../utils/Api";
 
 import "./BoardMaker.scss";
 
 export default function BoardMaker(props) {
   const [allowEdit, setAllowEdit] = useState(false);
   const [visitorState, setVisitorState] = useState([]);
-  const [toggleStatus, setToggleStatus] = useState(true);
+  const [userOwnsBoard, setuserOwnsBoard] = useState();
 
   const { useUserTools } = props;
   const {
@@ -29,7 +23,6 @@ export default function BoardMaker(props) {
     data,
     deleteElementCallback,
     render,
-    user,
     dispatch,
   } = useUserTools();
 
@@ -39,22 +32,26 @@ export default function BoardMaker(props) {
         if (response.id) {
           setIdBoard(response.id);
           setAllowEdit(userId === response.user);
-          //setVisitors(idBoard, user);
-          //getVisitors(idBoard).then((result) => {
-          //  setVisitorState(result);
-          //});
+          setuserOwnsBoard(userId === response.user);
         } else {
-          addBoard(userId);
-          userLoader();
+          addBoard(userId).then(() => userLoader());
         }
       }
     );
-  }, [boardFound, userId, setIdBoard, idBoard, user]);
+  }, [boardFound, userId, setIdBoard]);
 
   useEffect(() => {
     userLoader();
     render();
-  }, []);
+  }, [userLoader, render]);
+
+  useEffect(() => {
+    if (idBoard) {
+      getVisitors(idBoard).then((result) => {
+        setVisitorState(result);
+      });
+    }
+  }, [idBoard]);
 
   useEffect(() => {
     dispatch({ type: "reset" });
@@ -68,18 +65,25 @@ export default function BoardMaker(props) {
     });
   }, [data, dispatch]);
 
+  // const [seconds, setSeconds] = useState(0);
+
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     setSeconds((seconds) => seconds + 1);
+  //   }, 100);
+  //   return () => clearInterval(interval);
+  // }, []);
+
   return (
     <>
-      {/* <NavBar
-        allowEdit={allowEdit}
-        visitorState={visitorState}
-        setToggleStatus={setToggleStatus}
-        toggleStatus={toggleStatus}
-      /> */}
       <div className="background" />
       <div className="panel">
-        <SideBar />
-
+        <SideBar
+          setAllowEdit={setAllowEdit}
+          allowEdit={allowEdit}
+          visitorState={visitorState}
+          userOwnsBoard={userOwnsBoard}
+        />
         <div className="panel__input">
           {deleteElementCallback()}
           {/* eslint-disable-next-line*/}

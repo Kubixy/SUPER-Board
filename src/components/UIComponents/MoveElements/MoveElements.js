@@ -38,16 +38,18 @@ export default function MoveElements(props) {
           x: e.clientX + offset[0],
           y: e.clientY + offset[1],
         });
+
       container.style.left = fixLimits(e.clientX + offset[0], "x") + "px";
       container.style.top = fixLimits(e.clientY + offset[1], "y") + "px";
     }
   };
 
   const fixLimits = (value, axis) => {
-    if (axis === "y" && value + item.clientHeight > panel.clientHeight)
-      return panel.clientHeight - item.clientHeight;
-    else if (axis === "x" && value + item.clientWidth > panel.clientWidth)
-      return panel.clientWidth - item.clientWidth;
+    if (panel && item)
+      if (axis === "y" && value + item.clientHeight > panel.clientHeight)
+        return panel.clientHeight - item.clientHeight;
+      else if (axis === "x" && value + item.clientWidth > panel.clientWidth)
+        return panel.clientWidth - item.clientWidth;
 
     return value > 0 ? value : 0;
   };
