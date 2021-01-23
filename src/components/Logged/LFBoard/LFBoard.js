@@ -3,17 +3,18 @@ import { Header, Icon, Input, Button } from "semantic-ui-react";
 import { LFBoard, getPublicStatus } from "../../../utils/Api";
 import { useUserTools } from "../../../context/UserToolsProvider";
 import { toast } from "react-toastify";
+import { setVisitors } from "../../../utils/Api";
 
 import "./LFBoard.scss";
 
 export default function (props) {
   const { setSelectedOpt, setIsBuilding } = props;
-  const { setIdBoard, setBoardFound } = useUserTools();
+  const { setIdBoard, setBoardFound, user } = useUserTools();
   const [input, setInput] = useState(null);
   const [error, setError] = useState(false);
 
   const onClick = () => {
-    if (input !== null) {
+    if (input) {
       LFBoard(input).then((response) => {
         if (response !== undefined) {
           getPublicStatus(input).then((isPublic) => {
@@ -21,6 +22,7 @@ export default function (props) {
               setBoardFound(response);
               setIdBoard(input);
               setIsBuilding(true);
+              setVisitors(input, user);
             } else {
               toast.warning("This board is not public");
             }

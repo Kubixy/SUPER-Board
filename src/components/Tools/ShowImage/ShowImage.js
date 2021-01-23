@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
-import firebase from "../../../utils/Firebase";
-import "firebase/storage";
 import { useUserTools } from "../../../context/UserToolsProvider";
 import MoveElements from "../../UIComponents/MoveElements";
 import Topbar from "../../UIComponents/ToolsUtils/Topbar";
+import { getStorageFiles } from "../../../utils/Api";
 
 import "./ShowImage.scss";
 
@@ -19,14 +18,9 @@ export default function ShowImage(props) {
   const [allowMovement, setAllowMovement] = useState(false);
 
   useEffect(() => {
-    firebase
-      .storage()
-      .ref()
-      .child(`images/${boardFound === null ? userId : boardFound}/${index}`)
-      .getDownloadURL()
-      .then((response) => {
-        setUrl(response);
-      });
+    getStorageFiles(boardFound, userId, index, "images").then((response) => {
+      setUrl(response);
+    });
   });
 
   const onLoad = () => {

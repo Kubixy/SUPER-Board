@@ -65,15 +65,6 @@ export default function BoardMaker(props) {
     });
   }, [data, dispatch]);
 
-  // const [seconds, setSeconds] = useState(0);
-
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     setSeconds((seconds) => seconds + 1);
-  //   }, 100);
-  //   return () => clearInterval(interval);
-  // }, []);
-
   return (
     <>
       <div className="background" />

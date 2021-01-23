@@ -92,22 +92,22 @@ export async function LFBoard(idBoard) {
 Adds a session to a new user
 */
 export async function addBoard(uid) {
-  let newID = 1000;
+  let newID = "1000";
 
   await db
     .collection("sessions")
     .get()
     .then((querySnapshot) => {
       querySnapshot.forEach(function (doc) {
-        if (newID == doc.id) {
-          newID = parseInt(doc.id) + 10;
+        if (newID === doc.id) {
+          newID = parseInt(parseInt(doc.id) + 10).toString();
         }
       });
     });
 
   return db
     .collection("sessions")
-    .doc(newID.toString())
+    .doc(newID)
     .set({ user: uid, visitors: [], isPublic: true });
 }
 
@@ -119,7 +119,7 @@ export const getVisitors = async (idBoard) => {
     .doc(idBoard)
     .get()
     .then((querySnapshot) => {
-      output = querySnapshot.data().visitors;
+      if (querySnapshot.data()) output = querySnapshot.data().visitors;
     });
 
   return output;
@@ -248,4 +248,12 @@ export async function getPublicStatus(idBoard) {
 
 export async function setPublicStatus(idBoard, status) {
   await db.collection("sessions").doc(idBoard).update({ isPublic: status });
+}
+
+export async function getStorageFiles(boardFound, userId, index, root) {
+  return await firebase
+    .storage()
+    .ref()
+    .child(`${root}/${boardFound === null ? userId : boardFound}/${index}`)
+    .getDownloadURL();
 }

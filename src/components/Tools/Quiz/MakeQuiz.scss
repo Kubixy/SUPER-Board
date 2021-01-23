@@ -5,8 +5,6 @@
   width: auto;
   min-width: 25rem;
   height: auto;
-  padding: 1rem;
-  padding-top: 0rem;
   z-index: 1;
   border: {
     radius: 1rem;
@@ -18,13 +16,15 @@
     margin: 0 !important;
     text-align: center;
     font-size: 2rem;
-    padding-top: 1rem;
     margin-bottom: 2rem !important;
   }
 
   .topbar {
-    margin-top: -8%;
-    margin-left: -4%;
+    margin-top: -5% !important;
+  }
+
+  .ui.form {
+    padding: 1rem;
   }
 
   &__questions {
@@ -51,7 +51,8 @@
 
         button {
           margin: 0.2rem;
-          height: 2rem;
+          min-height: 2rem;
+          height: auto;
           border: 0;
           border-radius: 0.5rem;
 
@@ -92,7 +93,7 @@
     background-color: $sidebar-button-color;
     color: $font-light;
     font-size: 1.2rem;
-    margin-top: 4%;
+    margin: 1.5rem 0rem 1rem 0rem;
 
     &:hover {
       background-color: $sidebar-button-color-hover;

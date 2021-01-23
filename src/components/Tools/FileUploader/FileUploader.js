@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Icon } from "semantic-ui-react";
-import firebase from "../../../utils/Firebase";
 import { toast } from "react-toastify";
-import "firebase/storage";
 import { useUserTools } from "../../../context/UserToolsProvider";
 import MoveElements from "../../UIComponents/MoveElements";
 import CustomBorders from "../../UIComponents/ToolsUtils/CustomBorders";
 import Topbar from "../../UIComponents/ToolsUtils/Topbar";
+import { getStorageFiles } from "../../../utils/Api";
 
 import "./FileUploader.scss";
 
@@ -15,17 +14,12 @@ export default function FileUploader(props) {
   const { boardFound, userId } = useUserTools();
   const [url, setUrl] = useState(null);
   const [allowMovement, setAllowMovement] = useState(false);
-  const [backgroundColor, setBackgroundColor] = useState(color);
+  const [backgroundColor, setBackgroundColor] = useState("");
 
   useEffect(() => {
-    firebase
-      .storage()
-      .ref()
-      .child(`files/${boardFound === null ? userId : boardFound}/${index}`)
-      .getDownloadURL()
-      .then((response) => {
-        setUrl(response);
-      });
+    getStorageFiles(boardFound, userId, index, "files").then((response) => {
+      setUrl(response);
+    });
   });
 
   const copyToClipboard = () => {
@@ -48,7 +42,9 @@ export default function FileUploader(props) {
       <div
         className="fileItem"
         id={"item" + index}
-        style={{ "background-color": backgroundColor ? backgroundColor : "" }}
+        style={{
+          "background-color": backgroundColor ? backgroundColor : color,
+        }}
       >
         {allowEdit && (
           <Topbar

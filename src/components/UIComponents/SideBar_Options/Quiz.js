@@ -52,7 +52,7 @@ export default function Quiz(props) {
       resetForm();
     }
   };
-  const onClickQuiz = () => {
+  const onClickQuiz = async () => {
     if (userInputQuiz.length > 1) {
       if (quizNameState.length > 1 && allowName) {
         setUserInputQuiz(userInputQuiz.shift());
@@ -67,7 +67,7 @@ export default function Quiz(props) {
             y: -1,
           },
         });
-        writeNewData();
+        await writeNewData();
         resetHandlers();
         setShowQuizModal(false);
       } else {

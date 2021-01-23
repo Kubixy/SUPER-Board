@@ -4,6 +4,7 @@ import NoAvatar from "../../../assets/png/DefaultUser.png";
 
 export default function UserListNavBar(props) {
   const { visitorState } = props;
+  let key = 0;
 
   return (
     <div className="UserListNavBar">
@@ -23,7 +24,7 @@ export default function UserListNavBar(props) {
         <Table.Body>
           {visitorState.map((x) => {
             return (
-              <Table.Row>
+              <Table.Row key={++key}>
                 <Table.Cell collapsing textAlign="center">
                   {x.visitDate}
                 </Table.Cell>

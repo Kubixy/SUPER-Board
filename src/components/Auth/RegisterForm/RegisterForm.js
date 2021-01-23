@@ -98,7 +98,6 @@ export default function RegisterForm(props) {
             name="email"
             placeholder="Email"
             icon="mail outline"
-            error={formError.email}
           />
           {formError.email && <span className="error-text">Invalid email</span>}
         </Form.Field>
@@ -119,7 +118,6 @@ export default function RegisterForm(props) {
                 <Icon name="eye" link onClick={handlerShowPassword} />
               )
             }
-            error={formError.password}
           />
           {formError.password && (
             <span className="error-text">
@@ -134,7 +132,6 @@ export default function RegisterForm(props) {
             name="username"
             placeholder="Name"
             icon="user circle outline"
-            error={formError.username}
           />
           {formError.username && (
             <span className="error-text">Please, introduce a name</span>

@@ -7,7 +7,7 @@ export default function Video() {
   const { generateItemID, data, writeNewData, loading } = useUserTools();
   const [userInputVideo, setInputVideo] = useState(null);
 
-  const onClickVideo = () => {
+  const onClickVideo = async () => {
     if (userInputVideo) {
       if (userInputVideo.includes("youtube.com/watch?v=")) {
         data.push({
@@ -21,7 +21,7 @@ export default function Video() {
           },
         });
 
-        writeNewData();
+        await writeNewData();
       } else {
         toast.error("That's not a Youtube video");
       }

@@ -36,8 +36,9 @@ export default function Image(props) {
               },
             });
 
-            writeNewData();
+            await writeNewData();
             dispatch({ type: "increImg" });
+            setFile(null);
           } else {
             toast.warning("That image is too heavy (5MB limit)");
           }

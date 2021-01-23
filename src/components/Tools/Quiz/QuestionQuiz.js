@@ -19,7 +19,7 @@ export default function QuestionQuiz(props) {
 
   useEffect(() => {
     setRightAnswers(0);
-  }, []);
+  }, [setRightAnswers]);
 
   return (
     <Form.Group>

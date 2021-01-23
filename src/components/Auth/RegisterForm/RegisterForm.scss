@@ -14,19 +14,17 @@
         margin: 0.1rem;
 
         input {
-          background-color: $font-grey-light;
-          font-size: 1rem;
-
-          &:hover,
-          &:active,
-          &:focus {
-            background-color: $font-grey;
-            border: 0;
-          }
+          font-size: 1.2rem;
+          background-color: $font-light;
+          color: $font-dark;
+          border-radius: 0;
+          border-bottom: 3px solid $information;
         }
 
         i {
           font-size: 19px;
+          opacity: 1;
+          color: $font-dark !important;
         }
 
         &.error {

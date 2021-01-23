@@ -13,7 +13,7 @@ export default function MakeQuiz(props) {
   const [corrector, setCorrector] = useState(false);
   const [rightAnswers, setRightAnswers] = useState(0);
   const [allowMovement, setAllowMovement] = useState(false);
-  const [backgroundColor, setBackgroundColor] = useState(color);
+  const [backgroundColor, setBackgroundColor] = useState("");
 
   return (
     <MoveElements
@@ -26,7 +26,9 @@ export default function MakeQuiz(props) {
         <div
           className="quiz"
           id={"item" + index}
-          style={{ "background-color": backgroundColor ? backgroundColor : "" }}
+          style={{
+            "background-color": backgroundColor ? backgroundColor : color,
+          }}
         >
           {allowEdit && (
             <Topbar

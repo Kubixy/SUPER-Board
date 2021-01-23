@@ -6,8 +6,6 @@
   align-items: center;
 
   .header {
-    color: white !important;
-
     > .icon {
       padding: 10px !important;
     }
@@ -24,13 +22,7 @@
 
     .ui.error.input {
       input {
-        background-color: $red-input;
         border: $main-red 2px solid;
-        color: $font-light;
-        &:hover,
-        &:focus {
-          background-color: $red-hover !important;
-        }
       }
     }
 
@@ -42,6 +34,8 @@
       text-transform: uppercase;
       margin-top: 10px;
       padding: 2px;
+      background-color: $font-light;
+      border: 1px solid black;
 
       h3 {
         margin-top: 10px;
@@ -72,11 +66,7 @@
     input {
       font-size: 17px;
       font-weight: bold;
-
-      &:hover,
-      &:focus {
-        background-color: $primary-color-hover !important;
-      }
+      border: solid 1px $font-dark !important;
     }
 
     .icon {

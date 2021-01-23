@@ -8,7 +8,7 @@ import "./ShowText.scss";
 export default function ShowText(props) {
   const { body, index, position, allowEdit, color } = props;
   const [allowMovement, setAllowMovement] = useState(false);
-  const [backgroundColor, setBackgroundColor] = useState(color);
+  const [backgroundColor, setBackgroundColor] = useState("");
 
   return (
     <MoveElements
@@ -21,7 +21,7 @@ export default function ShowText(props) {
         className="ShowText"
         id={"item" + index}
         style={{
-          "background-color": backgroundColor ? backgroundColor : "",
+          backgroundColor: backgroundColor ? backgroundColor : color,
         }}
       >
         {allowEdit && (

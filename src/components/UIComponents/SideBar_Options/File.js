@@ -17,7 +17,7 @@ export default function File(props) {
   const [file, setFile] = useState(null);
   const [input, setInput] = useState(null);
 
-  const onClickFile = () => {
+  const onClickFile = async () => {
     if (file) {
       if (state.files < 3) {
         if (file.length === 1 && file[0].type.includes("pdf")) {
@@ -36,7 +36,7 @@ export default function File(props) {
                 },
               });
 
-              writeNewData();
+              await writeNewData();
               document.getElementById("fileInput").value = "";
               dispatch({ type: "increFil" });
             } else {

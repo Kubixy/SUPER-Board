@@ -7,7 +7,7 @@ export default function Text() {
   const { generateItemID, data, writeNewData, loading } = useUserTools();
   const [userInputBody, setUserInputBody] = useState(null);
 
-  const onClickText = () => {
+  const onClickText = async () => {
     if (document.getElementById("body").value) {
       data.push({
         mainindex: generateItemID(data),
@@ -20,7 +20,7 @@ export default function Text() {
         },
       });
 
-      writeNewData();
+      await writeNewData();
       document.getElementById("body").value = "";
       setUserInputBody("");
     } else {

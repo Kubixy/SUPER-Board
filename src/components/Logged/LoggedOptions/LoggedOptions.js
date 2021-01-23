@@ -10,7 +10,6 @@ export default function LoggedOptions(props) {
 
   return (
     <div className="mainOpt">
-      <h2>Control panel</h2>
       <Button onClick={() => setSelectedOpt("find")}>Find a board</Button>
       <Button onClick={() => setIsBuilding(true)}>Create a board</Button>
       <Button onClick={() => setSelectedOpt("profile")}>My profile</Button>

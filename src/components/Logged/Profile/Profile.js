@@ -18,7 +18,6 @@ export default function Profile(props) {
   return (
     <div className="settings">
       <div className="top">
-        <h1>User panel</h1>
         <UploadAvatar user={user} />
       </div>
 

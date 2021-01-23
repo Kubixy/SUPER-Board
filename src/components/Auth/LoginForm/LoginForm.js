@@ -79,7 +79,6 @@ export default function LoginForm(props) {
             name="email"
             placeholder="Email"
             icon="mail outline"
-            error={formError.email}
           />
           {formError.email && (
             <span className="error-text">
@@ -101,7 +100,6 @@ export default function LoginForm(props) {
                 <Icon name="eye" link onClick={handlerShowPassword} />
               )
             }
-            error={formError.password}
           />
           {formError.password && (
             <span className="error-text">Invalid password</span>

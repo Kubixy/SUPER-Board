@@ -39,6 +39,15 @@ export function UserToolsProvider(props) {
     setBoardFound(null);
   };
 
+  const render = useCallback(async () => {
+    if (user)
+      await readUserData(boardFound === null ? user.uid : boardFound).then(
+        (response) => {
+          if (response !== null) setData(response);
+        }
+      );
+  }, [user, boardFound, setData]);
+
   // eslint-disable-next-line
   const deleteElementCallback = useCallback(() => {
     if (deleteIndex !== null) {
@@ -53,15 +62,6 @@ export function UserToolsProvider(props) {
       setDeleteIndex(null);
     }
   }, [deleteIndex, data, user]);
-
-  const render = useCallback(async () => {
-    if (user)
-      await readUserData(boardFound === null ? user.uid : boardFound).then(
-        (response) => {
-          if (response !== null) setData(response);
-        }
-      );
-  }, [user, boardFound, setData]);
 
   const writeNewData = async () => {
     setLoading(true);

@@ -1,14 +1,14 @@
 import firebase from "firebase/app";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBLP2KWBVBDM02-KUZNJt6pNcnxGVC0_ls",
-  authDomain: "tfg-aules.firebaseapp.com",
-  databaseURL: "https://tfg-aules.firebaseio.com",
-  projectId: "tfg-aules",
-  storageBucket: "tfg-aules.appspot.com",
-  messagingSenderId: "1029272825203",
-  appId: "1:1029272825203:web:2bde7966251f9acac66906",
-  measurementId: "G-P8CZMT76TF",
+  apiKey: "AIzaSyAeCRUKbSYMzwcFi1gDLD38m4F1YrfMejc",
+  authDomain: "super-board-21e3d.firebaseapp.com",
+  databaseURL: "https://super-board-21e3d.firebaseio.com",
+  projectId: "super-board-21e3d",
+  storageBucket: "super-board-21e3d.appspot.com",
+  messagingSenderId: "720232599966",
+  appId: "1:720232599966:web:1df79757b6133f6c49068f",
+  measurementId: "G-SWCE1QT3PM",
 };
 
 export default firebase.initializeApp(firebaseConfig);
