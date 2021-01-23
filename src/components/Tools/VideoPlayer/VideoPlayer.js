@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import MoveElements from "../../UIComponents/MoveElements";
 import Topbar from "../../UIComponents/ToolsUtils/Topbar";
 import { Embed } from "semantic-ui-react";
@@ -8,9 +8,13 @@ import "./VideoPlayes.scss";
 export default function VideoPlayer(props) {
   const { url, index, position, allowEdit, width } = props;
   const [allowMovement, setAllowMovement] = useState(false);
-  const [videoWidth, setVideoWidth] = useState(width);
+  const [videoWidth, setVideoWidth] = useState();
 
   const id = url.split("youtube.com/watch?v=");
+
+  useEffect(() => {
+    setVideoWidth(width);
+  }, [width]);
 
   return (
     <MoveElements
@@ -24,6 +28,7 @@ export default function VideoPlayer(props) {
           <Topbar
             videoWidth={videoWidth}
             setVideoWidth={setVideoWidth}
+            width={width}
             index={index}
             tool="video"
             allowMovement={allowMovement}
@@ -36,7 +41,7 @@ export default function VideoPlayer(props) {
           aspectRatio="16:9"
           defaultActive
           autoplay={false}
-          style={{ width: videoWidth + "rem" }}
+          style={{ width: videoWidth ? videoWidth + "rem" : width + "rem" }}
         />
       </div>
     </MoveElements>

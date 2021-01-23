@@ -34,11 +34,6 @@ export function UserToolsProvider(props) {
 
   const [state, dispatch] = useReducer(reducer, { files: 0, images: 0 });
 
-  const endClassCallback = () => {
-    setIsBuilding(false);
-    setBoardFound(null);
-  };
-
   const render = useCallback(async () => {
     if (user)
       await readUserData(boardFound === null ? user.uid : boardFound).then(
@@ -48,7 +43,6 @@ export function UserToolsProvider(props) {
       );
   }, [user, boardFound, setData]);
 
-  // eslint-disable-next-line
   const deleteElementCallback = useCallback(() => {
     if (deleteIndex !== null) {
       data.splice(
@@ -57,7 +51,6 @@ export function UserToolsProvider(props) {
         }),
         1
       );
-
       writeUserData(user.uid, data);
       setDeleteIndex(null);
     }
@@ -65,11 +58,9 @@ export function UserToolsProvider(props) {
 
   const writeNewData = async () => {
     setLoading(true);
-    setData(data);
     await writeUserData(user.uid, data).catch((error) => {
       console.log("Error (UserToolsProvider) --> ", error);
     });
-    render();
     setLoading(false);
   };
 
@@ -119,7 +110,6 @@ export function UserToolsProvider(props) {
       setIsBuilding,
       boardFound,
       setBoardFound,
-      endClassCallback,
       idBoard,
       setIdBoard,
       data,

@@ -251,9 +251,16 @@ export async function setPublicStatus(idBoard, status) {
 }
 
 export async function getStorageFiles(boardFound, userId, index, root) {
-  return await firebase
+  let output;
+
+  await firebase
     .storage()
     .ref()
     .child(`${root}/${boardFound === null ? userId : boardFound}/${index}`)
-    .getDownloadURL();
+    .getDownloadURL()
+    .then((response) => {
+      output = response;
+    });
+
+  return output;
 }

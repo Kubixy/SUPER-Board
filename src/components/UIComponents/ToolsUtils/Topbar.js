@@ -17,6 +17,7 @@ export default function Topbar(props) {
     setImg,
     videoWidth,
     setVideoWidth,
+    width,
   } = props;
   const { setDeleteIndex, dispatch, user, updateRecord } = useUserTools();
 
@@ -31,20 +32,26 @@ export default function Topbar(props) {
 
   const onClickDelete = () => {
     switch (tool) {
-      case "text":
-      case "video":
-      case "quiz":
-        setDeleteIndex(index);
-        break;
       case "file":
         deleteFile(user.uid, index, "files");
         setDeleteIndex(index);
         dispatch({ type: "decreFil" });
+        setBackgroundColor();
         break;
       case "image":
         deleteFile(user.uid, index, "images");
         setDeleteIndex(index);
+        setImg();
         dispatch({ type: "decreImg" });
+        break;
+      case "text":
+      case "quiz":
+        setBackgroundColor();
+        setDeleteIndex(index);
+        break;
+      case "video":
+        setVideoWidth();
+        setDeleteIndex(index);
         break;
       default:
     }
@@ -74,7 +81,7 @@ export default function Topbar(props) {
                   key={x}
                   name="circle outline"
                   size="large"
-                  style={{ "background-color": x }}
+                  style={{ backgroundColor: x }}
                 />
               );
             })

@@ -10,18 +10,28 @@ export default function ShowImage(props) {
   const { index, position, allowEdit, resolution } = props;
   const { userId, boardFound } = useUserTools();
   const [url, setUrl] = useState(null);
-  const [img, setImg] = useState({
-    width: resolution.width,
-    height: resolution.height,
-  });
+  const [img, setImg] = useState();
   const [imgResize, setImgResize] = useState(null);
   const [allowMovement, setAllowMovement] = useState(false);
+  const [state, setstate] = useState(true); // ???
 
   useEffect(() => {
-    getStorageFiles(boardFound, userId, index, "images").then((response) => {
-      setUrl(response);
+    getStorageFiles(boardFound, userId, index, "images")
+      .then((response) => {
+        setUrl(response);
+      })
+      .catch((error) => {
+        console.log("Error (ShowImage) --> ", error);
+        setstate(!state);
+      });
+  }, [index, boardFound, userId, state]);
+
+  useEffect(() => {
+    setImg({
+      width: resolution.width,
+      height: resolution.height,
     });
-  });
+  }, [resolution]);
 
   const onLoad = () => {
     if (img.width <= 1) {
@@ -73,8 +83,8 @@ export default function ShowImage(props) {
             if (allowMovement) setAllowMovement(false);
           }}
           src={url}
-          width={img.width}
-          height={img.height}
+          width={img ? img.width : resolution.width}
+          height={img ? img.height : resolution.height}
           alt=""
         />
       </div>
