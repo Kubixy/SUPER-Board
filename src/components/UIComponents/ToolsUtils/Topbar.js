@@ -17,7 +17,6 @@ export default function Topbar(props) {
     setImg,
     videoWidth,
     setVideoWidth,
-    width,
   } = props;
   const { setDeleteIndex, dispatch, user, updateRecord } = useUserTools();
 

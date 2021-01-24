@@ -28,7 +28,6 @@ export default function VideoPlayer(props) {
           <Topbar
             videoWidth={videoWidth}
             setVideoWidth={setVideoWidth}
-            width={width}
             index={index}
             tool="video"
             allowMovement={allowMovement}

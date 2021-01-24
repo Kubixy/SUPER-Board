@@ -43,7 +43,7 @@ export default function FileUploader(props) {
         className="fileItem"
         id={"item" + index}
         style={{
-          "background-color": backgroundColor ? backgroundColor : color,
+          backgroundColor: backgroundColor ? backgroundColor : color,
         }}
       >
         {allowEdit && (

@@ -1,11 +1,16 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import SideBar from "../../components/UIComponents/SideBar";
 import VideoPlayer from "../../components/Tools/VideoPlayer/VideoPlayer";
 import ShowText from "../../components/Tools/ShowText";
 import MakeQuiz from "../../components/Tools/Quiz/MakeQuiz";
 import ShowImage from "../../components/Tools/ShowImage/ShowImage";
 import FileUploader from "../../components/Tools/FileUploader/FileUploader";
-import { addBoard, userIdFinder, getVisitors } from "../../utils/Api";
+import {
+  addBoard,
+  userIdFinder,
+  getVisitors,
+  writeUserData,
+} from "../../utils/Api";
 
 import "./BoardMaker.scss";
 
@@ -21,12 +26,14 @@ export default function BoardMaker(props) {
     idBoard,
     setIdBoard,
     data,
-    deleteElementCallback,
     render,
     dispatch,
+    user,
+    deleteIndex,
+    setDeleteIndex,
   } = useUserTools();
 
-  const userLoader = useCallback(async () => {
+  const userLoader = async () => {
     await userIdFinder(boardFound === null ? userId : boardFound).then(
       (response) => {
         if (response.id) {
@@ -38,12 +45,13 @@ export default function BoardMaker(props) {
         }
       }
     );
-  }, [boardFound, userId, setIdBoard]);
+  };
 
   useEffect(() => {
     userLoader();
     render();
-  }, [userLoader, render]);
+    /* eslint-disable-next-line*/
+  }, []);
 
   useEffect(() => {
     if (idBoard) {
@@ -65,6 +73,20 @@ export default function BoardMaker(props) {
     });
   }, [data, dispatch]);
 
+  useEffect(() => {
+    if (deleteIndex !== null) {
+      data.splice(
+        data.findIndex((x) => {
+          return x.mainindex === deleteIndex;
+        }),
+        1
+      );
+
+      writeUserData(user.uid, data);
+      setDeleteIndex(null);
+    } /* eslint-disable-next-line*/
+  }, [deleteIndex]);
+
   return (
     <>
       <div className="background" />
@@ -76,7 +98,6 @@ export default function BoardMaker(props) {
           userOwnsBoard={userOwnsBoard}
         />
         <div className="panel__input">
-          {deleteElementCallback()}
           {/* eslint-disable-next-line*/}
           {data.map((x, index) => {
             if (x.type)

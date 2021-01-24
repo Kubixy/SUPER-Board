@@ -1,7 +1,16 @@
 @import "../../../scss/index";
 
 .mainOpt {
-  margin-top: 10%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  img {
+    margin-top: -15%;
+    width: 15rem;
+    height: 15rem;
+  }
+
   .ui.button {
     @include mainButton;
     padding: 1.25rem 0;

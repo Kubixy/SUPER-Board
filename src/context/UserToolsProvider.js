@@ -43,19 +43,6 @@ export function UserToolsProvider(props) {
       );
   }, [user, boardFound, setData]);
 
-  const deleteElementCallback = useCallback(() => {
-    if (deleteIndex !== null) {
-      data.splice(
-        data.findIndex((x) => {
-          return x.mainindex === deleteIndex;
-        }),
-        1
-      );
-      writeUserData(user.uid, data);
-      setDeleteIndex(null);
-    }
-  }, [deleteIndex, data, user]);
-
   const writeNewData = async () => {
     setLoading(true);
     await writeUserData(user.uid, data).catch((error) => {
@@ -117,7 +104,6 @@ export function UserToolsProvider(props) {
       user,
       userId: user !== null ? user.uid : null,
       setDeleteIndex,
-      deleteElementCallback,
       render,
       state,
       dispatch,
@@ -125,6 +111,7 @@ export function UserToolsProvider(props) {
       generateItemID,
       writeNewData,
       loading,
+      deleteIndex,
     };
     // eslint-disable-next-line
   }, [
@@ -133,11 +120,11 @@ export function UserToolsProvider(props) {
     boardFound,
     data,
     idBoard,
-    deleteElementCallback,
     render,
     state,
     updateRecord,
     loading,
+    deleteIndex,
   ]);
 
   return <UserContext.Provider value={value} {...props} />;

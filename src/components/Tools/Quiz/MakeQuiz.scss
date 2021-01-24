@@ -6,11 +6,7 @@
   min-width: 25rem;
   height: auto;
   z-index: 1;
-  border: {
-    radius: 1rem;
-    top-left-radius: 0;
-    top-right-radius: 0;
-  }
+  border-radius: 1rem;
 
   p {
     margin: 0 !important;
