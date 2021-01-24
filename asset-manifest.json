@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.css": "/SUPER-Board/static/css/main.727b9347.chunk.css",
+    "main.js": "/SUPER-Board/static/js/main.3c3e7083.chunk.js",
+    "main.js.map": "/SUPER-Board/static/js/main.3c3e7083.chunk.js.map",
+    "runtime-main.js": "/SUPER-Board/static/js/runtime-main.c283637e.js",
+    "runtime-main.js.map": "/SUPER-Board/static/js/runtime-main.c283637e.js.map",
+    "static/css/2.3fdf07a9.chunk.css": "/SUPER-Board/static/css/2.3fdf07a9.chunk.css",
+    "static/js/2.de9b7fb7.chunk.js": "/SUPER-Board/static/js/2.de9b7fb7.chunk.js",
+    "static/js/2.de9b7fb7.chunk.js.map": "/SUPER-Board/static/js/2.de9b7fb7.chunk.js.map",
+    "index.html": "/SUPER-Board/index.html",
+    "precache-manifest.17e8c37d38491fe599e6a6aa2de95093.js": "/SUPER-Board/precache-manifest.17e8c37d38491fe599e6a6aa2de95093.js",
+    "service-worker.js": "/SUPER-Board/service-worker.js",
+    "static/css/2.3fdf07a9.chunk.css.map": "/SUPER-Board/static/css/2.3fdf07a9.chunk.css.map",
+    "static/css/main.727b9347.chunk.css.map": "/SUPER-Board/static/css/main.727b9347.chunk.css.map",
+    "static/js/2.de9b7fb7.chunk.js.LICENSE.txt": "/SUPER-Board/static/js/2.de9b7fb7.chunk.js.LICENSE.txt",
+    "static/media/DefaultUser.png": "/SUPER-Board/static/media/DefaultUser.c66d4f4b.png",
+    "static/media/semantic.min.css": "/SUPER-Board/static/media/outline-icons.ef60a4f6.woff"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.c283637e.js",
+    "static/css/2.3fdf07a9.chunk.css",
+    "static/js/2.de9b7fb7.chunk.js",
+    "static/css/main.727b9347.chunk.css",
+    "static/js/main.3c3e7083.chunk.js"
+  ]
+}
