@@ -8,12 +8,11 @@ import CustomBorders from "../../UIComponents/ToolsUtils/CustomBorders";
 import "./MakeQuiz.scss";
 
 export default function MakeQuiz(props) {
-  const { questions, index, position, allowEdit, title, color } = props;
+  const { questions, index, position, allowEdit, title } = props;
   const [showQuiz, setShowQuiz] = useState(false);
   const [corrector, setCorrector] = useState(false);
   const [rightAnswers, setRightAnswers] = useState(0);
   const [allowMovement, setAllowMovement] = useState(false);
-  const [backgroundColor, setBackgroundColor] = useState("");
 
   return (
     <MoveElements
@@ -23,17 +22,9 @@ export default function MakeQuiz(props) {
       allowMovement={allowMovement}
     >
       <div className="borderFixQuiz">
-        <div
-          className="quiz"
-          id={"item" + index}
-          style={{
-            backgroundColor: backgroundColor ? backgroundColor : color,
-          }}
-        >
+        <div className="quiz" id={"item" + index}>
           {allowEdit && (
             <Topbar
-              defaultcolor="#525252"
-              setBackgroundColor={setBackgroundColor}
               index={index}
               tool="quiz"
               allowMovement={allowMovement}

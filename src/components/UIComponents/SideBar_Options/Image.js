@@ -6,15 +6,10 @@ import { useUserTools } from "../../../context/UserToolsProvider";
 
 export default function Image(props) {
   const { loading } = props;
-  const {
-    state,
-    dispatch,
-    generateItemID,
-    userId,
-    data,
-    writeNewData,
-  } = useUserTools();
+  const { state, dispatch, generateItemID, userId, data, writeNewData } =
+    useUserTools();
   const [file, setFile] = useState(null);
+  const [fileName, setFileName] = useState("No file selected");
 
   const onClickImage = async () => {
     if (file) {
@@ -39,6 +34,7 @@ export default function Image(props) {
             await writeNewData();
             dispatch({ type: "increImg" });
             setFile(null);
+            setFileName("No file selected");
           } else {
             toast.warning("That image is too heavy (5MB limit)");
           }
@@ -59,7 +55,10 @@ export default function Image(props) {
       <Input
         id="imageInput"
         type="file"
-        onChange={(e) => setFile(e.target.files)}
+        onChange={(e) => {
+          setFile(e.target.files);
+          setFileName(e.target.files[0].name);
+        }}
         icon="file image"
       />
       <div className="options-image__count">
@@ -76,6 +75,8 @@ export default function Image(props) {
       <Button loading={loading} onClick={onClickImage}>
         Add image
       </Button>
+
+      <span>{fileName}</span>
     </div>
   );
 }

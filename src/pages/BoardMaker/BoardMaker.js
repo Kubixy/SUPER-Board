@@ -134,7 +134,6 @@ export default function BoardMaker(props) {
                       questions={x.questions}
                       index={x.mainindex}
                       position={x.position}
-                      color={x.color}
                       allowEdit={allowEdit}
                     />
                   );

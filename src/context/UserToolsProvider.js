@@ -53,32 +53,32 @@ export function UserToolsProvider(props) {
 
   const updateRecord = useCallback(
     (index, values, attribute) => {
-      for (let i = 0; i < data.length; i++) {
-        if (data[i].mainindex === index) {
+      data.findIndex((x) => {
+        if (x.mainindex === index) {
           switch (attribute) {
             case "position":
-              data[i].position = {
+              x.position = {
                 x: values.x,
                 y: values.y,
               };
               break;
             case "width":
-              data[i].width = values.width;
+              x.width = values.width;
               break;
             case "resolution":
-              data[i].resolution = {
+              x.resolution = {
                 width: values.width,
                 height: values.height,
               };
               break;
             case "color":
-              data[i].color = values.color;
+              x.color = values.color;
               break;
             default:
           }
-          break;
         }
-      }
+        return;
+      });
 
       setData(data);
       writeUserData(user.uid, data);

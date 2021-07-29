@@ -21,11 +21,11 @@
 
   &__box {
     position: relative;
-    background-color: $background-grey-hover-2;
+    //background-color: $background-grey-hover-2;
+    background-color: #ffffff;
     width: 500px;
     z-index: 1;
     padding: 50px 70px;
     border-radius: 25px;
-    border: solid 3px $font-dark;
   }
 }

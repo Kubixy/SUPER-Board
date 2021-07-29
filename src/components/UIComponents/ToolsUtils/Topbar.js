@@ -45,7 +45,6 @@ export default function Topbar(props) {
         break;
       case "text":
       case "quiz":
-        setBackgroundColor();
         setDeleteIndex(index);
         break;
       case "video":
@@ -69,7 +68,7 @@ export default function Topbar(props) {
         pinned
         basic
         content={
-          tool !== "video" && tool !== "image" ? (
+          tool !== "video" && tool !== "image" && tool !== "quiz" ? (
             colors.map((x) => {
               return (
                 <Icon
@@ -91,7 +90,11 @@ export default function Topbar(props) {
                 size="large"
                 color="green"
                 onClick={() => {
-                  if (tool === "image") {
+                  if (
+                    tool === "image" &&
+                    img.width < window.innerWidth / 2 &&
+                    img.height < window.innerHeight / 2
+                  ) {
                     setImg({
                       width: img.width + img.width * 0.1,
                       height: img.height + img.height * 0.1,

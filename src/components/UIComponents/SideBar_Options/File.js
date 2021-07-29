@@ -16,32 +16,30 @@ export default function File(props) {
   } = useUserTools();
   const [file, setFile] = useState(null);
   const [input, setInput] = useState(null);
+  const [fileName, setFileName] = useState("No file selected");
 
   const onClickFile = async () => {
     if (file) {
       if (state.files < 3) {
         if (file.length === 1 && file[0].type.includes("pdf")) {
           if (file[0].size / 1024 <= 5120) {
-            if (input) {
-              let index = generateItemID(data);
-              uploadFile(file[0], userId, index, "files");
-              data.push({
-                mainindex: index,
-                type: "file",
-                title: input,
-                color: "#97a8ff",
-                position: {
-                  x: -1,
-                  y: -1,
-                },
-              });
+            let index = generateItemID(data);
+            uploadFile(file[0], userId, index, "files");
+            data.push({
+              mainindex: index,
+              type: "file",
+              title: input ? input : fileName,
+              color: "#97a8ff",
+              position: {
+                x: -1,
+                y: -1,
+              },
+            });
 
-              await writeNewData();
-              document.getElementById("fileInput").value = "";
-              dispatch({ type: "increFil" });
-            } else {
-              toast.warning("You must pick a name for your file");
-            }
+            await writeNewData();
+            document.getElementById("fileInput").value = "";
+            setFileName("No file selected");
+            dispatch({ type: "increFil" });
           } else {
             toast.warning("That file is too heavy (5MB limit)");
             document.getElementById("fileInput").value = "";
@@ -63,7 +61,10 @@ export default function File(props) {
       <Input
         id="fileInput"
         type="file"
-        onChange={(e) => setFile(e.target.files)}
+        onChange={(e) => {
+          setFile(e.target.files);
+          setFileName(e.target.files[0].name);
+        }}
         icon="pdf file outline"
       />
       <div className="options-file__count">
@@ -86,6 +87,7 @@ export default function File(props) {
       <Button loading={loading} onClick={onClickFile}>
         Add file
       </Button>
+      <span>{fileName}</span>
     </div>
   );
 }
