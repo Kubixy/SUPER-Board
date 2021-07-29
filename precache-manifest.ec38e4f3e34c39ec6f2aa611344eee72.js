@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "056ce9508aef7030d528911f9866e6e6",
+    "revision": "5313c59ccb72976b42797bf16789468b",
     "url": "/SUPER-Board/index.html"
   },
   {
@@ -8,8 +8,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/SUPER-Board/static/css/2.3fdf07a9.chunk.css"
   },
   {
-    "revision": "7b7438cde292e7b72a09",
-    "url": "/SUPER-Board/static/css/main.727b9347.chunk.css"
+    "revision": "fc93f8ac22f25727f09b",
+    "url": "/SUPER-Board/static/css/main.a39d7aad.chunk.css"
   },
   {
     "revision": "f647589431d7e7282664",
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/SUPER-Board/static/js/2.de9b7fb7.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "7b7438cde292e7b72a09",
-    "url": "/SUPER-Board/static/js/main.3c3e7083.chunk.js"
+    "revision": "fc93f8ac22f25727f09b",
+    "url": "/SUPER-Board/static/js/main.6b280bd5.chunk.js"
   },
   {
     "revision": "9b54d546b817c2016da3",
