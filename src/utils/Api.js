@@ -145,7 +145,7 @@ export const setVisitors = async (idBoard, user) => {
       visitorUID: user.uid,
       photo: user.photoURL,
       name: user.displayName,
-      visitDate: d.getFullYear() + "/" + d.getMonth() + 1 + "/" + d.getDate(),
+      visitDate: d.getFullYear() + "/" + d.getMonth() + "/" + d.getDate(),
     });
 
     await db
