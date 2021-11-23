@@ -21,4 +21,4 @@ You can find other public boards by introducing their ID on "Find a board". Try 
 ## Gallery
 
 <img src="https://drive.google.com/uc?export=view&id=1rNvW2VmmYWlAwr7Ht3YJkKr2_KpAqC0F" width="300" height="350" /> <img src="https://drive.google.com/uc?export=view&id=1JcQoaQaLB-WFYSFXX8RdVp9uRoVl7t9W" width="300" height="350" /> 
-<img src="https://drive.google.com/uc?export=view&id=1L8CcGyAUvYOPP6d7MpNnSVZ9_xwWM0Ox" width="500" height="350" />
+<img src="https://drive.google.com/uc?export=view&id=1h7YWHvhIizGNbEGXla-i3Q3HX4BAJq7y" width="600" height="300" />
